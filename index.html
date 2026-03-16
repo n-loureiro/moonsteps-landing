@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moonsteps — Applied AI for Complex Data</title>
+  <meta name="description" content="Moonsteps builds AI systems that transform messy data into structured knowledge. Portugal-based AI & data engineering studio.">
+  <meta property="og:title" content="Moonsteps — Applied AI for Complex Data">
+  <meta property="og:description" content="AI systems for investigative organizations, research institutions, and teams that need more than off-the-shelf tools.">
+  <meta property="og:type" content="website">
+
+  <!-- Crescent favicon (inline SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M22 16a10 10 0 1 1-10-10 8 8 0 0 0 0 20A10 10 0 0 0 22 16z' fill='%23c4882a'/></svg>">
+
+  <!-- Fonts: Cormorant Garamond (display) + IBM Plex Mono (labels/code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════
+       Reset & Custom Properties
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #0b0b0e;
+      --surface:     #0f0f13;
+      --surface-2:   #131318;
+      --border:      #1e1e28;
+      --border-dim:  #17171f;
+
+      --amber:       #c4882a;
+      --amber-mid:   #8a5e1b;
+      --amber-dim:   #3d2a0c;
+      --cream:       #f5f3f0;
+      --cream-70:    rgba(245,243,240,0.92);
+      --cream-45:    rgba(245,243,240,0.80);
+      --muted:       #9e9eb2;
+
+      --green-bg:    #0c1a10;
+      --green-br:    #17311e;
+      --green-text:  rgba(120,190,140,0.75);
+
+      --font-display: 'DM Sans', system-ui, sans-serif;
+      --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+
+      --space-xs:  0.5rem;
+      --space-sm:  1rem;
+      --space-md:  2rem;
+      --space-lg:  4rem;
+      --space-xl:  7rem;
+      --space-2xl: 10rem;
+
+      --radius: 0px; /* deliberately square — precision aesthetic */
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: var(--font-display);
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      font-weight: 500;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle grain overlay — applied to body via pseudo */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* ═══════════════════════════════════════════
+       Max-width container
+    ═══════════════════════════════════════════ */
+    .wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--space-lg);
+    }
+
+    /* ═══════════════════════════════════════════
+       Shared Utilities
+    ═══════════════════════════════════════════ */
+    .mono {
+      font-family: var(--font-mono);
+    }
+
+    .label {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    .label-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: var(--space-lg);
+    }
+    .label-row::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 1px;
+      background: var(--amber-mid);
+      flex-shrink: 0;
+    }
+
+    .section-wrap {
+      padding: var(--space-xl) var(--space-lg);
+    }
+
+    /* Reveal animations */
+    .r {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .r.in { opacity: 1; transform: translateY(0); }
+    .r.d1 { transition-delay: 0.08s; }
+    .r.d2 { transition-delay: 0.16s; }
+    .r.d3 { transition-delay: 0.24s; }
+    .r.d4 { transition-delay: 0.32s; }
+
+    /* ═══════════════════════════════════════════
+       Navigation
+    ═══════════════════════════════════════════ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      transition: background 0.4s ease, border-color 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.6rem;
+      padding-bottom: 1.6rem;
+    }
+    #nav.scrolled {
+      background: rgba(11, 11, 14, 0.90);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom-color: var(--border-dim);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+    }
+    .nav-logo svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .nav-links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--amber); }
+
+    /* ═══════════════════════════════════════════
+       Hero
+    ═══════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 9rem 0 6rem;
+      overflow: hidden;
+    }
+
+    /* Ambient glow */
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: 10%;
+      top: 20%;
+      width: 560px;
+      height: 560px;
+      background: radial-gradient(circle, rgba(196,136,42,0.055) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      right: 0; top: 0;
+      width: 52%;
+      height: 100%;
+      opacity: 0.92;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 660px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.2s ease forwards;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 2rem;
+      height: 1px;
+      background: var(--amber);
+      flex-shrink: 0;
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 6.5vw, 5.25rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--cream);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.35s ease forwards;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--amber);
+    }
+
+    .hero-sub {
+      font-size: 1.1875rem;
+      font-weight: 500;
+      line-height: 1.65;
+      color: var(--cream-70);
+      max-width: 46ch;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s ease forwards;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.65s ease forwards;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.875rem 1.875rem;
+      transition: all 0.25s ease;
+    }
+    .btn-filled {
+      background: var(--amber);
+      color: var(--bg);
+    }
+    .btn-filled:hover { opacity: 0.82; }
+    .btn-ghost {
+      color: var(--muted);
+    }
+    .btn-ghost:hover { color: var(--cream); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════════════════
+       Problem
+    ═══════════════════════════════════════════ */
+    .problem {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-xl) 0;
+    }
+    .problem-inner {
+      max-width: 68ch;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .problem-quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.75vw, 2.125rem);
+      font-weight: 500;
+      line-height: 1.55;
+      color: var(--cream-70);
+      margin-bottom: 2rem;
+    }
+    .problem-quote strong {
+      color: var(--cream);
+      font-weight: 500;
+    }
+    .problem-foot {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+    }
+
+    /* ═══════════════════════════════════════════
+       Services
+    ═══════════════════════════════════════════ */
+    #work { padding: var(--space-xl) 0; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      background: var(--border);
+      gap: 1px;
+      margin-top: var(--space-lg);
+    }
+
+    .svc {
+      background: var(--bg);
+      padding: 2.75rem 2.25rem;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+    .svc::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--amber), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.45s ease;
+    }
+    .svc:hover { background: var(--surface-2); }
+    .svc:hover::before { transform: scaleX(1); }
+
+    .svc-num {
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      color: var(--amber-mid);
+      letter-spacing: 0.12em;
+      margin-bottom: 1.5rem;
+    }
+
+    .svc-icon {
+      width: 38px;
+      height: 38px;
+      color: var(--amber);
+      margin-bottom: 1.5rem;
+    }
+
+    .svc-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .svc-desc {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      line-height: 1.75;
+      color: var(--cream-45);
+      margin-bottom: 1.5rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.5625rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(196,136,42,0.65);
+      background: rgba(196,136,42,0.06);
+      border: 1px solid rgba(196,136,42,0.14);
+      padding: 0.25rem 0.65rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       Projects
+    ═══════════════════════════════════════════ */
+    .projects {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: var(--space-xl) 0;
+    }
+
+    .project-item {
+      display: grid;
+      grid-template-columns: 10rem 1fr;
+      gap: 2.5rem;
+      padding: 3.5rem 0;
+      border-top: 1px solid var(--border);
+      align-items: start;
+    }
+    .project-item:last-child {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .proj-num {
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 9vw, 8rem);
+      font-weight: 300;
+      line-height: 0.9;
+      color: rgba(196,136,42,0.07);
+      user-select: none;
+      letter-spacing: -0.03em;
+    }
+
+    .proj-cat {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+
+    .proj-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.25vw, 2.625rem);
+      font-weight: 400;
+      line-height: 1.12;
+      color: var(--cream);
+      margin-bottom: 1.25rem;
+    }
+
+    .proj-desc {
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.75;
+      color: var(--cream-45);
+      max-width: 60ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .chip {
+      font-family: var(--font-mono);
+      font-size: 0.5625rem;
+      letter-spacing: 0.08em;
+      text-transform: lowercase;
+      color: var(--green-text);
+      background: var(--green-bg);
+      border: 1px solid var(--green-br);
+      padding: 0.28rem 0.7rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       Technology
+    ═══════════════════════════════════════════ */
+    #tech { padding: var(--space-xl) 0; }
+
+    .tech-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      margin-top: var(--space-lg);
+    }
+
+    .tech-statement {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.8vw, 2.125rem);
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--cream-70);
+    }
+    .tech-statement strong { color: var(--cream); font-weight: 500; }
+
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+    .stack-pill {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--cream-45);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.55rem 1.1rem;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      cursor: default;
+    }
+    .stack-pill:hover {
+      color: var(--amber);
+      border-color: var(--amber-mid);
+    }
+
+    /* ═══════════════════════════════════════════
+       About
+    ═══════════════════════════════════════════ */
+    #about {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: var(--space-xl) 0;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5.5rem;
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+
+    .about-bio {
+      font-size: 1.125rem;
+      font-weight: 500;
+      line-height: 1.8;
+      color: var(--cream-70);
+    }
+    .about-bio p + p { margin-top: 1.5rem; }
+    .about-bio strong { color: var(--cream); font-weight: 500; }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+    }
+    .tl-item {
+      padding: 1.5rem 0 1.5rem 1.75rem;
+      border-left: 1px solid var(--border);
+      position: relative;
+      transition: border-left-color 0.25s ease;
+    }
+    .tl-item:hover { border-left-color: var(--amber); }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -3px;
+      top: 1.95rem;
+      width: 5px; height: 5px;
+      background: var(--amber-mid);
+      border-radius: 50%;
+      transition: background 0.25s ease;
+    }
+    .tl-item:hover::before { background: var(--amber); }
+    .tl-place {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--cream);
+      line-height: 1.3;
+      margin-bottom: 0.3rem;
+    }
+    .tl-role {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* ═══════════════════════════════════════════
+       Contact
+    ═══════════════════════════════════════════ */
+    #contact {
+      padding: var(--space-2xl) 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #contact::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 55% 70% at 50% 50%, rgba(196,136,42,0.065) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 52ch;
+      margin: 0 auto;
+    }
+
+    .contact-hl {
+      font-family: var(--font-display);
+      font-size: clamp(2.75rem, 5.5vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+    .contact-hl em { font-style: italic; color: var(--amber); }
+
+    .contact-sub {
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.75;
+      color: var(--cream-45);
+      margin-bottom: 3rem;
+    }
+
+    .email-btn {
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      letter-spacing: 0.14em;
+      color: var(--amber);
+      border: 1px solid var(--amber-mid);
+      padding: 1.1rem 2.75rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .email-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--amber);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.32s ease;
+      z-index: -1;
+    }
+    .email-btn:hover { color: var(--bg); }
+    .email-btn:hover::before { transform: scaleX(1); }
+
+    /* ═══════════════════════════════════════════
+       Footer
+    ═══════════════════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--border);
+    }
+    .footer-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 1.75rem;
+      padding-bottom: 1.75rem;
+    }
+    footer span, footer a {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    footer a:hover { color: var(--cream); }
+
+    /* ═══════════════════════════════════════════
+       Mobile
+    ═══════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      :root {
+        --space-lg:  2rem;
+        --space-xl:  5rem;
+        --space-2xl: 7rem;
+      }
+
+      .nav-wrap { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+
+      .hero { padding: 7rem 0 5rem; }
+      #hero-canvas { display: none; }
+
+      .services-grid { grid-template-columns: 1fr; }
+
+      .project-item { grid-template-columns: 1fr; gap: 0.25rem; padding: 2.5rem 0; }
+      .proj-num { font-size: 4.5rem; margin-bottom: 0.5rem; }
+
+      .tech-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .about-layout { grid-template-columns: 1fr; gap: 3rem; }
+
+      .footer-wrap { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     Navigation
+══════════════════════════════════════ -->
+<nav id="nav">
+  <div class="wrap nav-wrap">
+    <a href="#" class="nav-logo" aria-label="Moonsteps home">
+      <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M16 9A7 7 0 1 1 9 2a5.5 5.5 0 0 0 0 14A7 7 0 0 0 16 9z" fill="#c4882a"/>
+      </svg>
+      Moonsteps
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════
+     Hero
+══════════════════════════════════════ -->
+<section class="hero" aria-label="Hero">
+  <div class="wrap">
+  <div class="hero-content">
+    <p class="hero-eyebrow">AI &amp; Data Engineering Studio &nbsp;·&nbsp; Portugal</p>
+    <h1 class="hero-headline">
+      Applied AI<br>for <em>Complex</em><br>Data
+    </h1>
+    <p class="hero-sub">
+      Moonsteps builds AI systems that transform messy, fragmented data into structured knowledge — for investigative organizations, research institutions, and teams that need solutions beyond what off-the-shelf tools can offer.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-filled">Work With Us</a>
+      <a href="#work" class="btn btn-ghost">View Projects ↓</a>
+    </div>
+  </div>
+  </div>
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+</section>
+
+<!-- ══════════════════════════════════════
+     Problem
+══════════════════════════════════════ -->
+<section class="problem" aria-labelledby="prob-head">
+  <div class="wrap">
+  <div class="problem-inner r">
+    <div class="label-row" style="justify-content:center; margin-bottom: 2.5rem;">
+      <span class="label">The Challenge</span>
+    </div>
+    <p class="problem-quote">
+      Modern organizations generate enormous volumes of <strong>unstructured data</strong> — documents, filings, images, research archives. Extracting meaningful knowledge from these sources is difficult and often requires <strong>custom engineering</strong>.
+    </p>
+    <p class="problem-foot" style="margin-top: 1.75rem;">Off-the-shelf AI tools are not enough.</p>
+  </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     Services
+══════════════════════════════════════ -->
+<section id="work" aria-labelledby="work-head">
+  <div class="wrap">
+  <div class="label-row r">
+    <span class="label" id="work-head">What We Build</span>
+  </div>
+
+  <div class="services-grid">
+
+    <article class="svc r d1">
+      <div class="svc-num">01</div>
+      <svg class="svc-icon" viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <rect x="7" y="5" width="17" height="22" rx="1"/>
+        <line x1="11" y1="10" x2="20" y2="10"/>
+        <line x1="11" y1="14" x2="20" y2="14"/>
+        <line x1="11" y1="18" x2="17" y2="18"/>
+        <circle cx="27" cy="27" r="5.5"/>
+        <line x1="31" y1="31" x2="34.5" y2="34.5"/>
+        <line x1="23.5" y1="27" x2="30.5" y2="27"/>
+        <line x1="27" y1="23.5" x2="27" y2="30.5"/>
+      </svg>
+      <h3 class="svc-name">Document Intelligence Systems</h3>
+      <p class="svc-desc">AI pipelines that extract structured information from large collections of documents, turning unstructured archives into searchable, analyzable knowledge.</p>
+      <div class="tags">
+        <span class="tag">investigative datasets</span>
+        <span class="tag">research archives</span>
+        <span class="tag">regulatory filings</span>
+      </div>
+    </article>
+
+    <article class="svc r d2">
+      <div class="svc-num">02</div>
+      <svg class="svc-icon" viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <circle cx="19" cy="10" r="3.25"/>
+        <circle cx="9"  cy="28" r="3.25"/>
+        <circle cx="29" cy="28" r="3.25"/>
+        <line x1="16.1" y1="12.8" x2="11.9" y2="25.2"/>
+        <line x1="21.9" y1="12.8" x2="26.1" y2="25.2"/>
+        <line x1="12.25" y1="28" x2="25.75" y2="28"/>
+      </svg>
+      <h3 class="svc-name">Knowledge Graph &amp; Entity Mapping</h3>
+      <p class="svc-desc">Systems that automatically identify entities and relationships across datasets, constructing searchable knowledge graphs from fragmented sources.</p>
+      <div class="tags">
+        <span class="tag">entity extraction</span>
+        <span class="tag">relationship mapping</span>
+        <span class="tag">NLP pipelines</span>
+      </div>
+    </article>
+
+    <article class="svc r d3">
+      <div class="svc-num">03</div>
+      <svg class="svc-icon" viewBox="0 0 38 38" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <rect x="5"  y="13" width="7"  height="6" rx="0.5"/>
+        <rect x="15" y="9"  width="8"  height="14" rx="0.5"/>
+        <rect x="26" y="15" width="7"  height="8" rx="0.5"/>
+        <line x1="12" y1="16" x2="15" y2="16"/>
+        <line x1="23" y1="16" x2="26" y2="16"/>
+        <path d="M7 25 Q19 33 31 25" stroke-dasharray="2 2" stroke-width="0.9"/>
+      </svg>
+      <h3 class="svc-name">AI-Driven Data Pipelines</h3>
+      <p class="svc-desc">End-to-end pipelines integrating machine learning with production infrastructure — from document ingestion to semantic search and automated classification at scale.</p>
+      <div class="tags">
+        <span class="tag">vector search</span>
+        <span class="tag">embeddings</span>
+        <span class="tag">cloud scale</span>
+      </div>
+    </article>
+
+  </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     Projects
+══════════════════════════════════════ -->
+<section class="projects" aria-labelledby="proj-head">
+  <div class="wrap">
+  <div class="label-row r">
+    <span class="label" id="proj-head">Example Projects</span>
+  </div>
+
+  <div class="project-list">
+
+    <article class="project-item r">
+      <div class="proj-num" aria-hidden="true">01</div>
+      <div>
+        <p class="proj-cat">Investigative Tools</p>
+        <h3 class="proj-name">Passport Detection in Investigative Document Leaks</h3>
+        <p class="proj-desc">A computer vision system capable of identifying passports and identity documents across large investigative datasets — enabling journalists and researchers to surface relevant materials from massive document archives.</p>
+        <div class="chips">
+          <span class="chip">computer vision</span>
+          <span class="chip">python</span>
+          <span class="chip">document processing</span>
+          <span class="chip">investigative journalism</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-item r">
+      <div class="proj-num" aria-hidden="true">02</div>
+      <div>
+        <p class="proj-cat">Corporate Intelligence</p>
+        <h3 class="proj-name">EmpireMapper</h3>
+        <p class="proj-desc">A system that analyzes corporate filings to identify subsidiaries and ownership relationships, automatically constructing maps of corporate structures from unstructured regulatory documents.</p>
+        <div class="chips">
+          <span class="chip">knowledge graphs</span>
+          <span class="chip">NLP</span>
+          <span class="chip">entity extraction</span>
+          <span class="chip">corporate filings</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-item r">
+      <div class="proj-num" aria-hidden="true">03</div>
+      <div>
+        <p class="proj-cat">Scientific Computing</p>
+        <h3 class="proj-name">Scientific Image Processing Pipelines</h3>
+        <p class="proj-desc">Infrastructure and ML workflows for processing and analyzing large microscopy datasets — combining research-grade image analysis with production-ready data engineering.</p>
+        <div class="chips">
+          <span class="chip">microscopy</span>
+          <span class="chip">image processing</span>
+          <span class="chip">cloud pipelines</span>
+          <span class="chip">docker</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     Technology
+══════════════════════════════════════ -->
+<section id="tech" aria-labelledby="tech-head">
+  <div class="wrap">
+  <div class="label-row r">
+    <span class="label" id="tech-head">Technology</span>
+  </div>
+
+  <div class="tech-layout">
+    <p class="tech-statement r">
+      <strong>Production systems</strong> built with modern AI and data engineering tools — from research prototype through to deployed infrastructure.
+    </p>
+    <div class="stack r d1" role="list" aria-label="Technology stack">
+      <span class="stack-pill" role="listitem">python</span>
+      <span class="stack-pill" role="listitem">fastapi</span>
+      <span class="stack-pill" role="listitem">large language models</span>
+      <span class="stack-pill" role="listitem">computer vision</span>
+      <span class="stack-pill" role="listitem">vector search</span>
+      <span class="stack-pill" role="listitem">embeddings</span>
+      <span class="stack-pill" role="listitem">docker</span>
+      <span class="stack-pill" role="listitem">cloud pipelines</span>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     About
+══════════════════════════════════════ -->
+<section id="about" aria-labelledby="about-head">
+  <div class="wrap">
+  <div class="label-row r">
+    <span class="label" id="about-head">About</span>
+  </div>
+
+  <div class="about-layout">
+    <div class="about-bio r">
+      <p><strong>Moonsteps</strong> was founded by Nuno Loureiro, a physicist and neuroscientist working at the intersection of AI, data engineering, and investigative analysis.</p>
+      <p>Projects combine research-grade machine learning with production-ready data systems — built for organizations that require solutions designed for their specific domain complexity.</p>
+      <p>Moonsteps works best where data is messy, fragmented, or unstructured — where existing tools fall short and custom engineering is the only path forward.</p>
+    </div>
+    <div class="timeline r d1" role="list" aria-label="Founder background">
+      <div class="tl-item" role="listitem">
+        <div class="tl-place">European Space Agency</div>
+        <div class="tl-role">Engineering — spacecraft systems</div>
+      </div>
+      <div class="tl-item" role="listitem">
+        <div class="tl-place">PhD Research</div>
+        <div class="tl-role">Brain-machine interfaces · neuroscience</div>
+      </div>
+      <div class="tl-item" role="listitem">
+        <div class="tl-place">OsloMet — AI for Journalism</div>
+        <div class="tl-role">AI systems for investigative journalism</div>
+      </div>
+      <div class="tl-item" role="listitem">
+        <div class="tl-place">International Consulting</div>
+        <div class="tl-role">AI & data engineering · research organizations</div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     Contact
+══════════════════════════════════════ -->
+<section id="contact" aria-labelledby="contact-head">
+  <div class="wrap">
+  <div class="contact-inner">
+    <div class="label-row r" style="justify-content:center;">
+      <span class="label" id="contact-head">Work With Us</span>
+    </div>
+    <h2 class="contact-hl r d1">Let's work<br><em>together.</em></h2>
+    <p class="contact-sub r d2">Moonsteps collaborates with research institutions, investigative organizations, and technology teams that need custom AI solutions — for problems where existing tools fall short.</p>
+    <a href="mailto:build@moonsteps.tech" class="email-btn r d3">build@moonsteps.tech</a>
+  </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     Footer
+══════════════════════════════════════ -->
+<footer>
+  <div class="wrap footer-wrap">
+    <span>Moonsteps Lda.&nbsp;·&nbsp;Portugal</span>
+    <span>&copy; 2026</span>
+  </div>
+</footer>
+
+<script>
+/* ── Nav scroll ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 55);
+}, { passive: true });
+
+/* ── Scroll reveal ── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.r').forEach(el => ro.observe(el));
+
+/* ── Hero canvas: transformer attention network ── */
+(function () {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+  // Layout
+  const NUM_COLS = 6, NODES_PER_COL = 5;
+  // Colors: [r, g, b] for 3 attention heads
+  const HEAD_COLORS = [[220,170,60],[200,220,160],[240,130,40]];
+
+  // State
+  let W, H, nodes, attnWeights;
+  let pulses = [], frame = 0;
+  let waveFrame = 0, waveActive = false;
+  let colActivation = new Float32Array(NUM_COLS);
+  let queryNode = -1, lastQueryNode = -2, queryFade = 0, attnScores = null;
+  let mouse = { x: -9999, y: -9999, inside: false };
+
+  // Deterministic per-pair random for stable attention bias
+  function seededRand(i, j, h) {
+    let x = ((i * 31 + j * 17 + h * 7) & 0xffff) || 1;
+    x ^= x << 7; x ^= x >> 9; x ^= x << 8;
+    return (x & 0xffff) / 0xffff;
+  }
+
+  function softmaxRow(q) {
+    const raw = attnWeights[q];
+    const maxVal = Math.max(...raw);
+    const exps = raw.map(v => Math.exp(v - maxVal));
+    const sum = exps.reduce((a, b) => a + b, 0);
+    return exps.map(v => v / sum);
+  }
+
+  function setup() {
+    const lw = canvas.offsetWidth, lh = canvas.offsetHeight;
+    canvas.width  = lw * DPR;
+    canvas.height = lh * DPR;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(DPR, DPR);
+    W = lw; H = lh;
+
+    const marginX = W * 0.08;
+    const colSpacing = (W - 2 * marginX) / (NUM_COLS - 1);
+    const marginY = H * 0.10;
+    const rowSpacing = (H - 2 * marginY) / (NODES_PER_COL - 1);
+
+    nodes = [];
+    for (let c = 0; c < NUM_COLS; c++) {
+      for (let r = 0; r < NODES_PER_COL; r++) {
+        const bx = marginX + c * colSpacing + (Math.random() - 0.5) * colSpacing * 0.08;
+        const by = marginY + r * rowSpacing + (Math.random() - 0.5) * rowSpacing * 0.24;
+        nodes.push({
+          col: c, baseX: bx, baseY: by,
+          x: bx + (Math.random() - 0.5) * 10,
+          y: by + (Math.random() - 0.5) * 10,
+          vx: (Math.random() - 0.5) * 0.24,
+          vy: (Math.random() - 0.5) * 0.24,
+          r: 3 + Math.random() * 2,
+          phase: Math.random() * Math.PI * 2,
+          headIdx: Math.floor(Math.random() * 3),
+          activation: 0,
+        });
+      }
+    }
+
+    // Build stable attention weight matrix
+    attnWeights = nodes.map((ni, i) =>
+      nodes.map((nj, j) => {
+        if (i === j) return 0;
+        const dist = Math.hypot(ni.baseX - nj.baseX, ni.baseY - nj.baseY);
+        return 1 / (1 + dist * 0.003) + seededRand(i, j, ni.headIdx) * 0.5 + Math.random() * 0.15;
+      })
+    );
+
+    colActivation.fill(0);
+    waveFrame = 0; waveActive = false;
+    queryNode = -1; lastQueryNode = -2; queryFade = 0; attnScores = null;
+    pulses = []; frame = 0;
+  }
+
+  function tick() {
+    ctx.clearRect(0, 0, W, H);
+
+    // 1. Physics
+    nodes.forEach(n => {
+      n.vx += (n.baseX - n.x) * 0.018;
+      n.vy += (n.baseY - n.y) * 0.018;
+      n.vx *= 0.98; n.vy *= 0.98;
+      n.vx = Math.max(-0.12, Math.min(0.12, n.vx));
+      n.vy = Math.max(-0.12, Math.min(0.12, n.vy));
+      n.x += n.vx; n.y += n.vy;
+      n.activation *= 0.97;
+    });
+
+    // 2. Activation wave
+    if (frame % 300 === 0) { waveActive = true; waveFrame = 0; }
+    if (waveActive) {
+      waveFrame++;
+      for (let c = 0; c < NUM_COLS; c++) {
+        const cs = c * 5, ce = cs + 25;
+        if (waveFrame >= cs && waveFrame <= ce) {
+          const t = (waveFrame - cs) / 25;
+          colActivation[c] = Math.sin(t * Math.PI);
+          nodes.forEach(n => { if (n.col === c) n.activation = Math.max(n.activation, colActivation[c] * 0.9); });
+        } else if (waveFrame > ce) {
+          colActivation[c] *= 0.92;
+        }
+      }
+      // Spawn directional pulses during wave
+      if (waveFrame % 3 === 0) {
+        for (let c = 0; c < NUM_COLS - 1; c++) {
+          if (colActivation[c] > 0.4) {
+            const fn = nodes.filter(n => n.col === c);
+            const tn = nodes.filter(n => n.col === c + 1);
+            const f = fn[Math.floor(Math.random() * fn.length)];
+            const t = tn[Math.floor(Math.random() * tn.length)];
+            if (f && t) pulses.push({ fi: nodes.indexOf(f), ti: nodes.indexOf(t), t: 0, spd: 0.018 * (1 + colActivation[c]), color: HEAD_COLORS[f.headIdx] });
+          }
+        }
+      }
+      if (waveFrame > NUM_COLS * 5 + 25) waveActive = false;
+    }
+
+    // 3. Query node (mouse)
+    if (mouse.inside) {
+      let bestD = 80, bestI = -1;
+      nodes.forEach((n, i) => { const d = Math.hypot(n.x - mouse.x, n.y - mouse.y); if (d < bestD) { bestD = d; bestI = i; } });
+      queryNode = bestI;
+      queryFade = Math.min(1, queryFade + 0.10);
+      if (queryNode >= 0) nodes[queryNode].activation = 1;
+    } else {
+      queryFade = Math.max(0, queryFade - 0.08);
+      if (queryFade <= 0) queryNode = -1;
+    }
+    if (queryNode !== lastQueryNode) {
+      attnScores = queryNode >= 0 ? softmaxRow(queryNode) : null;
+      lastQueryNode = queryNode;
+    }
+
+    // 4. Structural edges (adjacent columns only)
+    ctx.shadowBlur = 0;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const ni = nodes[i], nj = nodes[j];
+        if (Math.abs(ni.col - nj.col) > 1) continue;
+        const dist = Math.hypot(ni.x - nj.x, ni.y - nj.y);
+        if (dist > W * 0.30) continue;
+        const prox = 1 - dist / (W * 0.30);
+        const act = Math.max(ni.activation, nj.activation) * 0.18;
+        const alpha = prox * 0.15 + act;
+        ctx.beginPath();
+        ctx.moveTo(ni.x, ni.y); ctx.lineTo(nj.x, nj.y);
+        ctx.strokeStyle = `rgba(220,170,60,${alpha.toFixed(3)})`;
+        ctx.lineWidth = 0.7;
+        ctx.stroke();
+      }
+    }
+
+    // 5. Attention edges
+    if (queryFade > 0 && queryNode >= 0 && attnScores) {
+      const sorted = attnScores
+        .map((s, i) => ({ i, s }))
+        .filter(o => o.i !== queryNode && o.s > 0.003)
+        .sort((a, b) => b.s - a.s);
+      const hc = HEAD_COLORS[nodes[queryNode].headIdx];
+      sorted.forEach(({ i, s }) => {
+        const ni = nodes[queryNode], nj = nodes[i];
+        ctx.beginPath();
+        ctx.moveTo(ni.x, ni.y); ctx.lineTo(nj.x, nj.y);
+        ctx.strokeStyle = `rgba(${hc[0]},${hc[1]},${hc[2]},${(s * queryFade * 0.85).toFixed(3)})`;
+        ctx.lineWidth = 0.5 + s * 3.0;
+        ctx.stroke();
+      });
+    }
+
+    // 6. Nodes (with glow)
+    nodes.forEach((n, i) => {
+      const breathe = Math.sin(frame * 0.008 + n.phase) * 0.5;
+      const isQ = i === queryNode;
+      const r = (n.r + breathe) * (1 + n.activation * 0.6) + (isQ ? 2.5 * queryFade : 0);
+      const hc = HEAD_COLORS[n.headIdx];
+      const alpha = Math.min(0.95, 0.70 + n.activation * 0.20 + (isQ ? 0.10 * queryFade : 0));
+      const glow = n.activation > 0.05 || isQ
+        ? 8 + n.activation * 8 + (isQ ? 10 * queryFade : 0)
+        : 4;
+      ctx.shadowColor = `rgba(${hc[0]},${hc[1]},${hc[2]},${n.activation > 0.05 || isQ ? 0.6 : 0.25})`;
+      ctx.shadowBlur = glow;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${hc[0]},${hc[1]},${hc[2]},${alpha.toFixed(3)})`;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    });
+
+    // 7. Ambient pulse spawn
+    if (frame % 60 === 0 && !waveActive) {
+      const c = Math.floor(Math.random() * (NUM_COLS - 1));
+      const fn = nodes.filter(n => n.col === c);
+      const tn = nodes.filter(n => n.col === c + 1);
+      if (fn.length && tn.length) {
+        const f = fn[Math.floor(Math.random() * fn.length)];
+        const t = tn[Math.floor(Math.random() * tn.length)];
+        pulses.push({ fi: nodes.indexOf(f), ti: nodes.indexOf(t), t: 0, spd: 0.018, color: HEAD_COLORS[f.headIdx] });
+      }
+    }
+
+    // 8. Draw pulses
+    pulses = pulses.filter(p => {
+      const a = nodes[p.fi], b = nodes[p.ti];
+      const x = a.x + (b.x - a.x) * p.t;
+      const y = a.y + (b.y - a.y) * p.t;
+      const alpha = Math.sin(p.t * Math.PI) * 0.90;
+      const [r, g, bv] = p.color;
+      ctx.shadowColor = `rgba(${r},${g},${bv},0.8)`;
+      ctx.shadowBlur = 6;
+      ctx.beginPath();
+      ctx.arc(x, y, 2.8, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${bv},${alpha.toFixed(3)})`;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      p.t += p.spd;
+      return p.t <= 1;
+    });
+
+    // 9. Top-3 attention endpoint rings
+    if (queryFade > 0 && queryNode >= 0 && attnScores) {
+      const top3 = attnScores
+        .map((s, i) => ({ i, s }))
+        .filter(o => o.i !== queryNode)
+        .sort((a, b) => b.s - a.s)
+        .slice(0, 3);
+      top3.forEach(({ i, s }, rank) => {
+        const n = nodes[i];
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r + 4 + (3 - rank) * 1.5, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(240,210,120,${(s * queryFade * 0.7).toFixed(3)})`;
+        ctx.lineWidth = 1.2;
+        ctx.setLineDash([3, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+    }
+
+    frame++;
+    requestAnimationFrame(tick);
+  }
+
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+    mouse.inside = true;
+  }, { passive: true });
+  canvas.addEventListener('mouseleave', () => { mouse.inside = false; }, { passive: true });
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { ctx.setTransform(1,0,0,1,0,0); setup(); }, 150);
+  }, { passive: true });
+
+  setup();
+  tick();
+})();
+</script>
+
+</body>
+</html>
