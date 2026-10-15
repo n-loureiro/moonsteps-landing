@@ -1,0 +1,3656 @@
+{
+  "version": 1,
+  "title": "A house above the Atlantic",
+  "summary": "Paço de Arcos · A spatial study traced from the main-floor plan and aerial photographs.",
+  "units": "metres",
+  "levels": [
+    {
+      "id": "main",
+      "name": "Main floor",
+      "elevation": 0.6
+    }
+  ],
+  "limitations": [
+    "This is a hand-authored architectural approximation, not a survey or a photogrammetric reconstruction. All dimensions require review.",
+    "Room topology was traced from the linked archival floor plan. Its scale, date and agreement with the current building were not independently verified.",
+    "Only the main floor is reconstructed. The listing describes a lower floor and garage, but no lower-floor plan was available in the retrieved document.",
+    "Main roof outline and connected valleys were revised against the supplied overhead photograph. Roof pitch, height, junction dimensions and small details remain approximate.",
+    "Plot boundaries and slope are schematic; no cadastral or terrain measurements were available.",
+    "The listed 282 m² private / 327 m² built areas are source facts, not measurements of this model. The scene has not been fitted to those totals.",
+    "Furniture is simplified from photos; exact room-to-photo matches are uncertain. Office furnishing is illustrative.",
+    "The pool is shown with water for legibility although the photographs show it partly drained.",
+    "The linked video was inventoried but not watched. It did not inform this example."
+  ],
+  "objects": [
+    {
+      "id": "living",
+      "label": "Living room",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        -6.25,
+        0.6,
+        -5
+      ],
+      "size": [
+        7.5,
+        0.12,
+        5
+      ],
+      "rotation": 0,
+      "color": "#d2b28b",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "dining",
+      "label": "Dining room",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        -7.25,
+        0.6,
+        -0.25
+      ],
+      "size": [
+        5.5,
+        0.12,
+        4.5
+      ],
+      "rotation": 0,
+      "color": "#d2b28b",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "kitchen-floor",
+      "label": "Kitchen",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        -7.5,
+        0.6,
+        4.75
+      ],
+      "size": [
+        5,
+        0.12,
+        5.5
+      ],
+      "rotation": 0,
+      "color": "#d8d2bd",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "pantry-floor",
+      "label": "Pantry",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        -8.75,
+        0.6,
+        6.75
+      ],
+      "size": [
+        2.5,
+        0.12,
+        1.5
+      ],
+      "rotation": 0,
+      "color": "#d8d2bd",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "storage-floor",
+      "label": "Storage / service room",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        -3.5,
+        0.6,
+        5.5
+      ],
+      "size": [
+        3,
+        0.12,
+        4
+      ],
+      "rotation": 0,
+      "color": "#d3d3c9",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "hall",
+      "label": "Entrance hall",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        -1.75,
+        0.6,
+        0.5
+      ],
+      "size": [
+        5.5,
+        0.12,
+        6
+      ],
+      "rotation": 0,
+      "color": "#d2b28b",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "office",
+      "label": "Office",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        3,
+        0.6,
+        -0.5
+      ],
+      "size": [
+        4,
+        0.12,
+        5
+      ],
+      "rotation": 0,
+      "color": "#d2b28b",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "bedroom-one",
+      "label": "Bedroom",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        7.5,
+        0.6,
+        -0.5
+      ],
+      "size": [
+        5,
+        0.12,
+        5
+      ],
+      "rotation": 0,
+      "color": "#d2b28b",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "corridor",
+      "label": "Bedroom corridor",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        5.5,
+        0.6,
+        2.75
+      ],
+      "size": [
+        9,
+        0.12,
+        1.5
+      ],
+      "rotation": 0,
+      "color": "#d2b28b",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "bathroom-one",
+      "label": "Bathroom",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        3.5,
+        0.6,
+        4.75
+      ],
+      "size": [
+        3,
+        0.12,
+        2.5
+      ],
+      "rotation": 0,
+      "color": "#d9ddd2",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "wardrobe",
+      "label": "Wardrobe / vestibule",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        5.75,
+        0.6,
+        4.75
+      ],
+      "size": [
+        1.5,
+        0.12,
+        2.5
+      ],
+      "rotation": 0,
+      "color": "#d2b28b",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "bathroom-two",
+      "label": "Suite bathroom",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        8.25,
+        0.6,
+        4.75
+      ],
+      "size": [
+        3.5,
+        0.12,
+        2.5
+      ],
+      "rotation": 0,
+      "color": "#d9ddd2",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "main-bedroom",
+      "label": "Main bedroom",
+      "kind": "slab",
+      "layer": "floors",
+      "level": "main",
+      "position": [
+        7.5,
+        0.6,
+        8
+      ],
+      "size": [
+        5,
+        0.12,
+        4
+      ],
+      "rotation": 0,
+      "color": "#d2b28b",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Room position follows the archival main-floor plan. Scale is approximate; no survey calibration."
+    },
+    {
+      "id": "south-living",
+      "label": "Living room garden facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -6.25,
+        0.72,
+        -7.5
+      ],
+      "size": [
+        7.5,
+        2.8,
+        0.25
+      ],
+      "rotation": 0,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": -1.2,
+          "width": 3,
+          "height": 2.3,
+          "sill": 0.18,
+          "type": "window"
+        },
+        {
+          "offset": 2.2,
+          "width": 1.2,
+          "height": 1.7,
+          "sill": 0.6,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "living-east",
+      "label": "Living room return",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -2.5,
+        0.72,
+        -5
+      ],
+      "size": [
+        5,
+        2.8,
+        0.25
+      ],
+      "rotation": -90,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 2.7,
+          "height": 2.2,
+          "sill": 0.18,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "hall-front",
+      "label": "Hall and entry facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -0.75,
+        0.72,
+        -2.5
+      ],
+      "size": [
+        3.5,
+        2.8,
+        0.25
+      ],
+      "rotation": 0,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 1.2,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "office-front",
+      "label": "Office garden facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        3,
+        0.72,
+        -3
+      ],
+      "size": [
+        4,
+        2.8,
+        0.25
+      ],
+      "rotation": 0,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 2.7,
+          "height": 1.9,
+          "sill": 0.4,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "bedroom-front",
+      "label": "Bedroom garden facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        7.5,
+        0.72,
+        -3
+      ],
+      "size": [
+        5,
+        2.8,
+        0.25
+      ],
+      "rotation": 0,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 2.6,
+          "height": 1.65,
+          "sill": 0.65,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "bedroom-end",
+      "label": "Bedroom side facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        10,
+        0.72,
+        -0.5
+      ],
+      "size": [
+        5,
+        2.8,
+        0.25
+      ],
+      "rotation": -90,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 1.8,
+          "height": 1.45,
+          "sill": 0.85,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "east-corridor",
+      "label": "Corridor end facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        10,
+        0.72,
+        2.75
+      ],
+      "size": [
+        1.5,
+        2.8,
+        0.25
+      ],
+      "rotation": -90,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "east-bath",
+      "label": "Bathroom side facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        10,
+        0.72,
+        4.75
+      ],
+      "size": [
+        2.5,
+        2.8,
+        0.25
+      ],
+      "rotation": -90,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 0.85,
+          "height": 0.75,
+          "sill": 1.65,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "east-master",
+      "label": "Main bedroom side facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        10,
+        0.72,
+        8
+      ],
+      "size": [
+        4,
+        2.8,
+        0.25
+      ],
+      "rotation": -90,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 2.5,
+          "height": 1.65,
+          "sill": 0.6,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "master-rear",
+      "label": "Main bedroom rear facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        7.5,
+        0.72,
+        10
+      ],
+      "size": [
+        5,
+        2.8,
+        0.25
+      ],
+      "rotation": 0,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 2.5,
+          "height": 1.65,
+          "sill": 0.6,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "master-west",
+      "label": "Main bedroom return",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        5,
+        0.72,
+        8
+      ],
+      "size": [
+        4,
+        2.8,
+        0.25
+      ],
+      "rotation": -90,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 1.8,
+          "height": 1.45,
+          "sill": 0.85,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "bath-rear",
+      "label": "Bathroom rear facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        3.5,
+        0.72,
+        6
+      ],
+      "size": [
+        3,
+        2.8,
+        0.25
+      ],
+      "rotation": 0,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 1,
+          "height": 0.7,
+          "sill": 1.7,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "bath-west",
+      "label": "Bathroom return",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        2,
+        0.72,
+        4.75
+      ],
+      "size": [
+        2.5,
+        2.8,
+        0.25
+      ],
+      "rotation": -90,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "hall-rear",
+      "label": "Entrance rear wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        0,
+        0.72,
+        3.5
+      ],
+      "size": [
+        4,
+        2.8,
+        0.25
+      ],
+      "rotation": 0,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": -0.8,
+          "width": 0.9,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "store-east",
+      "label": "Service room facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -2,
+        0.72,
+        5.5
+      ],
+      "size": [
+        4,
+        2.8,
+        0.25
+      ],
+      "rotation": -90,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0.3,
+          "width": 1.2,
+          "height": 1.1,
+          "sill": 1.1,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "store-rear",
+      "label": "Service room rear facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -3.5,
+        0.72,
+        7.5
+      ],
+      "size": [
+        3,
+        2.8,
+        0.25
+      ],
+      "rotation": 0,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 1,
+          "height": 0.9,
+          "sill": 1.3,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "kitchen-rear",
+      "label": "Kitchen garden facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -7.5,
+        0.72,
+        7.5
+      ],
+      "size": [
+        5,
+        2.8,
+        0.25
+      ],
+      "rotation": 0,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0.7,
+          "width": 2,
+          "height": 1.2,
+          "sill": 0.95,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "kitchen-west",
+      "label": "Kitchen external wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -10,
+        0.72,
+        4.75
+      ],
+      "size": [
+        5.5,
+        2.8,
+        0.25
+      ],
+      "rotation": -90,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": -1,
+          "width": 1.7,
+          "height": 1.2,
+          "sill": 0.9,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "dining-west",
+      "label": "Dining room terrace facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -10,
+        0.72,
+        -0.25
+      ],
+      "size": [
+        4.5,
+        2.8,
+        0.25
+      ],
+      "rotation": -90,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 2.8,
+          "height": 2.3,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "living-west",
+      "label": "Living room west facade",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -10,
+        0.72,
+        -5
+      ],
+      "size": [
+        5,
+        2.8,
+        0.25
+      ],
+      "rotation": -90,
+      "color": "#eee9da",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 2.7,
+          "height": 2.3,
+          "sill": 0.18,
+          "type": "window"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "living-dining",
+      "label": "Living / dining threshold",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -7.25,
+        0.72,
+        -2.5
+      ],
+      "size": [
+        5.5,
+        2.8,
+        0.15
+      ],
+      "rotation": 0,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0.2,
+          "width": 3.8,
+          "height": 2.4,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "dining-hall",
+      "label": "Dining / hall wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -4.5,
+        0.72,
+        -0.25
+      ],
+      "size": [
+        4.5,
+        2.8,
+        0.15
+      ],
+      "rotation": -90,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0.6,
+          "width": 1.8,
+          "height": 2.3,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "dining-kitchen",
+      "label": "Dining / kitchen wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -7.5,
+        0.72,
+        2
+      ],
+      "size": [
+        5,
+        2.8,
+        0.15
+      ],
+      "rotation": 0,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0.8,
+          "width": 0.95,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "kitchen-hall",
+      "label": "Kitchen / hall wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -5,
+        0.72,
+        2.75
+      ],
+      "size": [
+        1.5,
+        2.8,
+        0.15
+      ],
+      "rotation": -90,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 0.8,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "kitchen-service",
+      "label": "Kitchen / service wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -5,
+        0.72,
+        5.5
+      ],
+      "size": [
+        4,
+        2.8,
+        0.15
+      ],
+      "rotation": -90,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": -0.6,
+          "width": 0.8,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "pantry-wall",
+      "label": "Pantry partition",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -7.5,
+        0.72,
+        6.75
+      ],
+      "size": [
+        1.5,
+        2.8,
+        0.15
+      ],
+      "rotation": -90,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 0.7,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "pantry-front",
+      "label": "Pantry front partition",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -8.75,
+        0.72,
+        6
+      ],
+      "size": [
+        2.5,
+        2.8,
+        0.15
+      ],
+      "rotation": 0,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "hall-corridor",
+      "label": "Hall / office wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        1,
+        0.72,
+        -0.25
+      ],
+      "size": [
+        4.5,
+        2.8,
+        0.15
+      ],
+      "rotation": -90,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0.1,
+          "width": 0.9,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "office-bed",
+      "label": "Office / bedroom partition",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        5,
+        0.72,
+        -0.5
+      ],
+      "size": [
+        5,
+        2.8,
+        0.15
+      ],
+      "rotation": -90,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "office-corridor",
+      "label": "Office corridor wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        3,
+        0.72,
+        2
+      ],
+      "size": [
+        4,
+        2.8,
+        0.15
+      ],
+      "rotation": 0,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": -0.9,
+          "width": 0.85,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "bed-corridor",
+      "label": "Bedroom corridor wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        7.5,
+        0.72,
+        2
+      ],
+      "size": [
+        5,
+        2.8,
+        0.15
+      ],
+      "rotation": 0,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": -1.4,
+          "width": 0.85,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "corridor-bath-one",
+      "label": "Bathroom access wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        3.5,
+        0.72,
+        3.5
+      ],
+      "size": [
+        3,
+        2.8,
+        0.15
+      ],
+      "rotation": 0,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 0.8,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "corridor-vestibule",
+      "label": "Suite vestibule access",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        5.75,
+        0.72,
+        3.5
+      ],
+      "size": [
+        1.5,
+        2.8,
+        0.15
+      ],
+      "rotation": 0,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 0.8,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "suite-bath-partition",
+      "label": "Suite bathroom partition",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        6.5,
+        0.72,
+        4.75
+      ],
+      "size": [
+        2.5,
+        2.8,
+        0.15
+      ],
+      "rotation": -90,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": 0,
+          "width": 0.75,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "suite-bath-front",
+      "label": "Suite bathroom corridor wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        8.25,
+        0.72,
+        3.5
+      ],
+      "size": [
+        3.5,
+        2.8,
+        0.15
+      ],
+      "rotation": 0,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "master-front",
+      "label": "Main bedroom access wall",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        7.5,
+        0.72,
+        6
+      ],
+      "size": [
+        5,
+        2.8,
+        0.15
+      ],
+      "rotation": 0,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [
+        {
+          "offset": -1.75,
+          "width": 0.8,
+          "height": 2.15,
+          "sill": 0,
+          "type": "door"
+        }
+      ],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "bath-vestibule",
+      "label": "Bathroom / vestibule partition",
+      "kind": "wall",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        5,
+        0.72,
+        4.75
+      ],
+      "size": [
+        2.5,
+        2.8,
+        0.15
+      ],
+      "rotation": -90,
+      "color": "#f1eee5",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Wall topology follows the plan. Height and opening dimensions are estimated; archival and current arrangements may differ."
+    },
+    {
+      "id": "living-sofa-a",
+      "label": "Cream living-room sofa",
+      "kind": "sofa",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -6.8,
+        0.72,
+        -5.8
+      ],
+      "size": [
+        2.35,
+        0.82,
+        0.95
+      ],
+      "rotation": 0,
+      "color": "#c6b69a",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-017",
+        "photo-018",
+        "photo-019"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "living-sofa-b",
+      "label": "Second living-room sofa",
+      "kind": "sofa",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -8.4,
+        0.72,
+        -4.2
+      ],
+      "size": [
+        2.15,
+        0.8,
+        0.9
+      ],
+      "rotation": -90,
+      "color": "#b8a98f",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-018",
+        "photo-019"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "coffee-table",
+      "label": "Living-room coffee table",
+      "kind": "table",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -6.6,
+        0.72,
+        -4.4
+      ],
+      "size": [
+        1.4,
+        0.4,
+        0.7
+      ],
+      "rotation": 0,
+      "color": "#8e6648",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-018",
+        "photo-019"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "living-chair",
+      "label": "Red armchair",
+      "kind": "chair",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -4.7,
+        0.72,
+        -3.8
+      ],
+      "size": [
+        0.7,
+        0.42,
+        0.75
+      ],
+      "rotation": 150,
+      "color": "#985c50",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-019"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "bookcase",
+      "label": "Built-in living-room bookcase",
+      "kind": "box",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -3,
+        0.72,
+        -5.3
+      ],
+      "size": [
+        0.35,
+        2.3,
+        2.8
+      ],
+      "rotation": 0,
+      "color": "#956d49",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-017",
+        "photo-018"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "dining-table",
+      "label": "Wood dining table",
+      "kind": "table",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -7.5,
+        0.72,
+        -0.1
+      ],
+      "size": [
+        1.1,
+        0.76,
+        2.45
+      ],
+      "rotation": 0,
+      "color": "#a57a50",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-020",
+        "photo-021",
+        "photo-022"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "dining-chair-1",
+      "label": "Dining chair",
+      "kind": "chair",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -8.4,
+        0.72,
+        -0.9
+      ],
+      "size": [
+        0.48,
+        0.46,
+        0.5
+      ],
+      "rotation": -90,
+      "color": "#9d7752",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-020",
+        "photo-021"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "dining-chair-2",
+      "label": "Dining chair",
+      "kind": "chair",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -8.4,
+        0.72,
+        0.7
+      ],
+      "size": [
+        0.48,
+        0.46,
+        0.5
+      ],
+      "rotation": -90,
+      "color": "#9d7752",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-020",
+        "photo-021"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "dining-chair-3",
+      "label": "Dining chair",
+      "kind": "chair",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -6.6,
+        0.72,
+        -0.9
+      ],
+      "size": [
+        0.48,
+        0.46,
+        0.5
+      ],
+      "rotation": 90,
+      "color": "#9d7752",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-020",
+        "photo-021"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "dining-chair-4",
+      "label": "Dining chair",
+      "kind": "chair",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -6.6,
+        0.72,
+        0.7
+      ],
+      "size": [
+        0.48,
+        0.46,
+        0.5
+      ],
+      "rotation": 90,
+      "color": "#9d7752",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-020",
+        "photo-021"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "dining-chair-5",
+      "label": "Dining chair",
+      "kind": "chair",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -7.5,
+        0.72,
+        -1.8
+      ],
+      "size": [
+        0.48,
+        0.46,
+        0.5
+      ],
+      "rotation": 0,
+      "color": "#9d7752",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-020",
+        "photo-021"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "dining-chair-6",
+      "label": "Dining chair",
+      "kind": "chair",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -7.5,
+        0.72,
+        1.6
+      ],
+      "size": [
+        0.48,
+        0.46,
+        0.5
+      ],
+      "rotation": 180,
+      "color": "#9d7752",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-020",
+        "photo-021"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "kitchen-cabinets",
+      "label": "Kitchen cabinetry and sink",
+      "kind": "kitchen",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -8.8,
+        0.72,
+        4.1
+      ],
+      "size": [
+        0.65,
+        0.92,
+        3.4
+      ],
+      "rotation": 90,
+      "color": "#c69b64",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-024",
+        "photo-025",
+        "photo-026"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "kitchen-range",
+      "label": "Kitchen range cabinetry",
+      "kind": "kitchen",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -5.5,
+        0.72,
+        5.3
+      ],
+      "size": [
+        0.65,
+        0.92,
+        3.5
+      ],
+      "rotation": 90,
+      "color": "#c69b64",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-024",
+        "photo-025",
+        "photo-026"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "kitchen-island",
+      "label": "Kitchen island",
+      "kind": "kitchen",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -7.1,
+        0.72,
+        4.1
+      ],
+      "size": [
+        1.4,
+        0.9,
+        0.8
+      ],
+      "rotation": 0,
+      "color": "#bd925b",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-024",
+        "photo-025",
+        "photo-026"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "office-desk",
+      "label": "Office desk (illustrative furnishing)",
+      "kind": "table",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        2.6,
+        0.72,
+        -1
+      ],
+      "size": [
+        1.6,
+        0.75,
+        0.75
+      ],
+      "rotation": 0,
+      "color": "#a78d6e",
+      "points": [],
+      "openings": [],
+      "confidence": "unknown",
+      "sources": [
+        "plan-001"
+      ],
+      "notes": "Office use is stated in the listing. Desk placement is illustrative and not established by current photographs."
+    },
+    {
+      "id": "bed-one",
+      "label": "Bedroom bed",
+      "kind": "bed",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        7.5,
+        0.72,
+        -0.3
+      ],
+      "size": [
+        1.8,
+        0.6,
+        2.1
+      ],
+      "rotation": 0,
+      "color": "#b1b5a4",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-028",
+        "photo-029"
+      ],
+      "notes": "Bed style and palette follow bedroom photos. Assigning those photos to this bedroom is uncertain."
+    },
+    {
+      "id": "bed-main",
+      "label": "Main bedroom bed",
+      "kind": "bed",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        7.4,
+        0.72,
+        8
+      ],
+      "size": [
+        1.8,
+        0.6,
+        2.1
+      ],
+      "rotation": 0,
+      "color": "#b1b5a4",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-028",
+        "photo-029"
+      ],
+      "notes": "Bedroom furnishing is representative; this precise room-to-photo match is unverified."
+    },
+    {
+      "id": "bath-one-tub",
+      "label": "Bathtub (simplified)",
+      "kind": "box",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        3.6,
+        0.72,
+        5.45
+      ],
+      "size": [
+        1.7,
+        0.5,
+        0.7
+      ],
+      "rotation": 0,
+      "color": "#f4f1e7",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "plan-001",
+        "photo-030"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "bath-two-tub",
+      "label": "Bathtub (simplified)",
+      "kind": "box",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        8.6,
+        0.72,
+        5.45
+      ],
+      "size": [
+        1.7,
+        0.5,
+        0.7
+      ],
+      "rotation": 0,
+      "color": "#f4f1e7",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "plan-001",
+        "photo-030"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "basin-one",
+      "label": "Bathroom basin",
+      "kind": "box",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        4.6,
+        0.72,
+        4.3
+      ],
+      "size": [
+        0.45,
+        0.83,
+        0.6
+      ],
+      "rotation": 0,
+      "color": "#f0ede2",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "plan-001",
+        "photo-030"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "basin-two",
+      "label": "Bathroom basin",
+      "kind": "box",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        9.5,
+        0.72,
+        4.3
+      ],
+      "size": [
+        0.45,
+        0.83,
+        0.6
+      ],
+      "rotation": 0,
+      "color": "#f0ede2",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "plan-001",
+        "photo-030"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "site-ground",
+      "label": "Approximate sloping plot",
+      "kind": "slab",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        0,
+        -1.7,
+        0
+      ],
+      "size": [
+        44,
+        0.25,
+        39
+      ],
+      "rotation": 0,
+      "color": "#a9b995",
+      "points": [
+        [
+          -22,
+          -18
+        ],
+        [
+          -17,
+          -21
+        ],
+        [
+          18,
+          -21
+        ],
+        [
+          22,
+          -13
+        ],
+        [
+          21,
+          18
+        ],
+        [
+          -21,
+          18
+        ]
+      ],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-001",
+        "photo-003",
+        "photo-005"
+      ],
+      "notes": "Plot outline and terrain are approximations from aerial photographs. Listed lot area is 1530 m²; this polygon is not a cadastral boundary."
+    },
+    {
+      "id": "upper-garden",
+      "label": "Upper garden terrace",
+      "kind": "slab",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        -3,
+        -0.45,
+        6
+      ],
+      "size": [
+        38,
+        0.3,
+        24
+      ],
+      "rotation": 0,
+      "color": "#aabb99",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-001",
+        "photo-007",
+        "photo-008"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "front-foundation",
+      "label": "Exposed stone plinth",
+      "kind": "box",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        -0.1,
+        -1.1,
+        -3.8
+      ],
+      "size": [
+        22,
+        1.6,
+        9
+      ],
+      "rotation": 0,
+      "color": "#b9baa9",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-005",
+        "photo-014",
+        "photo-015"
+      ],
+      "notes": "Stone retaining walls and sloping site are visible. Plinth and grade transitions simplified."
+    },
+    {
+      "id": "front-terrace",
+      "label": "Paved garden terrace",
+      "kind": "slab",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        -1,
+        0.35,
+        -8.7
+      ],
+      "size": [
+        24,
+        0.2,
+        3
+      ],
+      "rotation": 0,
+      "color": "#d6d4bf",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-013",
+        "photo-014",
+        "photo-015"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "west-terrace",
+      "label": "West paved terrace",
+      "kind": "slab",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        -11.3,
+        0.35,
+        0
+      ],
+      "size": [
+        2,
+        0.2,
+        15
+      ],
+      "rotation": 0,
+      "color": "#d6d4bf",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-012",
+        "photo-014"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "entry-steps",
+      "label": "Entry garden steps",
+      "kind": "stairs",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        2,
+        -1.45,
+        -12
+      ],
+      "size": [
+        2,
+        2,
+        4
+      ],
+      "rotation": 0,
+      "color": "#cecdb9",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-013",
+        "photo-015"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "driveway",
+      "label": "Driveway",
+      "kind": "slab",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        14,
+        -1.43,
+        -3
+      ],
+      "size": [
+        4,
+        0.13,
+        28
+      ],
+      "rotation": 0,
+      "color": "#c4c4b2",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-001",
+        "photo-005",
+        "photo-016"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "pool-terrace",
+      "label": "Pool stone surround",
+      "kind": "slab",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        -15,
+        -0.13,
+        6.5
+      ],
+      "size": [
+        5.7,
+        0.17,
+        11
+      ],
+      "rotation": 0,
+      "color": "#d2d5c4",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-006",
+        "photo-007",
+        "photo-008",
+        "photo-009"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "swimming-pool",
+      "label": "Kidney-shaped swimming pool",
+      "kind": "pool",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        -15,
+        0.06,
+        6.5
+      ],
+      "size": [
+        4,
+        0.12,
+        9
+      ],
+      "rotation": 0,
+      "color": "#74b1ba",
+      "points": [
+        [
+          1.9,
+          0
+        ],
+        [
+          1.9052590699492298,
+          1.1129218939408392
+        ],
+        [
+          1.766691823720255,
+          2.1499999999999995
+        ],
+        [
+          1.4835028842544402,
+          3.040559159102154
+        ],
+        [
+          1.0712435565298215,
+          3.723909236273086
+        ],
+        [
+          0.5617561856947894,
+          4.153481053042993
+        ],
+        [
+          1.3348650110706148e-16,
+          4.3
+        ],
+        [
+          -0.5617561856947896,
+          4.153481053042993
+        ],
+        [
+          -1.0712435565298208,
+          3.7239092362730863
+        ],
+        [
+          -1.48350288425444,
+          3.0405591591021546
+        ],
+        [
+          -1.766691823720255,
+          2.1499999999999995
+        ],
+        [
+          -1.9052590699492296,
+          1.1129218939408403
+        ],
+        [
+          -1.9,
+          5.265981236333618e-16
+        ],
+        [
+          -1.7652590699492299,
+          -1.1129218939408374
+        ],
+        [
+          -1.5242047106606118,
+          -2.1500000000000004
+        ],
+        [
+          -1.2035028842544406,
+          -3.040559159102154
+        ],
+        [
+          -0.8287564434701793,
+          -3.7239092362730855
+        ],
+        [
+          -0.42175618569478923,
+          -4.153481053042993
+        ],
+        [
+          -2.975891721928068e-16,
+          -4.3
+        ],
+        [
+          0.4217561856947887,
+          -4.153481053042994
+        ],
+        [
+          0.8287564434701787,
+          -3.723909236273086
+        ],
+        [
+          1.20350288425444,
+          -3.040559159102155
+        ],
+        [
+          1.5242047106606114,
+          -2.1500000000000017
+        ],
+        [
+          1.7652590699492297,
+          -1.112921893940839
+        ]
+      ],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "photo-001",
+        "photo-006",
+        "photo-007",
+        "photo-008",
+        "photo-009"
+      ],
+      "notes": "Pool shape and garden location are visible; length, width, depth and orientation are estimated. Water is shown for spatial legibility, although the photographed pool is partly drained."
+    },
+    {
+      "id": "barbecue-terrace",
+      "label": "Covered barbecue terrace",
+      "kind": "slab",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        -5,
+        0.32,
+        11
+      ],
+      "size": [
+        8,
+        0.2,
+        4
+      ],
+      "rotation": 0,
+      "color": "#d5cdb9",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-010",
+        "photo-011",
+        "photo-012"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "pavilion-post-1",
+      "label": "Terrace timber post",
+      "kind": "box",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -8.5,
+        0.52,
+        9.5
+      ],
+      "size": [
+        0.16,
+        2.9,
+        0.16
+      ],
+      "rotation": 0,
+      "color": "#927856",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-010",
+        "photo-011"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "pavilion-post-2",
+      "label": "Terrace timber post",
+      "kind": "box",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -1.5,
+        0.52,
+        9.5
+      ],
+      "size": [
+        0.16,
+        2.9,
+        0.16
+      ],
+      "rotation": 0,
+      "color": "#927856",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-010",
+        "photo-011"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "pavilion-post-3",
+      "label": "Terrace timber post",
+      "kind": "box",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -8.5,
+        0.52,
+        12.5
+      ],
+      "size": [
+        0.16,
+        2.9,
+        0.16
+      ],
+      "rotation": 0,
+      "color": "#927856",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-010",
+        "photo-011"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "pavilion-post-4",
+      "label": "Terrace timber post",
+      "kind": "box",
+      "layer": "walls",
+      "level": "main",
+      "position": [
+        -1.5,
+        0.52,
+        12.5
+      ],
+      "size": [
+        0.16,
+        2.9,
+        0.16
+      ],
+      "rotation": 0,
+      "color": "#927856",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-010",
+        "photo-011"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "barbecue",
+      "label": "Brick barbecue",
+      "kind": "box",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -5,
+        0.52,
+        12.1
+      ],
+      "size": [
+        3,
+        1.1,
+        0.7
+      ],
+      "rotation": 0,
+      "color": "#b78764",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-010",
+        "photo-011"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "outdoor-table",
+      "label": "Outdoor dining table",
+      "kind": "table",
+      "layer": "furniture",
+      "level": "main",
+      "position": [
+        -5,
+        0.52,
+        10.5
+      ],
+      "size": [
+        3,
+        0.75,
+        1
+      ],
+      "rotation": 0,
+      "color": "#907652",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-010",
+        "photo-011"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "pine-1",
+      "label": "Umbrella pine",
+      "kind": "tree",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        -9,
+        -1.35,
+        -16
+      ],
+      "size": [
+        7,
+        8,
+        7
+      ],
+      "rotation": 0,
+      "color": "#788c62",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-001",
+        "photo-003",
+        "photo-005",
+        "photo-013"
+      ],
+      "notes": "Mature garden trees observed. Positions, heights and canopy shapes approximate."
+    },
+    {
+      "id": "pine-2",
+      "label": "Umbrella pine",
+      "kind": "tree",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        5,
+        -1.35,
+        -17
+      ],
+      "size": [
+        6,
+        7,
+        6
+      ],
+      "rotation": 0,
+      "color": "#87986d",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-001",
+        "photo-003",
+        "photo-005",
+        "photo-013"
+      ],
+      "notes": "Mature garden trees observed. Positions, heights and canopy shapes approximate."
+    },
+    {
+      "id": "pine-3",
+      "label": "Umbrella pine",
+      "kind": "tree",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        15,
+        -1.35,
+        11
+      ],
+      "size": [
+        5,
+        6,
+        5
+      ],
+      "rotation": 0,
+      "color": "#788c62",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-001",
+        "photo-003",
+        "photo-005",
+        "photo-013"
+      ],
+      "notes": "Mature garden trees observed. Positions, heights and canopy shapes approximate."
+    },
+    {
+      "id": "pine-4",
+      "label": "Umbrella pine",
+      "kind": "tree",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        -19,
+        -1.35,
+        -8
+      ],
+      "size": [
+        5,
+        7,
+        5
+      ],
+      "rotation": 0,
+      "color": "#87986d",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-001",
+        "photo-003",
+        "photo-005",
+        "photo-013"
+      ],
+      "notes": "Mature garden trees observed. Positions, heights and canopy shapes approximate."
+    },
+    {
+      "id": "pine-5",
+      "label": "Umbrella pine",
+      "kind": "tree",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        17,
+        -1.35,
+        -14
+      ],
+      "size": [
+        5,
+        7,
+        5
+      ],
+      "rotation": 0,
+      "color": "#788c62",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-001",
+        "photo-003",
+        "photo-005",
+        "photo-013"
+      ],
+      "notes": "Mature garden trees observed. Positions, heights and canopy shapes approximate."
+    },
+    {
+      "id": "hedge-1",
+      "label": "Boundary hedge",
+      "kind": "box",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        -21,
+        -0.2,
+        2
+      ],
+      "size": [
+        0.8,
+        1.6,
+        32
+      ],
+      "rotation": 0,
+      "color": "#7b8d61",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-001",
+        "photo-006",
+        "photo-008"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "hedge-2",
+      "label": "Boundary hedge",
+      "kind": "box",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        0,
+        -0.2,
+        17.3
+      ],
+      "size": [
+        41,
+        1.6,
+        0.8
+      ],
+      "rotation": 0,
+      "color": "#7b8d61",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-001",
+        "photo-006",
+        "photo-008"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "id": "hedge-3",
+      "label": "Boundary hedge",
+      "kind": "box",
+      "layer": "site",
+      "level": "site",
+      "position": [
+        20,
+        -0.2,
+        4
+      ],
+      "size": [
+        0.8,
+        1.6,
+        26
+      ],
+      "rotation": 0,
+      "color": "#7b8d61",
+      "points": [],
+      "openings": [],
+      "confidence": "inferred",
+      "sources": [
+        "photo-001",
+        "photo-006",
+        "photo-008"
+      ],
+      "notes": "Plan topology traced by hand. Position and dimensions are approximate; heights estimated from photographs."
+    },
+    {
+      "layer": "roof",
+      "level": "main",
+      "rotation": 0,
+      "color": "#ad7154",
+      "points": [
+        [
+          -10.4,
+          0,
+          -7.95
+        ],
+        [
+          -5,
+          1.836,
+          2.55
+        ],
+        [
+          -5,
+          1.836,
+          -2.55
+        ],
+        [
+          -10.4,
+          0,
+          -7.95
+        ],
+        [
+          -10.4,
+          0,
+          7.95
+        ],
+        [
+          -5,
+          1.836,
+          2.55
+        ],
+        [
+          0.4,
+          0,
+          -7.95
+        ],
+        [
+          -5,
+          1.836,
+          1.95
+        ],
+        [
+          0.4,
+          0,
+          -3.45
+        ],
+        [
+          0.4,
+          0,
+          -7.95
+        ],
+        [
+          -5,
+          1.836,
+          -2.55
+        ],
+        [
+          -5,
+          1.836,
+          1.95
+        ],
+        [
+          0.4,
+          0,
+          6.25
+        ],
+        [
+          -5,
+          1.836,
+          2.55
+        ],
+        [
+          0.4,
+          0,
+          7.95
+        ],
+        [
+          0.4,
+          0,
+          6.25
+        ],
+        [
+          -5,
+          1.836,
+          1.95
+        ],
+        [
+          -5,
+          1.836,
+          2.55
+        ],
+        [
+          0.4,
+          0,
+          6.25
+        ],
+        [
+          -4.45,
+          1.649,
+          1.4
+        ],
+        [
+          -5,
+          1.836,
+          1.95
+        ],
+        [
+          0.4,
+          0,
+          -7.95
+        ],
+        [
+          -10.4,
+          0,
+          -7.95
+        ],
+        [
+          -5,
+          1.836,
+          -2.55
+        ],
+        [
+          0.4,
+          0,
+          7.95
+        ],
+        [
+          -5,
+          1.836,
+          2.55
+        ],
+        [
+          -10.4,
+          0,
+          7.95
+        ],
+        [
+          6.525,
+          1.3345,
+          2.325
+        ],
+        [
+          6.525,
+          1.3345,
+          0.475
+        ],
+        [
+          5.6,
+          1.649,
+          1.4
+        ],
+        [
+          10.45,
+          0,
+          -3.45
+        ],
+        [
+          6.525,
+          1.3345,
+          2.325
+        ],
+        [
+          10.45,
+          0,
+          6.25
+        ],
+        [
+          10.45,
+          0,
+          -3.45
+        ],
+        [
+          6.525,
+          1.3345,
+          0.475
+        ],
+        [
+          6.525,
+          1.3345,
+          2.325
+        ],
+        [
+          6.525,
+          1.3345,
+          0.475
+        ],
+        [
+          -4.45,
+          1.649,
+          1.4
+        ],
+        [
+          5.6,
+          1.649,
+          1.4
+        ],
+        [
+          6.525,
+          1.3345,
+          0.475
+        ],
+        [
+          0.4,
+          0,
+          -3.45
+        ],
+        [
+          -4.45,
+          1.649,
+          1.4
+        ],
+        [
+          6.525,
+          1.3345,
+          0.475
+        ],
+        [
+          2.6,
+          0,
+          -3.45
+        ],
+        [
+          0.4,
+          0,
+          -3.45
+        ],
+        [
+          6.525,
+          1.3345,
+          0.475
+        ],
+        [
+          10.45,
+          0,
+          -3.45
+        ],
+        [
+          2.6,
+          0,
+          -3.45
+        ],
+        [
+          5.6,
+          1.649,
+          1.4
+        ],
+        [
+          2.6,
+          0,
+          6.25
+        ],
+        [
+          6.525,
+          1.3345,
+          2.325
+        ],
+        [
+          5.6,
+          1.649,
+          1.4
+        ],
+        [
+          0.4,
+          0,
+          6.25
+        ],
+        [
+          2.6,
+          0,
+          6.25
+        ],
+        [
+          5.6,
+          1.649,
+          1.4
+        ],
+        [
+          -4.45,
+          1.649,
+          1.4
+        ],
+        [
+          0.4,
+          0,
+          6.25
+        ],
+        [
+          6.525,
+          1.3345,
+          2.325
+        ],
+        [
+          2.6,
+          0,
+          10.45
+        ],
+        [
+          6.525,
+          1.3345,
+          6.525
+        ],
+        [
+          6.525,
+          1.3345,
+          2.325
+        ],
+        [
+          2.6,
+          0,
+          6.25
+        ],
+        [
+          2.6,
+          0,
+          10.45
+        ],
+        [
+          10.45,
+          0,
+          6.25
+        ],
+        [
+          6.525,
+          1.3345,
+          6.525
+        ],
+        [
+          10.45,
+          0,
+          10.45
+        ],
+        [
+          10.45,
+          0,
+          6.25
+        ],
+        [
+          6.525,
+          1.3345,
+          2.325
+        ],
+        [
+          6.525,
+          1.3345,
+          6.525
+        ],
+        [
+          10.45,
+          0,
+          10.45
+        ],
+        [
+          6.525,
+          1.3345,
+          6.525
+        ],
+        [
+          2.6,
+          0,
+          10.45
+        ]
+      ],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "supplement-001",
+        "photo-001"
+      ],
+      "notes": "Footprint, three connected roof sections, ridge directions and valleys follow the supplied aerial top view. Eave height, pitch and dimensions remain estimates.",
+      "id": "main-roof",
+      "label": "Connected hipped roof — traced top view",
+      "kind": "roof_mesh",
+      "position": [
+        0,
+        3.52,
+        0
+      ],
+      "size": [
+        21,
+        1.84,
+        21
+      ]
+    },
+    {
+      "layer": "roof",
+      "level": "main",
+      "rotation": 0,
+      "color": "#e6dec9",
+      "points": [
+        [
+          -10.4,
+          -7.95
+        ],
+        [
+          0.4,
+          -7.95
+        ],
+        [
+          0.4,
+          -3.45
+        ],
+        [
+          10.45,
+          -3.45
+        ],
+        [
+          10.45,
+          10.45
+        ],
+        [
+          2.6,
+          10.45
+        ],
+        [
+          2.6,
+          6.25
+        ],
+        [
+          0.4,
+          6.25
+        ],
+        [
+          0.4,
+          7.95
+        ],
+        [
+          -10.4,
+          7.95
+        ]
+      ],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "supplement-001",
+        "photo-001"
+      ],
+      "notes": "Footprint, three connected roof sections, ridge directions and valleys follow the supplied aerial top view. Eave height, pitch and dimensions remain estimates.",
+      "id": "roof-eaves",
+      "label": "Continuous eaves and soffit",
+      "kind": "slab",
+      "position": [
+        0,
+        3.4,
+        0
+      ],
+      "size": [
+        21,
+        0.12,
+        21
+      ]
+    },
+    {
+      "layer": "roof",
+      "level": "main",
+      "rotation": 0,
+      "color": "#647f88",
+      "points": [
+        [
+          -0.44,
+          0.28559999999999985,
+          -0.42
+        ],
+        [
+          0.44,
+          0,
+          0.42
+        ],
+        [
+          0.44,
+          0.28559999999999985,
+          -0.42
+        ],
+        [
+          -0.44,
+          0.28559999999999985,
+          -0.42
+        ],
+        [
+          -0.44,
+          0,
+          0.42
+        ],
+        [
+          0.44,
+          0,
+          0.42
+        ]
+      ],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "supplement-001",
+        "photo-001"
+      ],
+      "notes": "Two skylights are visible in the top view. Exact openings and dimensions are approximate.",
+      "id": "skylight-1",
+      "label": "Roof skylight",
+      "kind": "roof_mesh",
+      "position": [
+        -1.5,
+        4.4932,
+        3.1
+      ],
+      "size": [
+        0.88,
+        0.3,
+        0.84
+      ]
+    },
+    {
+      "layer": "roof",
+      "level": "main",
+      "rotation": 0,
+      "color": "#647f88",
+      "points": [
+        [
+          -0.44,
+          0.28559999999999985,
+          -0.42
+        ],
+        [
+          0.44,
+          0,
+          0.42
+        ],
+        [
+          0.44,
+          0.28559999999999985,
+          -0.42
+        ],
+        [
+          -0.44,
+          0.28559999999999985,
+          -0.42
+        ],
+        [
+          -0.44,
+          0,
+          0.42
+        ],
+        [
+          0.44,
+          0,
+          0.42
+        ]
+      ],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "supplement-001",
+        "photo-001"
+      ],
+      "notes": "Two skylights are visible in the top view. Exact openings and dimensions are approximate.",
+      "id": "skylight-2",
+      "label": "Roof skylight",
+      "kind": "roof_mesh",
+      "position": [
+        3.8,
+        4.4932,
+        3.1
+      ],
+      "size": [
+        0.88,
+        0.3,
+        0.84
+      ]
+    },
+    {
+      "layer": "roof",
+      "level": "main",
+      "rotation": 0,
+      "color": "#ece6d6",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "supplement-001",
+        "photo-001"
+      ],
+      "notes": "Chimney location follows the supplied top view; height and size are estimated.",
+      "id": "chimney-1",
+      "label": "Roof chimney",
+      "kind": "box",
+      "position": [
+        -8.3,
+        4.134,
+        -4.6
+      ],
+      "size": [
+        0.6,
+        0.65,
+        0.65
+      ]
+    },
+    {
+      "layer": "roof",
+      "level": "main",
+      "rotation": 0,
+      "color": "#ece6d6",
+      "points": [],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "supplement-001",
+        "photo-001"
+      ],
+      "notes": "Chimney location follows the supplied top view; height and size are estimated.",
+      "id": "chimney-2",
+      "label": "Roof chimney",
+      "kind": "box",
+      "position": [
+        -6,
+        4.916,
+        1
+      ],
+      "size": [
+        0.35,
+        0.65,
+        0.45
+      ]
+    },
+    {
+      "layer": "roof",
+      "level": "main",
+      "rotation": 0,
+      "color": "#ad7154",
+      "points": [
+        [
+          -3.1,
+          0.55,
+          -2
+        ],
+        [
+          3.1,
+          0,
+          2
+        ],
+        [
+          3.1,
+          0.55,
+          -2
+        ],
+        [
+          -3.1,
+          0.55,
+          -2
+        ],
+        [
+          -3.1,
+          0,
+          2
+        ],
+        [
+          3.1,
+          0,
+          2
+        ]
+      ],
+      "openings": [],
+      "confidence": "observed",
+      "sources": [
+        "supplement-001",
+        "photo-001"
+      ],
+      "notes": "Separate rectangular canopy visible beside the main roof in the aerial photograph; slope and dimensions estimated.",
+      "id": "barbecue-roof",
+      "label": "Separate barbecue canopy roof",
+      "kind": "roof_mesh",
+      "position": [
+        -7.1,
+        3.4,
+        11.1
+      ],
+      "size": [
+        6.2,
+        0.55,
+        4
+      ]
+    }
+  ]
+}

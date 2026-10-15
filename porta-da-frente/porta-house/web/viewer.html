@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{TITLE}}</title><style>{{EDITORIAL_CSS}}
+{{VIEWER_CSS}}</style></head><body>
+<header class="viewer-header"><a href="#" class="wordmark">Porta House</a><span>Listing → spatial model</span><button id="sources-button" class="sources-cta" data-open-sources aria-controls="evidence-panel" aria-expanded="false">Blueprints &amp; photos</button><button id="download-scene">Save scene JSON</button></header>
+<main class="workspace">
+<aside class="sidebar">
+<p class="eyebrow" id="reference"></p><h1 id="title"></h1><p id="summary" class="intro"></p>
+<div class="quality">Architectural approximation<span>Dimensions and unseen details need review.</span></div>
+<div id="facts" class="facts"></div>
+<h2>Explore</h2><div class="view-buttons"><button data-view="exterior" aria-pressed="true">Exterior</button><button data-view="roof" aria-pressed="false">Roof overhead</button><button data-view="plan" aria-pressed="false">Floor plan</button><button data-view="garden" aria-pressed="false">Garden</button><button id="reset">Reset view</button></div>
+<button id="sidebar-sources-button" class="sources-cta sidebar-sources" data-open-sources aria-controls="evidence-panel" aria-expanded="false"><strong>Blueprints &amp; photos</strong><span id="source-count">Open the original plans and images</span></button>
+<label class="floor-label" for="level">Floor</label><select id="level"><option value="all">All floors</option></select>
+<h2>Layers</h2><div id="layers"></div>
+<details class="limitations"><summary>What needs checking</summary><ul id="limitations"></ul></details>
+<a id="listing-link" target="_blank" rel="noreferrer">View original listing ↗</a>
+</aside>
+<section class="model-region"><div class="model-top"><span id="view-name">Exterior</span><span>1 unit ≈ 1 metre</span></div><div id="canvas-wrap" role="img" aria-label="Interactive 3D house model. Drag to orbit, scroll to zoom, right drag to pan."></div><div id="load-status" role="status">Preparing the model…</div><div class="model-bottom"><span>Drag to orbit · Scroll to zoom · Right-drag to pan</span><span>Click an object for its evidence</span></div><div class="object-info" id="object-info" hidden><button class="close" id="close-object" aria-label="Close object details">×</button><span id="object-confidence" class="eyebrow"></span><h3 id="object-title"></h3><p id="object-notes"></p><div id="object-sources"></div></div></section>
+<aside id="evidence-panel" hidden><div class="evidence-heading"><h2>Blueprints &amp; photos</h2><button id="close-sources" aria-label="Close blueprints and photos">×</button></div><p id="source-note"></p><div id="evidence-list"></div></aside>
+</main>
+<dialog id="image-dialog"><button id="close-image" aria-label="Close image">Close</button><p id="image-caption"></p><div id="image-body"></div></dialog>
+<script id="project-data" type="application/json">{{PROJECT_DATA}}</script><script>{{VIEWER_JS}}</script></body></html>

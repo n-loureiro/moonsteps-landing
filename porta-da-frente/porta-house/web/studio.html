@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From a listing to a place.</title>
+<style>
+{{EDITORIAL_CSS}}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<header class="site"><a class="wordmark" href="/">PORTA HOUSE</a>
+<nav><a href="#new">New model</a><a href="#library">Library</a><a href="/example" target="_blank">Example ↗</a></nav></header>
+<div class="heading">
+<h1>From a listing to a place.</h1>
+<div class="meta">Interactive house studies from listing photos and floor plans.<span class="date">Local workspace · v0.1</span></div>
+</div>
+<div class="hero"></div>
+<div class="layout">
+<aside class="toc"><ol><li data-for="new"><a href="#new">Start a model</a></li><li data-for="library"><a href="#library">Property library</a></li><li data-for="approach"><a href="#approach">How it works</a></li></ol></aside>
+<article>
+<h2 id="new">Start with a property</h2><p>Paste a Porta da Frente listing. We collect the source material, interpret the house, and build an interactive model you can check and refine.</p>
+<form id="generate-form"><label for="urls" class="field-label">PROPERTY URLS <span>One per line · up to 30 at a time</span></label><textarea id="urls" rows="4" placeholder="https://www.portadafrente.com/pt/imoveis/…" required></textarea><div class="actions"><button class="primary" id="generate" type="submit">Generate 3D model</button><button id="collect" type="button">Collect sources only</button></div><p id="configuration" class="small" role="status">Checking configuration…</p><p id="feedback" class="small" role="alert"></p></form>
+<details class="setup"><summary>Set up automatic generation</summary><p>Generation sends the collected property photos and plans to OpenAI and uses your API account. The key stays in the local app process. Collection and imported scenes work without a key.</p><pre>export OPENAI_API_KEY="your-key"
+npm start</pre><p>Close this app’s server first, then restart with the key set. You can choose a compatible vision model through <code>OPENAI_MODEL</code>.</p></details>
+<h2 id="library">Your property library</h2><div class="example-row"><div><strong>Paço de Arcos · PF39051</strong><span>Included example · main-floor plan + 31 photos · hand-authored scene</span></div><a class="pill" href="/example" target="_blank">Explore example ↗</a></div><div id="library-list" aria-live="polite"><p class="small">No properties collected yet.</p></div>
+<h2 id="approach">A model you can inspect</h2><p>The geometry comes from one shared renderer. Each property gets its own source bundle and scene description, so you can correct a wall, add a missing plan, or regenerate the HTML without starting over.</p><figure class="wide"><svg viewBox="0 0 820 130" role="img" aria-label="Listing sources become an editable scene, then a deterministic interactive house viewer"><defs><marker id="chev" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M2,2 L12,7 L2,12" fill="none" stroke="#1e2a38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><g><rect x="27.5" y="29.0" width="205" height="72" rx="8" fill="#f3f3f2"/><text x="130.0" y="61.0" class="t" style="font-size:16px">Collect the evidence</text><text x="130.0" y="80.0" class="s">Photos · plans · listing</text></g><g><rect x="297.5" y="29.0" width="225" height="72" rx="8" fill="#e3f4ef"/><text x="410.0" y="61.0" class="t" style="font-size:16px">Describe the architecture</text><text x="410.0" y="80.0" class="s">An editable scene in metres</text></g><g><rect x="590.0" y="29.0" width="200" height="72" rx="8" fill="#f3f3f2"/><text x="690.0" y="61.0" class="t" style="font-size:16px">Build the viewer</text><text x="690.0" y="80.0" class="s">Portable HTML + JavaScript</text></g><path class="e" d="M235.0,65.0 L295.0,65.0" marker-end="url(#chev)"/><path class="e" d="M525.0,65.0 L588.0,65.0" marker-end="url(#chev)"/></svg><figcaption><b>Figure 1:</b> Evidence is kept separate from geometry. The green step produces an editable description; the viewer draws that description consistently.</figcaption></figure><p>The result is an architectural approximation. Floor plans establish room relationships; photographs suggest roof shapes, heights, materials and landscaping. Where the listing leaves a gap, the model must say so.</p><p>Video and virtual-tour links are recorded. Their contents are only used when you supply extracted frames or a local video through the command-line tool. Missing or uninspected material remains visible in the source record.</p>
+<dialog id="review-dialog"><div class="review-head"><div><p class="eyebrow" id="review-code"></p><h2 id="review-title">Source review</h2></div><button id="close-review" aria-label="Close property review">Close</button></div><p id="review-summary" class="small"></p><div class="review-tabs"><button id="sources-tab" aria-pressed="true">Sources</button><button id="scene-tab" aria-pressed="false">Scene editor</button><a id="open-viewer" target="_blank" hidden>Open 3D viewer ↗</a></div><div id="source-view"><div id="review-warnings" class="small"></div><div id="review-assets"></div></div><div id="scene-view" hidden><p class="small">Import a scene JSON file, or edit the existing scene. All distances are in metres. Validation checks the geometry and evidence references before the viewer is rebuilt. <a href="/api/schema" target="_blank">Scene schema ↗</a></p><label class="file-label">Import scene JSON <input id="scene-file" type="file" accept=".json,application/json"></label><textarea id="scene-editor" spellcheck="false" rows="20" aria-label="Scene JSON"></textarea><div class="actions"><button id="render-scene" class="primary">Validate &amp; rebuild viewer</button><span id="scene-feedback" class="small" role="status"></span></div></div></dialog>
+<dialog id="source-dialog"><button id="close-source">Close</button><p id="source-caption" class="small"></p><div id="source-body"></div></dialog>
+</article>
+<footer>Porta House · Source material stays available for review. Generated viewers work offline and can be shared as a single HTML file.</footer>
+</div>
+<script>
+(() => {
+  const items = [...document.querySelectorAll('.toc li')];
+  const targets = items.map(li => document.getElementById(li.dataset.for)).filter(Boolean);
+  if (!targets.length) return;
+  const set = () => {
+    let cur = targets[0];
+    for (const t of targets) if (t.getBoundingClientRect().top < 140) cur = t;
+    items.forEach(li => li.classList.toggle('on', li.dataset.for === cur.id));
+  };
+  addEventListener('scroll', set, {passive: true}); set();
+})();
+</script>
+<script>
+// editorial-html interactions. Inline this file once per page, after the article.
+// Every behaviour is declared in markup; pages add no per-figure code for these patterns.
+//
+//   <figure data-stepper [data-interval="3500"]>      walk through SVG parts one at a time
+//     svg groups/paths with data-step="k"             clickable; the active one is outlined, others dimmed
+//     .controls with [data-act=prev|play|next], [data-role=pos]
+//     .panel with <div data-step="k">…</div>          one note per step, in order
+//
+//   <figure data-scenarios>                            pick a case, light up its path
+//     buttons [data-scn="key"][data-path="id id …"]   ids refer to svg elements with data-id
+//     .panel with <div data-scn-note="key">…</div>
+//
+//   <div data-toggle>                                  segmented switch
+//     buttons [data-val="v"]; descendants [data-when="v"] show only for the chosen value
+//
+//   <figure data-reveal> / any [data-reveal]           adds .in when scrolled into view
+//     (.grow bars grow in; .seq elements fade in, staggered with style="transition-delay:…")
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const by = (root, sel) => [...root.querySelectorAll(sel)];
+
+  by(document, '[data-stepper]').forEach(fig => {
+    const parts = by(fig, 'svg [data-step]');
+    const notes = by(fig, '.panel [data-step]');
+    const pos = fig.querySelector('[data-role=pos]');
+    const play = fig.querySelector('[data-act=play]');
+    const n = notes.length;
+    let cur = 0, timer = null;
+    const show = i => {
+      cur = (i + n) % n;
+      const key = notes[cur].dataset.step;
+      parts.forEach(p => { const on = p.dataset.step === key; p.classList.toggle('hl', on); p.classList.toggle('dim', !on); });
+      notes.forEach((d, j) => { d.hidden = j !== cur; });
+      if (pos) pos.textContent = `${cur + 1} / ${n}`;
+    };
+    const stop = () => { clearInterval(timer); timer = null; if (play) { play.textContent = 'Play'; play.classList.remove('on'); } };
+    const start = () => {
+      if (reduce) return;
+      timer = setInterval(() => show(cur + 1), +(fig.dataset.interval || 3500));
+      play.textContent = 'Pause'; play.classList.add('on');
+    };
+    fig.querySelector('[data-act=prev]')?.addEventListener('click', () => { stop(); show(cur - 1); });
+    fig.querySelector('[data-act=next]')?.addEventListener('click', () => { stop(); show(cur + 1); });
+    play?.addEventListener('click', () => (timer ? stop() : start()));
+    parts.forEach(p => {
+      p.style.cursor = 'pointer';
+      p.addEventListener('click', () => { stop(); show(notes.findIndex(d => d.dataset.step === p.dataset.step)); });
+    });
+    fig.tabIndex = 0;
+    fig.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { stop(); show(cur + 1); }
+      if (e.key === 'ArrowLeft') { stop(); show(cur - 1); }
+    });
+    show(0);
+  });
+
+  by(document, '[data-scenarios]').forEach(fig => {
+    const btns = by(fig, '[data-scn]');
+    const notes = by(fig, '.panel [data-scn-note]');
+    const els = by(fig, 'svg [data-id]');
+    const pick = btn => {
+      const path = (btn.dataset.path || '').split(/\s+/);
+      btns.forEach(b => b.classList.toggle('on', b === btn));
+      els.forEach(el => {
+        const i = path.indexOf(el.dataset.id);
+        el.classList.toggle('hl', i >= 0);
+        el.classList.toggle('dim', i < 0);
+        el.style.transitionDelay = reduce || i < 0 ? '0s' : `${i * 0.15}s`;
+      });
+      notes.forEach(d => { d.hidden = d.dataset.scnNote !== btn.dataset.scn; });
+    };
+    btns.forEach(b => b.addEventListener('click', () => pick(b)));
+    if (btns.length) pick(btns[0]);
+  });
+
+  by(document, '[data-toggle]').forEach(box => {
+    const btns = by(box, '[data-val]');
+    const set = v => {
+      btns.forEach(b => b.classList.toggle('on', b.dataset.val === v));
+      by(box, '[data-when]').forEach(el => { el.hidden = el.dataset.when !== v; });
+    };
+    btns.forEach(b => b.addEventListener('click', () => set(b.dataset.val)));
+    if (btns.length) set(btns[0].dataset.val);
+  });
+
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.25 });
+  by(document, '[data-reveal]').forEach(el => (reduce ? el.classList.add('in') : io.observe(el)));
+})();
+
+</script>
+<style>
+.heading{margin-top:54px}h1{font-size:44px;line-height:1.08;letter-spacing:-.035em;font-weight:400}.meta{max-width:440px;margin:20px auto 0;color:#787972}.hero{display:none}.layout{margin-top:45px}h2{font-weight:400}.field-label{display:block;font:500 10px var(--sans);letter-spacing:.1em;margin:24px 0 10px}.field-label span{float:right;font-weight:400;letter-spacing:0;text-transform:none;color:#888}textarea{width:100%;border:1px solid #deded7;background:#fbfbf8;border-radius:4px;padding:14px;resize:vertical;font:13px/1.6 var(--sans);color:#3e453d;min-height:90px}textarea:focus{outline:1px solid #779575}.actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}button,.pill{font:12px var(--sans);border:0;border-radius:4px;background:#f0f1eb;color:#3e493a;padding:10px 14px;cursor:pointer;text-decoration:none}button.primary{background:#e0ebdc;color:#38512f}button:hover,.pill:hover{background:#dce7d7}button:disabled{opacity:.45;cursor:not-allowed}.small,.setup{font:12px/1.6 var(--sans);color:#7c7d73}.small{margin:12px 0!important}.setup{padding:13px 0;border-bottom:1px solid #e4e5dd}.setup summary{cursor:pointer;color:#56634f}.setup p{margin:12px 0}pre{font-size:12px}.example-row,.library-row{padding:18px 0;border-bottom:1px solid #e6e7df;display:flex;gap:20px;align-items:center;justify-content:space-between}.example-row strong,.library-row strong{font:400 18px var(--serif)}.example-row span,.library-row span{display:block;font:11px/1.5 var(--sans);color:#85877c;margin-top:5px}.example-row .pill{white-space:nowrap;font-size:11px}.library-row button{font-size:11px;white-space:nowrap}.state{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#64745b}.site{padding:22px 26px!important}.wordmark{font-size:13px!important}dialog{border:1px solid #ddd;background:white;border-radius:6px;padding:26px;width:min(1080px,94vw);max-height:92vh;overflow:auto}dialog::backdrop{background:#1d291a66}.review-head{display:flex;justify-content:space-between;align-items:center}.review-head h2{margin:3px 0 10px;font-size:28px}.eyebrow{font:10px var(--sans);letter-spacing:.12em;color:#6c7b62;margin:0}.review-tabs{display:flex;gap:8px;align-items:center;margin:18px 0}.review-tabs button[aria-pressed="true"]{background:#e2eadf}.review-tabs a{margin-left:auto;font:12px var(--sans)}#review-assets{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}#review-assets button{text-align:left;background:none;padding:0}#review-assets img{width:100%;height:170px;object-fit:cover;display:block}#review-assets .plan img{object-fit:contain;background:#f2f2ed}#review-assets span{display:block;font:10px var(--sans);color:#777;margin:8px 0 12px}.file-label{display:block;font:12px var(--sans);margin:18px 0}.file-label input{margin-left:15px}#scene-editor{font:11px/1.5 var(--mono)}#source-dialog{width:auto;max-width:94vw}#source-body img{max-width:85vw;max-height:75vh;display:block;object-fit:contain}#source-body iframe{width:80vw;height:75vh;border:0}#close-source{float:right}[hidden]{display:none!important}#feedback{color:#8d4f35}#library-list p{margin-top:20px}
+@media(max-width:600px){h1{font-size:36px}.heading{margin:35px 20px 0}.layout{margin-top:20px}.field-label span{float:none;display:block;margin-top:7px}.example-row,.library-row{align-items:flex-start;gap:10px}.example-row .pill{font-size:9px;padding:9px 7px}.example-row strong{font-size:17px}#review-assets{grid-template-columns:1fr 1fr;gap:12px}#review-assets img{height:110px}dialog{padding:16px}.review-head h2{font-size:21px}.review-tabs{gap:5px;flex-wrap:wrap}.review-tabs button{font-size:11px;padding:8px}.review-tabs a{font-size:11px}.file-label input{display:block;margin:10px 0}.wordmark{font-size:12px!important}.site{padding:18px 20px!important}}
+</style><script src="/studio.js"></script>
+</body>
+</html>
