@@ -137,8 +137,8 @@ figure.plan .controls{margin:0 0 10px}
 <tbody>
 <tr>
 <td>Supply</td>
-<td>Three-phase (licensed), <strong>13.8 kVA</strong> contract</td>
-<td>Heat pump + EV + induction; the EV throttles instead of upsizing the contract</td>
+<td><strong>Pending: 1φ 10.35, 3φ 13.8 or 3φ 17.25 kVA.</strong> Power charge €242 / €320 / €398 per year incl. VAT (ERSE regulated tariff, Q4 2026). Drawings follow the licensed three-phase supply</td>
+<td>Trade-off: solar size and EV speed vs running cost; full comparison in <code>02 §6</code></td>
 </tr>
 <tr>
 <td>Main panel</td>
@@ -1293,6 +1293,7 @@ Sources:
 <p>Values below are sized by usual residential practice. <strong>They are not a substitute for that calculation.</strong></p>
 </blockquote>
 <h3>1. Supply and contracted power</h3>
+<p><strong>Decision pending.</strong> There are three viable options, compared in §6. The rest of this document is drawn for <strong>three-phase</strong>, because that is what the licensing project specifies. Choosing single-phase changes §1–§4 (feeders, 2P instead of 4P protection, inverter and EV-charger models) and requires a revision of the licensed ELE project.</p>
 <figure class="tablewrap"><div class="tscroll"><table>
 <thead>
 <tr>
@@ -1303,18 +1304,18 @@ Sources:
 </thead>
 <tbody>
 <tr>
-<td>Supply</td>
+<td>Supply (licensed)</td>
 <td>Three-phase 400/230 V (L1-L2-L3-N)</td>
-<td>Licensed (ELE): utility box → QEE 4 × 16 mm² XV, PEAD Ø63, main switch 4P 63 A</td>
+<td>ELE: utility box → QEE 4 × 16 mm² XV, PEAD Ø63, main switch 4P 63 A</td>
 </tr>
 <tr>
-<td>Contracted power (recommended)</td>
-<td><strong>13.8 kVA</strong> (20 A/phase)</td>
-<td>Design decision, see §6</td>
+<td>Single-phase ceiling</td>
+<td>10.35 kVA (45 A). E-Redes requires three-phase above that</td>
+<td>E-Redes contracted-power steps</td>
 </tr>
 <tr>
-<td>Upgrade path</td>
-<td>17.25 kVA if you want the EV at full 11 kW while the hob and heat pump run</td>
+<td>Contracted power</td>
+<td><strong>Choose: 1φ 10.35 kVA, 3φ 13.8 kVA or 3φ 17.25 kVA</strong> (§6)</td>
 <td></td>
 </tr>
 <tr>
@@ -1324,6 +1325,10 @@ Sources:
 </tr>
 </tbody>
 </table></div><figcaption><b>Table 32:</b> 1. Supply and contracted power.</figcaption></figure>
+<p><strong>How three-phase divides the power.</strong> The contracted power is split across the three phases:
+- 13.8 kVA = 3 × 4.6 kVA = <strong>20 A per phase</strong>;
+- 17.25 kVA = 3 × 5.75 kVA = <strong>25 A per phase</strong>.</p>
+<p>Three-phase loads (EV charger, heat pump, hybrid inverter) draw evenly from all three phases. Single-phase loads (oven, dishwasher, washing machine, sockets) sit on one phase only. A phase can therefore reach its limit while the house total is still below the contract.</p>
 <h3>2. Panel topology</h3>
 <figure class=""><svg viewBox="0 0 680 470" role="img" aria-label="Panel topology: utility meter feeds the QEE grid section, which feeds the garage, Anexo and HVAC sub-panels; the garage inverter returns battery-backed power to the QEE essential section, with a manual bypass from the grid section."><defs><marker id="chev" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M2,2 L12,7 L2,12" fill="none" stroke="#1e2a38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><g><rect x="180.0" y="16.0" width="320" height="58" rx="8" fill="#f3f3f2"/><text x="340.0" y="41.0" class="t" style="font-size:16px">Utility box + meter</text><text x="340.0" y="60.0" class="s">three-phase 400/230 V</text></g><g><rect x="150.0" y="119.0" width="380" height="62" rx="8" fill="#e3f4ef"/><text x="340.0" y="146.0" class="t" style="font-size:16px">QEE — grid section</text><text x="340.0" y="165.0" class="s">main 4P 63 A · surge arrester · grid meter</text></g><g><rect x="10.0" y="254.0" width="210" height="62" rx="8" fill="#f3f3f2"/><text x="115.0" y="281.0" class="t" style="font-size:16px">QEP01 Garage</text><text x="115.0" y="300.0" class="s">inverter + battery · EV 11 kW</text></g><g><rect x="255.0" y="254.0" width="170" height="62" rx="8" fill="#f3f3f2"/><text x="340.0" y="281.0" class="t" style="font-size:16px">QEP02 Anexo</text><text x="340.0" y="300.0" class="s">workshop</text></g><g><rect x="460.0" y="254.0" width="190" height="62" rx="8" fill="#f3f3f2"/><text x="555.0" y="281.0" class="t" style="font-size:16px">QEP03 HVAC</text><text x="555.0" y="300.0" class="s">roof void: heat pump · ACs</text></g><g><rect x="10.0" y="391.0" width="210" height="58" rx="8" fill="#ffffff" stroke="#1e2a38" stroke-width="1.5" stroke-dasharray="5 5"/><text x="115.0" y="416.0" class="t" style="font-size:16px">PV ≈ 8 kWp</text><text x="115.0" y="435.0" class="s">terraces + pitched roofs</text></g><g><rect x="300.0" y="389.0" width="300" height="62" rx="8" fill="#e3f4ef"/><text x="450.0" y="407.0" class="t" style="font-size:16px">QEE — essential section</text><text x="450.0" y="426.0" class="s">battery-backed: lights, shutters,</text><text x="450.0" y="445.0" class="s">network, fridges, office, gate</text></g><path class="e" d="M340.0,80.0 L340.0,113.0" marker-end="url(#chev)"/><path class="e" d="M260.0,182.0 L140.0,248.0" marker-end="url(#chev)"/><text x="172" y="222" class="l" text-anchor="end">F01 5G16</text><path class="e" d="M340.0,182.0 L340.0,248.0" marker-end="url(#chev)"/><text x="348" y="222" class="l" text-anchor="start">F02 5G6</text><path class="e" d="M420.0,182.0 L535.0,248.0" marker-end="url(#chev)"/><text x="498" y="210" class="l" text-anchor="start">F03 5G10</text><path class="e" d="M115.0,385.0 L115.0,322.0" marker-end="url(#chev)"/><text x="123" y="360" class="l" text-anchor="start">DC strings</text><path class="e" d="M222,300 L310,383" marker-end="url(#chev)"/><text x="296" y="345" class="l" text-anchor="start">F04 backup 5G6</text><path class="e d" d="M530,150 L660,150 L660,420 L606,420" marker-end="url(#chev)"/><text x="650" y="340" class="l" text-anchor="end">bypass I-0-II</text></svg><figcaption><b>Figure 4:</b> power flows down from the meter. The inverter sits in the garage, so the battery-backed essential section is fed <i>back</i> to the house on its own cable (F04); the dashed bypass feeds it from the grid while the inverter is serviced. Pale green: the two QEE sections; dashed outline: generation.</figcaption></figure>
 <p><strong>Why the inverter needs two cables to the house.</strong> The inverter and battery are in the garage, by your choice. The inverter's grid port is fed from QEE through F01. Its <strong>backup output</strong> comes back on F04 to a separate <em>essential</em> section in QEE.</p>
@@ -2167,55 +2172,260 @@ Sources:
 </tr>
 </tbody>
 </table></div><figcaption><b>Table 40:</b> 5. QEP02 — Anexo (workshop) and QEP03 — HVAC (roof void).</figcaption></figure>
-<h3>6. Demand estimate → contracted power</h3>
+<h3>6. Supply options: scenarios and running cost</h3>
+<h4>6.1 Load assumptions (winter evening, diversified)</h4>
 <figure class="tablewrap"><div class="tscroll"><table>
 <thead>
 <tr>
 <th>Load</th>
-<th>Rated</th>
-<th>Simultaneous (winter evening, worst realistic)</th>
+<th>Power</th>
+<th>Single-phase current</th>
+<th>Per phase on three-phase</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Heat pump (≈ 9–12 kW thermal)</td>
-<td>≈ 3.5 kW electrical</td>
 <td>3.5 kW</td>
+<td>15.2 A</td>
+<td>5.1 A (three-phase unit)</td>
 </tr>
 <tr>
-<td>Induction hob</td>
-<td>7.4 kW</td>
-<td>4 kW (diversified)</td>
+<td>Induction hob (diversified; 7.4 kW max)</td>
+<td>4 kW</td>
+<td>17.4 A</td>
+<td>8.7 A on L1 + L2</td>
 </tr>
 <tr>
 <td>Oven</td>
-<td>3.5 kW</td>
 <td>2 kW</td>
+<td>8.7 A</td>
+<td>8.7 A on L3</td>
 </tr>
 <tr>
-<td>Dishwasher / washing machine</td>
-<td>2.2 kW each</td>
-<td>2 kW (one at a time)</td>
+<td>Dishwasher (or washing machine)</td>
+<td>2 kW</td>
+<td>8.7 A</td>
+<td>8.7 A on one phase</td>
 </tr>
 <tr>
-<td>Lighting + rack + fridges</td>
-<td>≈ 1.5 kW</td>
+<td>Background (lights, fridges, rack)</td>
 <td>1.5 kW</td>
+<td>6.5 A</td>
+<td>2.2 A per phase</td>
+</tr>
+</tbody>
+</table></div><figcaption><b>Table 41:</b> 6.1 Load assumptions (winter evening, diversified).</figcaption></figure>
+<h4>6.2 Scenarios</h4>
+<figure class="tablewrap"><div class="tscroll"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Total</th>
+<th><strong>1φ 10.35 kVA</strong> (45 A)</th>
+<th><strong>3φ 13.8 kVA</strong> (20 A/phase)</th>
+<th><strong>3φ 17.25 kVA</strong> (25 A/phase)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. Winter dinner: heat pump + hob + oven</td>
+<td>11 kW</td>
+<td>48 A: <strong>over the limit</strong></td>
+<td>16 / 16 / 16 A: OK</td>
+<td>OK</td>
+</tr>
+<tr>
+<td>B. A + dishwasher</td>
+<td>13 kW</td>
+<td>57 A: <strong>over the limit</strong></td>
+<td>the dishwasher's phase reaches ≈ 25 A on <strong>any</strong> phase: <strong>over the limit</strong></td>
+<td>≈ 25 A on the worst phase: OK, at the limit</td>
+</tr>
+<tr>
+<td>B with the heat pump paused (§6.3)</td>
+<td>9.5 kW</td>
+<td>41 A: OK</td>
+<td>≈ 20 A: at the limit</td>
+<td>OK</td>
+</tr>
+<tr>
+<td>C. Night: heat pump + EV charging</td>
+<td>–</td>
+<td>EV gets ≈ 6.3 kW (8 h ≈ 50 kWh)</td>
+<td>EV gets ≈ 9.8 kW</td>
+<td>EV at full 11 kW</td>
+</tr>
+<tr>
+<td>D. Sunny day, 8 kWp of panels</td>
+<td>–</td>
+<td>single-phase hybrid inverters top out at ≈ 6 kW: <strong>output capped</strong></td>
+<td>full 8–10 kW</td>
+<td>full</td>
+</tr>
+<tr>
+<td>E. Grid outage on battery</td>
+<td>–</td>
+<td>≈ 5–6 kW backup, all on one phase</td>
+<td>≈ 10 kW, but each phase limited to about a third of that</td>
+<td>same as 13.8</td>
+</tr>
+</tbody>
+</table></div><figcaption><b>Table 42:</b> 6.2 Scenarios.</figcaption></figure>
+<p><strong>Phase assignment</strong> in §3.2 already puts the oven (L3), dishwasher (L2) and washing machine (L1) on different phases, and the worktop circuits on L1/L2/L3.</p>
+<p>Case B on 13.8 kVA still exceeds 20 A however you wire it. The hob alone occupies two phases and the oven the third, so every phase is already at ≈ 16 A during cooking. Any extra 2 kW appliance adds 8.7 A wherever it goes. Only the contract size (§6.4) or load shedding (§6.3) fixes it.</p>
+<h4>6.3 Load shedding (required for 1φ 10.35 and 3φ 13.8; a safety net for 17.25)</h4>
+<p>The floor slab stores hours of heat, so pausing the heat pump for 30–60 min during a cooking peak goes unnoticed. Home Assistant reads the grid meter (per phase on three-phase) and sheds in this order:
+1. Hot-water immersion heater off.
+2. EV charger throttled, down to pause.
+3. Heat-pump compressor paused, at most 60 min, then the shedding restarts from step 1. Summer: AC outdoor units limited instead.
+4. The battery discharges to cover the rest, when charged.</p>
+<p>Thresholds sit at <strong>90 % of the limit</strong>: 40 A on single-phase, or 90 % of each phase's limit on three-phase. Loads come back one at a time, 2 min apart.</p>
+<h4>6.4 Running cost: contracted-power charge</h4>
+<p>ERSE regulated tariff (tarifa transitória BTN, Q4 2026). Free-market offers differ, but scale the same way with kVA.</p>
+<p>Prices exclude VAT; above 6.9 kVA, VAT is 23 % on the whole bill. The energy price per kWh is the same for all three options (regulated simple tariff 0.1711 €/kWh excl. VAT), so it doesn't change the comparison.</p>
+<figure class="tablewrap"><div class="tscroll"><table>
+<thead>
+<tr>
+<th>Option</th>
+<th>€/day (excl. VAT)</th>
+<th>€/year excl. VAT</th>
+<th><strong>€/year incl. 23 % VAT</strong></th>
+<th><strong>€/month incl. VAT</strong></th>
+<th>Extra per year vs 10.35</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1φ 10.35 kVA</td>
+<td>0.5397</td>
+<td>197</td>
+<td><strong>242</strong></td>
+<td><strong>20.19</strong></td>
+<td>–</td>
+</tr>
+<tr>
+<td>3φ 13.8 kVA</td>
+<td>0.7136</td>
+<td>260</td>
+<td><strong>320</strong></td>
+<td><strong>26.70</strong></td>
+<td>+ 78</td>
+</tr>
+<tr>
+<td>3φ 17.25 kVA</td>
+<td>0.8875</td>
+<td>324</td>
+<td><strong>398</strong></td>
+<td><strong>33.20</strong></td>
+<td>+ 156</td>
+</tr>
+</tbody>
+</table></div><figcaption><b>Table 43:</b> 6.4 Running cost: contracted-power charge.</figcaption></figure>
+<p>Source: ERSE, "Tarifas e preços para a energia elétrica e outros serviços em 2026", as updated 1 Oct 2026 (table reproduced at tiagofelicia.pt/tarifa-regulada-eletricidade).</p>
+<h4>6.5 One-off cost differences</h4>
+<p>Rough retail estimates <strong>[estimate]</strong>. Everything not listed costs the same on all three options.</p>
+<figure class="tablewrap"><div class="tscroll"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>1φ 10.35 kVA</th>
+<th>3φ 13.8 / 17.25 kVA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hybrid inverter</td>
+<td>Sungrow SH6.0RS (6 kW) ≈ €0.9–1.1k</td>
+<td>Sungrow SH10RT (10 kW) ≈ €1.0–2.4k (prices seen vary widely by version/shop)</td>
+</tr>
+<tr>
+<td>Solar array the inverter can use</td>
+<td>≈ 6–7 kWp (a larger array needs a second inverter)</td>
+<td>8–10 kWp</td>
 </tr>
 <tr>
 <td>EV charger</td>
+<td>the same go-e Gemini flex 11 kW runs at 7.4 kW on single-phase</td>
 <td>11 kW</td>
-<td><strong>throttled</strong> to what is left</td>
 </tr>
 <tr>
-<td><strong>Total excluding EV</strong></td>
-<td></td>
-<td><strong>≈ 13 kW</strong></td>
+<td>Heat pump</td>
+<td>single-phase model (Aquarea up to ≈ 16 kW thermal)</td>
+<td>three-phase model; similar price</td>
+</tr>
+<tr>
+<td>Panels and feeders</td>
+<td>2P protection, 3-core feeders: ≈ €300–600 cheaper</td>
+<td>4P protection, 5-core feeders (as in §2–§4)</td>
+</tr>
+<tr>
+<td>Licensing</td>
+<td>ELE revision by the engineer (fee: ask them)</td>
+<td>as licensed</td>
 </tr>
 </tbody>
-</table></div><figcaption><b>Table 41:</b> 6. Demand estimate → contracted power.</figcaption></figure>
-<p>With <strong>13.8 kVA</strong>, the EV charger throttles itself during such peaks. The battery and PV cut real grid peaks further. Summer cooling (3 AC outdoor units ≈ 6 kW max) runs instead of heating, not on top of it.</p>
-<p>Raise the contract to <strong>17.25 kVA</strong> only if the charger's throttling or limiter trips become annoying in practice. That is a contract change with your supplier, not a rewiring job.</p><h2 id="automation">Automation architecture and materials</h2><h3>1. Principles</h3>
+</table></div><figcaption><b>Table 44:</b> 6.5 One-off cost differences.</figcaption></figure>
+<h4>6.6 Comparison</h4>
+<figure class="tablewrap"><div class="tscroll"><table>
+<thead>
+<tr>
+<th></th>
+<th>1φ 10.35 kVA</th>
+<th>3φ 13.8 kVA</th>
+<th>3φ 17.25 kVA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Power charge (incl. VAT)</td>
+<td><strong>€242/yr</strong></td>
+<td>€320/yr</td>
+<td>€398/yr</td>
+</tr>
+<tr>
+<td>Cooking + heating peak</td>
+<td>needs heat-pump pause</td>
+<td>needs heat-pump pause</td>
+<td>fits (at the limit)</td>
+</tr>
+<tr>
+<td>EV</td>
+<td>≈ 6–7 kW</td>
+<td>≈ 10 kW at night</td>
+<td>11 kW</td>
+</tr>
+<tr>
+<td>Solar</td>
+<td>≈ 6 kW inverter cap</td>
+<td>full size</td>
+<td>full size</td>
+</tr>
+<tr>
+<td>Phase balancing</td>
+<td>none</td>
+<td>needed</td>
+<td>needed</td>
+</tr>
+<tr>
+<td>Licensing</td>
+<td>revision needed</td>
+<td>as licensed</td>
+<td>as licensed</td>
+</tr>
+<tr>
+<td>Room to grow</td>
+<td>none (10.35 is the single-phase maximum)</td>
+<td>up to 20.7 kVA and beyond</td>
+<td>up to 20.7 kVA and beyond</td>
+</tr>
+</tbody>
+</table></div><figcaption><b>Table 45:</b> 6.6 Comparison.</figcaption></figure>
+<p><strong>Recommendation:</strong>
+- <strong>3φ 17.25 kVA</strong> if the full 8 kWp solar array matters. It costs €156/yr more than single-phase in power charge, and only the rare dinner-plus-dishwasher peak gets close to the limit.
+- <strong>1φ 10.35 kVA</strong> if a ≈ 6 kW solar array is enough. It is the cheapest option to run, as long as the heat-pump pause in §6.3 is in place.
+- <strong>3φ 13.8 kVA is the weakest choice.</strong> It costs more than single-phase and still needs the same pausing.</p>
+<p>Moving between 13.8 and 17.25 kVA is a contract change with your supplier, not new wiring.</p><h2 id="automation">Automation architecture and materials</h2><h3>1. Principles</h3>
 <ol>
 <li><strong>Local first.</strong> Every essential function works with no internet, and the basic ones work even with Home Assistant (HA) down:
    - wall buttons switch and dim lights;
@@ -2278,7 +2488,7 @@ Sources:
 <li><strong>Hot-water boost:</strong> with export &gt; 1.5 kW and the battery &gt; 90 %, raise the tank setpoint (+10 °C).</li>
 <li><strong>Floor pre-heat / pre-cool</strong> in the PV window: the screed is the thermal battery.</li>
 <li><strong>Off-peak strategy:</strong> if you choose a bi-horário/tri-horário tariff, charge the battery in vazio in winter when tomorrow's PV forecast is low (Solcast / Forecast.Solar).</li>
-<li><strong>Peak protection:</strong> if the house nears the contracted power, the EV throttles first, then the immersion heater.</li>
+<li><strong>Peak protection (load shedding):</strong> HA reads the grid meter (per phase on three-phase). At 90 % of the limit it sheds in this order: immersion heater → EV charger → heat-pump compressor (paused at most 60 min; the floor slab bridges the gap) → battery discharge. Loads return one at a time. Required on 1φ 10.35 and 3φ 13.8 kVA (see <code>02 §6</code>).</li>
 </ul>
 <h4>3.5 Security and access</h4>
 <p>A certified wired alarm with its own smoke, heat, CO and leak detectors, PoE cameras and a gate video intercom, all integrated into Home Assistant. Any leak sensor closes the main water valve. <strong>Device placement is omitted from the public version of this plan.</strong></p>
@@ -2512,7 +2722,7 @@ Sources:
 <td><strong>≈ 31,900</strong></td>
 </tr>
 </tbody>
-</table></div><figcaption><b>Table 42:</b> 4. Bill of materials (excluding PV, battery, inverter, heat pump, ACs, shutter motors, light fixtures).</figcaption></figure>
+</table></div><figcaption><b>Table 46:</b> 4. Bill of materials (excluding PV, battery, inverter, heat pump, ACs, shutter motors, light fixtures).</figcaption></figure>
 <p><strong>Against your €15–30k:</strong> this full spec lands <strong>≈ €2k above</strong> the ceiling, with labour as the largest uncertainty. Cuts that keep the architecture intact:</p>
 <figure class="tablewrap"><div class="tscroll"><table>
 <thead>
@@ -2547,7 +2757,7 @@ Sources:
 <td><strong>≈ 2,200 → ≈ €29.7k</strong></td>
 </tr>
 </tbody>
-</table></div><figcaption><b>Table 43:</b> 4. Bill of materials (excluding PV, battery, inverter, heat pump, ACs, shutter motors, light fixtures).</figcaption></figure>
+</table></div><figcaption><b>Table 47:</b> 4. Bill of materials (excluding PV, battery, inverter, heat pump, ACs, shutter motors, light fixtures).</figcaption></figure>
 <p><strong>Do not cut:</strong> the star wiring, the conduit to every point, or the buried ducts. These are the parts that can't be added after the walls close.</p>
 <h3>5. Commissioning and handover checklist</h3>
 <ul>
@@ -2579,7 +2789,8 @@ Sources:
 <li><strong>Heat-pump outdoor unit position</strong>: your attic drawing labels "bomba de calor" on the <strong>SE</strong> terrace; this plan puts it on the <strong>NW</strong> terrace with the licensed AC outdoor units. The NW terrace is closer to the tank in the roof void, so the insulated pipe runs are shorter. Confirm.</li>
 <li><strong>Water main entry</strong>: where does the water supply enter the house? The motorised shut-off valve and its spur go there.</li>
 <li><strong>Car and pedestrian gate positions</strong>: the site sheet places them approximately (car gate at the head of the W driveway, pedestrian gate by the meter box). Confirm.</li>
-</ol><h3>Not included</h3><p>Light-fixture selection, shutter motors (window supplier), PV/battery/heat-pump/AC equipment prices, RTIEBT calculations and certification. Those belong to the licensed engineer and the specialist suppliers.</p>
+<li><strong>Supply and contracted power</strong>: 1φ 10.35 kVA (cheapest to run, solar capped at ≈ 6 kW, needs an ELE revision), 3φ 13.8 kVA, or 3φ 17.25 kVA (full solar, 11 kW EV, €156/yr more). See <code>02 §6</code>.</li>
+</ol><h3>Not included</h3><p>Light-fixture selection, shutter motors (window supplier), full PV/battery/heat-pump/AC quotes (only the inverter differences between supply options are estimated, in <code>02 §6.5</code>), RTIEBT calculations and certification. Those belong to the licensed engineer and the specialist suppliers.</p>
 </article>
 <footer>Generated on 18 October 2026 from README.md, 01-points-by-room.md, 02-panels-and-circuits.md, 03-automation-architecture-and-bom.md and the plans/ SVG sheets in electrical-plan/. Design proposal — to be validated by the licensed engineer.</footer>
 </div>
