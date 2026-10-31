@@ -128,7 +128,7 @@
     f.addEventListener('load', function () { l.classList.add('done'); });
     o.panel.appendChild(f); o.panel.appendChild(l);
     o.frame = f; o.loading = l;
-    f.src = o.def.url;
+    f.src = o.def.url + "?v=20261031b";
   }
   function unload(o) {
     if (!o.frame) return;
@@ -149,7 +149,7 @@
     o.btn.setAttribute('aria-selected', 'true'); o.btn.tabIndex = 0;
     o.panel.hidden = false;
     load(o);
-    openLink.href = o.def.url;
+    openLink.href = o.def.url + "?v=20261031b";
     document.title = o.def.label + ' · Moonsteps Obra';
     o.btn.scrollIntoView({ block: 'nearest', inline: 'center', behavior: fromClick ? 'smooth' : 'auto' });
     if (fromClick && location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
