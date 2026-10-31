@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0b0b0e">
+<title>Moonsteps · Obra — hub</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M16 9A7 7 0 1 1 9 2a5.5 5.5 0 0 0 0 14A7 7 0 0 0 16 9z' fill='%23c4882a'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0b0b0e;
+    --surface: #0f0f13;
+    --surface-2: #131318;
+    --border: #1e1e28;
+    --amber: #c4882a;
+    --amber-dim: #3d2a0c;
+    --cream: #f5f3f0;
+    --muted: #9e9eb2;
+    --font: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--cream); font-family: var(--font); }
+  body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+
+  header {
+    flex: none; display: flex; align-items: stretch;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding-top: env(safe-area-inset-top);
+  }
+  .logo {
+    flex: none; display: flex; align-items: center; padding: 0 .85rem;
+    border-right: 1px solid var(--border);
+  }
+  .logo svg { width: 20px; height: 20px; }
+  [role=tablist] {
+    flex: 1; min-width: 0; display: flex; overflow-x: auto; overscroll-behavior-x: contain;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  [role=tablist]::-webkit-scrollbar { display: none; }
+  [role=tab] {
+    flex: none; min-height: 52px; padding: 0 1.1rem; border: 0; border-bottom: 3px solid transparent;
+    background: none; color: var(--muted); font: 500 .95rem/1 var(--font); white-space: nowrap;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  [role=tab]:hover { color: var(--cream); }
+  [role=tab][aria-selected=true] { color: var(--amber); border-bottom-color: var(--amber); background: var(--surface-2); }
+  [role=tab]:focus-visible, .open:focus-visible { outline: 2px solid var(--amber); outline-offset: -2px; }
+  .open {
+    flex: none; display: flex; align-items: center; padding: 0 .95rem; min-width: 52px; justify-content: center;
+    border-left: 1px solid var(--border); color: var(--amber); text-decoration: none;
+    font: 500 .8rem/1 var(--mono); letter-spacing: .02em; -webkit-tap-highlight-color: transparent;
+  }
+  .open:hover { background: var(--amber-dim); }
+  .open span { margin-left: .4rem; }
+  @media (max-width: 520px) { .open span { display: none; } }
+
+  main { flex: 1; min-height: 0; position: relative; }
+  .panel { position: absolute; inset: 0; }
+  .panel[hidden] { display: none; }
+  .panel iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fff; }
+  .loading {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: var(--bg); color: var(--muted); font: .85rem var(--mono); pointer-events: none;
+    transition: opacity .25s;
+  }
+  .loading.done { opacity: 0; }
+  noscript { padding: 1rem; display: block; }
+  noscript a { color: var(--amber); }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" aria-hidden="true">
+    <svg viewBox="0 0 18 18" fill="none"><path d="M16 9A7 7 0 1 1 9 2a5.5 5.5 0 0 0 0 14A7 7 0 0 0 16 9z" fill="#c4882a"/></svg>
+  </div>
+  <div role="tablist" id="tabs" aria-label="Páginas da obra"></div>
+  <a class="open" id="open" href="/research/" aria-label="Abrir em ecrã inteiro"><b aria-hidden="true">⤢</b><span>ecrã inteiro</span></a>
+</header>
+<main id="main">
+  <noscript>
+    Precisa de JavaScript. Ligações directas:
+    <a href="/research/">Pesquisa</a> · <a href="/research/isolamento/">Isolamento</a> · <a href="/research/custos/">Custos</a> ·
+    <a href="/research/agua-3d/">Água 3D</a> · <a href="/research/eletrica-3d/">Elétrica 3D</a> ·
+    <a href="/electrical/pt/">Plano elétrico</a> · <a href="/house/">Casa 3D</a> · <a href="/portadafrente/">Porta da Frente 3D</a>
+  </noscript>
+</main>
+
+<script>
+(function () {
+  // heavy: 3D / multi-MB pages are unloaded when you leave their tab (saves phone memory/GPU).
+  var TABS = [
+    { id: 'pesquisa',   label: 'Pesquisa',        url: '/research/' },
+    { id: 'isolamento', label: 'Isolamento',      url: '/research/isolamento/' },
+    { id: 'custos',     label: 'Custos',          url: '/research/custos/' },
+    { id: 'agua',       label: 'Água 3D',         url: '/research/agua-3d/',      heavy: true },
+    { id: 'eletrica',   label: 'Elétrica 3D',     url: '/research/eletrica-3d/',  heavy: true },
+    { id: 'plano',      label: 'Plano elétrico',  url: '/electrical/pt/' },
+    { id: 'casa',       label: 'Casa 3D',         url: '/house/',                 heavy: true },
+    { id: 'porta',      label: 'Porta da Frente', url: '/portadafrente/',         heavy: true }
+  ];
+  var tablist = document.getElementById('tabs');
+  var main = document.getElementById('main');
+  var openLink = document.getElementById('open');
+  var byId = {}, current = null;
+
+  TABS.forEach(function (t) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'tab'; b.setAttribute('role', 'tab');
+    b.id = 'tab-' + t.id; b.setAttribute('aria-controls', 'panel-' + t.id);
+    b.setAttribute('aria-selected', 'false'); b.tabIndex = -1; b.textContent = t.label;
+    b.addEventListener('click', function () { select(t.id, true); });
+    tablist.appendChild(b);
+
+    var p = document.createElement('div');
+    p.className = 'panel'; p.id = 'panel-' + t.id; p.setAttribute('role', 'tabpanel');
+    p.setAttribute('aria-labelledby', b.id); p.hidden = true;
+    main.appendChild(p);
+    byId[t.id] = { def: t, btn: b, panel: p, frame: null, loading: null };
+  });
+
+  function load(o) {
+    if (o.frame) return;
+    var f = document.createElement('iframe');
+    f.title = o.def.label; f.setAttribute('allow', 'fullscreen');
+    var l = document.createElement('div');
+    l.className = 'loading'; l.textContent = 'a carregar ' + o.def.label + '…';
+    f.addEventListener('load', function () { l.classList.add('done'); });
+    o.panel.appendChild(f); o.panel.appendChild(l);
+    o.frame = f; o.loading = l;
+    f.src = o.def.url;
+  }
+  function unload(o) {
+    if (!o.frame) return;
+    o.panel.textContent = '';
+    o.frame = o.loading = null;
+  }
+
+  function select(id, fromClick) {
+    if (!byId[id]) id = TABS[0].id;
+    if (id === current) return;
+    var prev = current && byId[current];
+    if (prev) {
+      prev.btn.setAttribute('aria-selected', 'false'); prev.btn.tabIndex = -1;
+      prev.panel.hidden = true;
+      if (prev.def.heavy) unload(prev);
+    }
+    var o = byId[id]; current = id;
+    o.btn.setAttribute('aria-selected', 'true'); o.btn.tabIndex = 0;
+    o.panel.hidden = false;
+    load(o);
+    openLink.href = o.def.url;
+    document.title = o.def.label + ' · Moonsteps Obra';
+    o.btn.scrollIntoView({ block: 'nearest', inline: 'center', behavior: fromClick ? 'smooth' : 'auto' });
+    if (fromClick && location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+  }
+
+  tablist.addEventListener('keydown', function (e) {
+    var i = TABS.findIndex(function (t) { return t.id === current; }), n = TABS.length;
+    if (e.key === 'ArrowRight') i = (i + 1) % n;
+    else if (e.key === 'ArrowLeft') i = (i + n - 1) % n;
+    else if (e.key === 'Home') i = 0;
+    else if (e.key === 'End') i = n - 1;
+    else return;
+    e.preventDefault(); select(TABS[i].id, true); byId[TABS[i].id].btn.focus();
+  });
+
+  function fromHash() { select(decodeURIComponent(location.hash.slice(1))); }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+})();
+</script>
+</body>
+</html>
