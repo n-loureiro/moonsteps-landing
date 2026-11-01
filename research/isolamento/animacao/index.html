@@ -19,9 +19,10 @@ canvas{display:block;width:100%;min-width:640px;height:auto}.sw{display:inline-b
 .keys{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;margin:2px 0 4px}</style></head><body>
 <p class="n"><a href="../">← Isolamento: comparação de soluções</a></p>
 <h1>Como o calor atravessa as paredes, de Inverno e de Verão</h1>
-<p class="n">Moradia em Oeiras · 24 horas de um dia de céu limpo, simuladas em regime variável (o calor demora a atravessar e fica guardado na alvenaria). A casa está climatizada: 20 °C no Inverno, 25 °C no Verão. Cálculo próprio, valores nominais, sem pontes térmicas [CÁLCULO]. Não substitui a memória térmica do projectista.</p>
+<p class="n">Moradia em Oeiras · 24 horas de um dia de céu limpo, simuladas em regime variável (o calor demora a atravessar e fica guardado na alvenaria). Dois modos: <b>climatização ligada</b> (sala fixa a 20 °C no Inverno e 25 °C no Verão; mostra energia e custo a 0,18 €/kWh) e <b>climatização desligada</b> (a temperatura da sala flutua; mostra o efeito da inércia térmica). Cálculo próprio, valores nominais, sem pontes térmicas [CÁLCULO]. Não substitui a memória térmica do projectista.</p>
 
 <div class="ctl">
+  <div class="g seg" id="sMode"><b>Climatização</b><button data-v="ac">Ligada (energia e €)</button><button data-v="free">Desligada (inércia)</button></div>
   <div class="g seg" id="sWall"><b>Parede</b><button data-v="nova">Nova (bloco + EPS grafite)</button><button data-v="exist">Existente (tijolo dupla)</button></div>
   <div class="g seg" id="sSeason"><b>Estação</b><button data-v="inv">Inverno</button><button data-v="ver">Verão</button></div>
   <div class="g pre" id="sPre"></div>
@@ -29,40 +30,49 @@ canvas{display:block;width:100%;min-width:640px;height:auto}.sw{display:inline-b
   <div class="g"><b>Fachada</b><select id="ori"><option value="N">Norte</option><option value="E">Este</option><option value="S">Sul</option><option value="O">Oeste</option></select></div>
   <div class="g"><b>Céu</b><select id="sky"><option value="1">limpo</option><option value="0">encoberto</option></select></div>
   <div class="g" id="gRt"><b>Exterior</b><select id="rt"><option value="1">reboco térmico 2 cm (projecto)</option><option value="0">reboco actual</option></select></div>
+  <div class="g" id="gCop"><b>COP / EER</b><input id="cop" type="number" step="0.5" min="1"> <span class="n">a 0,18 €/kWh</span></div>
+  <div class="g" id="gNight"><b>Janelas abertas à noite</b><select id="night"><option value="1">sim (22 h–8 h)</option><option value="0">não</option></select></div>
 </div>
 <div class="player"><button id="play">❚❚</button><span id="clock">00:00</span><input id="time" type="range" min="0" max="287" value="0">
   <select id="speed"><option value="0.5">½ h/s</option><option value="1" selected>1 h/s</option><option value="2">2 h/s</option><option value="4">4 h/s</option></select></div>
 <div class="sc"><canvas id="wall"></canvas></div>
-<p class="n">Cor = temperatura em relação à sala (azul mais frio, vermelho mais quente). Linha preta = perfil de temperaturas. Os pontos amarelos são o calor a passar: andam mais depressa onde o fluxo é maior e mudam de sentido quando o fluxo se inverte. Faixa de cor no topo de cada camada = material.</p>
+<p class="n" id="wallNote"></p>
 
-<h2>Temperaturas ao longo do dia</h2>
+<h2 id="hT">Temperaturas ao longo do dia</h2>
 <div class="keys" id="kT"></div><div class="sc"><canvas id="chT"></canvas></div>
-<h2>Calor na face interior (+ entra na sala, − sai da sala)</h2>
+<h2>Calor na face interior da parede (+ entra na sala, − sai da sala)</h2>
 <div class="keys" id="kQ"></div><div class="sc"><canvas id="chQ"></canvas></div>
 
 <h2>Este dia</h2>
 <div class="sc" id="tab"></div>
 <div class="box" id="leitura"></div>
 
-<h2>Resumo: Inverno e Verão a várias temperaturas</h2>
+<h2 id="hRes">Resumo: Inverno e Verão a várias temperaturas</h2>
 <p class="n" id="resumoNota"></p>
 <div class="sc" id="resumo"></div>
 
+<h2>O que é a inércia térmica</h2>
+<p>A alvenaria guarda calor. Se ficar do lado de dentro do isolamento e à vista da sala (estuque), absorve o calor que entra de dia pelas janelas, pelas pessoas e pelos aparelhos, e devolve-o à noite, quando se abrem as janelas. A sala aquece menos e mais devagar. Um forro de gesso cartonado, sobretudo com lã, separa a sala dessa massa: a parede pode isolar mais, mas a sala passa a depender só do ar e dos móveis. A «admitância» mede isto: quantos W/m² a parede absorve da sala por cada °C que a sala aquece ao longo do dia. A Portaria 138-I/2021 conta como inércia fraca uma parede com revestimento interior de R ≥ 0,14 m²·°C/W, o que inclui um forro com caixa de ar.</p>
+
+<p>A simulação sem climatização mostra também o limite da inércia: num quarto com janela a poente sem estore, o sol e os ganhos internos põem a sala acima da temperatura da rua, e uma parede mais isolada guarda esse calor lá dentro. A inércia só ajuda se houver por onde descarregar o calor: <b>sombrear as janelas de dia e abrir à noite</b> pesa mais do que qualquer das paredes (compare «Janelas abertas à noite: sim/não»).</p>
+
 <h2>Método e pressupostos</h2>
 <ul class="n" style="font-size:12.5px">
-<li>Condução 1D em diferenças finitas implícitas (células ≈ 1 cm, passo 150 s), 12 dias repetidos até o ciclo diário estabilizar. A resistência de cada camada é a mesma da página de comparação (EN ISO 6946): Rse 0,04, Rsi 0,13; bloco térmico 25 cm λ 0,30 (TER.4); EPS grafite λ 0,031; tijolo furado 15 cm R 0,39 e caixa de ar R 0,18 (ITE 50 / Manual SCE); lã insuflada λ 0,034; estuque λ 0,43; 2 placas R 0,10; reboco térmico λ 0,05.</li>
+<li>Condução 1D em diferenças finitas implícitas (células ≈ 1 cm, passo 150 s), dias repetidos até o ciclo diário estabilizar (12 dias com climatização, 20 sem). A resistência de cada camada é a mesma da página de comparação (EN ISO 6946): Rse 0,04, Rsi 0,13; bloco térmico 25 cm λ 0,30 (TER.4); EPS grafite λ 0,031; tijolo furado 15 cm R 0,39 e caixa de ar R 0,18 (ITE 50 / Manual SCE); lã insuflada λ 0,034; estuque λ 0,43; 2 placas R 0,10; reboco térmico λ 0,05.</li>
 <li>Lã do forro atravessada por montantes metálicos: conta a 60 % [INFERÊNCIA], como na página de comparação.</li>
 <li>Massas volúmicas e calores específicos [INFERÊNCIA, valores de manual]: bloco 800 kg/m³, tijolo furado 750 kg/m³ (675–825 na tese IST citada nos dados), estuque 1100, gesso cartonado 800, reboco 1900, reboco térmico 200 (ficha Isodur One), EPS 15, lãs 25–40; c ≈ 900–1450 J/kg·K. Afectam o atraso e o amortecimento, não o U.</li>
 <li>Sol: céu limpo pelo modelo ASHRAE (constantes de Janeiro e Julho), latitude 38,7° N, 21 de Janeiro e 21 de Julho; «encoberto» = só radiação difusa, ¼ da de céu limpo. Coeficiente de absorção da fachada 0,40 (o valor da TER.4). Temperatura ar-sol = ar + 0,40·I/25 − 0,9 °C (perda para o céu). Horas em hora legal.</li>
 <li>Temperatura exterior: curva diária entre o mínimo (≈ nascer do sol) e o máximo (15 h no Inverno, 16 h no Verão). Os cenários são exemplos próximos das médias de Lisboa [INFERÊNCIA]; pode escrever outros valores.</li>
-<li>«Admitância»: calor que a parede absorve da sala por cada °C de oscilação diária da temperatura interior (ciclo de 24 h, mesma simulação). É a inércia que a sala aproveita no Verão.</li>
+<li><b>Custos:</b> energia térmica ÷ COP (Inverno) ou EER (Verão) × 0,18 €/kWh. COP/EER 3,5 por defeito [INFERÊNCIA; com aquecimento eléctrico directo use 1]. «€/mês» = 30 dias iguais ao simulado, não é uma estimativa anual.</li>
+<li><b>Sala sem climatização</b> [INFERÊNCIA]: quarto de canto 4 × 4 m, pé-direito 2,70 m (tecto falso, mapa 5.1.1); duas paredes exteriores com a solução escolhida (19,6 m² opacos) e uma janela de 2,0 m² na mesma fachada (Uw 1,4; vidro 70 % do vão; g 0,40, o valor recomendado para E/O/S na pesquisa de caixilharia; sem estore). Pavimento: SPC 6 mm (R 0,05) + betonilha 4 cm + betão leve 8 cm sobre XPS (PAV_INT1 da TER.4). Tecto falso de gesso cartonado com lã por cima e divisórias em gesso cartonado/LSF (mapa 5.1.1 e 01.05): pouca massa. Móveis 10 kJ/K por m² de pavimento. Ganhos internos 4 W/m² (valor convencional do SCE). Ventilação 0,5 renovações/h (Rph da TER.4); com janelas abertas à noite, 4 renovações/h entre as 22 h e as 8 h sempre que lá fora está mais fresco.</li>
+<li>«Admitância»: calor que a parede absorve da sala por cada °C de oscilação diária da temperatura interior (ciclo de 24 h, mesma simulação).</li>
 <li>Áreas: paredes novas 122,66 m² (ETICS, mapa 1.1.5 + 1.2.1); existentes 77,83 m² (mapa 1.4.4).</li>
 </ul>
 
 <script>
 "use strict";
-const RSE = 0.04, RSI = 0.13, HE = 1 / RSE, ALFA = 0.40, LW = 0.9;
-const DT = 150, SPD = 86400 / DT, REC = 2, NF = SPD / REC, DAYS = 12;
+const RSE = 0.04, RSI = 0.13, HE = 1 / RSE, ALFA = 0.40, LW = 0.9, PRICE = 0.18;
+const DT = 150, SPD = 86400 / DT, REC = 2, NF = SPD / REC, DAYS_AC = 12, DAYS_FREE = 20;
 const W = 780, X0 = 104, PXCM = 11, ROWH = 122, HEAD = 34;
 const AREA = { nova: 122.66, exist: 77.83 };
 const VCOL = ["#1b6ca8", "#d1495b", "#2a9d8f", "#e09a1a"];
@@ -79,7 +89,13 @@ const MATS = {
   ar:    { n: "ar",           e: .05,  k: .05 / .18,  rho: 1.2,  c: 1005, col: "#ffffff" },
   cheia: { n: "lã inj.",      e: .05,  k: .034,       rho: 25,   c: 1030, col: "#f6e7a6" },
   la5:   { n: "lã 5",         e: .05,  k: .035 / .6,  rho: 40,   c: 1030, col: "#f0d060" },
+  // sala de referência (só no modo sem climatização) [INFERÊNCIA]
+  bleve: { n: "betão leve",   e: .08,  k: .35,        rho: 1000, c: 1000 },
+  bet:   { n: "betonilha",    e: .04,  k: 1.3,        rho: 2000, c: 1000 },
+  spc:   { n: "SPC",          e: .006, k: .12,        rho: 1400, c: 1400 },
+  gc:    { n: "gesso 13",     e: .013, k: .25,        rho: 800,  c: 1000 },
 };
+const ROOM = { Aw: 19.6, Afl: 16, Ace: 16, Apa: 21.6, Awin: 2.0, Uwin: 1.4, glass: 0.7, g: 0.40, V: 43.2, n: 0.5, nNight: 4, qint: 4, Cfurn: 10000 };
 const SEASON = {
   inv: { n: 21, off: 0.80, ti: 20, tminH: 7.5, tmaxH: 15, ori: "N", nome: "Inverno",
          presets: [["Ameno", 8, 15], ["Frio", 3, 11], ["Vaga de frio", -1, 7]] },
@@ -87,12 +103,14 @@ const SEASON = {
          presets: [["Típico", 18, 27], ["Quente", 21, 33], ["Onda de calor", 25, 40]] },
 };
 const ORI = { S: 0, O: 90, N: 180, E: -90 }, ORIN = { S: "Sul", O: "Oeste", N: "Norte", E: "Este" };
-const st = { wall: "nova", season: "inv", tmin: 8, tmax: 15, ori: "N", clear: true, rt: true, playing: true, simH: 0, speed: 1 };
+const st = { mode: "ac", wall: "nova", season: "inv", tmin: 8, tmax: 15, ori: "N", clear: true, rt: true, cop: 3.5, night: true, playing: true, simH: 0, speed: 1 };
 const f1 = v => v.toFixed(1).replace(".", ","), f2 = v => v.toFixed(2).replace(".", ","), f0 = v => Math.round(v).toString();
+const eur = v => v < 10 ? v.toFixed(2).replace(".", ",") + " €" : f0(v) + " €";
 const hhmm = h => { const m = Math.round(((h % 24) + 24) % 24 * 60) % 1440; return String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"); };
+const free = () => st.mode === "free", inv = () => st.season === "inv";
 
-function variants() {
-  if (st.wall === "nova") return [
+function variants(wall = st.wall) {
+  if (wall === "nova") return [
     { nome: "EPS grafite 5 cm + estuque", sub: "sem isolamento interior", L: ["fin", "eg", "bl", "es"] },
     { nome: "EPS grafite 5 cm + forro com lã 3 cm", sub: "isolamento interior (desenhos)", L: ["fin", "eg", "bl", "la3", "pl"] },
   ];
@@ -106,18 +124,19 @@ function variants() {
 }
 
 // ---------- malha e solver implícito (Thomas com factorização prévia) ----------
-function mesh(L) {
-  const dx = [], k = [], C = [], li = [];
-  let R = RSE + RSI, thick = 0;
-  L.forEach((key, j) => {
+// adiab: face de trás sem trocas (elementos interiores da sala); phi = resposta das células a 1 °C na sala
+function mesh(L, adiab = false, rsi = RSI) {
+  const dx = [], k = [], C = [];
+  let R = RSE + rsi, thick = 0;
+  L.forEach(key => {
     const m = MATS[key], n = Math.max(2, Math.round(m.e / 0.01));
-    for (let i = 0; i < n; i++) { dx.push(m.e / n); k.push(m.k); C.push(m.rho * m.c * m.e / n); li.push(j); }
+    for (let i = 0; i < n; i++) { dx.push(m.e / n); k.push(m.k); C.push(m.rho * m.c * m.e / n); }
     R += m.e / m.k; thick += m.e;
   });
   const N = dx.length, G = new Float64Array(N + 1);
-  G[0] = 1 / (RSE + dx[0] / (2 * k[0]));
+  G[0] = adiab ? 0 : 1 / (RSE + dx[0] / (2 * k[0]));
   for (let i = 1; i < N; i++) G[i] = 1 / (dx[i - 1] / (2 * k[i - 1]) + dx[i] / (2 * k[i]));
-  G[N] = 1 / (RSI + dx[N - 1] / (2 * k[N - 1]));
+  G[N] = 1 / (rsi + dx[N - 1] / (2 * k[N - 1]));
   const cd = C.map(c => c / DT), mInv = new Float64Array(N), cp = new Float64Array(N);
   for (let i = 0; i < N; i++) {
     const b = cd[i] + G[i] + G[i + 1], a = i ? -G[i] : 0;
@@ -125,47 +144,83 @@ function mesh(L) {
     mInv[i] = 1 / m; cp[i] = i < N - 1 ? -G[i + 1] / m : 0;
   }
   let x = 0; const xc = dx.map(d => { const c = x + d / 2; x += d; return c; });
-  return { L, N, dx, k, C, G, cd, mInv, cp, R, U: 1 / R, thick, xc, li };
+  const ms = { L, N, dx, k, C, G, cd, mInv, cp, R, U: 1 / R, thick, xc, rsi };
+  ms.phi = new Float64Array(N); step(ms, ms.phi, 0, 1, new Float64Array(N), true);
+  return ms;
 }
 function steady(ms, tsa, ti) {
   const q = (tsa - ti) / ms.R, T = new Float64Array(ms.N); let r = RSE;
   for (let i = 0; i < ms.N; i++) { r += ms.dx[i] / (2 * ms.k[i]); T[i] = tsa - q * r; r += ms.dx[i] / (2 * ms.k[i]); }
   return T;
 }
-function step(ms, T, tsa, ti, d) {
+function step(ms, T, tsa, ti, d, noStore = false) {
   const { N, G, cd, mInv, cp } = ms;
-  for (let i = 0; i < N; i++) d[i] = cd[i] * T[i];
+  for (let i = 0; i < N; i++) d[i] = noStore ? 0 : cd[i] * T[i];
   d[0] += G[0] * tsa; d[N - 1] += G[N] * ti;
   d[0] *= mInv[0];
   for (let i = 1; i < N; i++) d[i] = (d[i] + G[i] * d[i - 1]) * mInv[i];
   T[N - 1] = d[N - 1];
   for (let i = N - 2; i >= 0; i--) T[i] = d[i] - cp[i] * T[i + 1];
 }
-// tsa, ti: arrays de SPD valores (índice = passo do dia). rec: guarda fotogramas do último dia.
-function simulate(ms, tsa, ti, rec) {
-  const mean = a => a.reduce((s, v) => s + v, 0) / a.length;
+// sala climatizada: tsa, ti = arrays por passo do dia
+function simulate(ms, wx, rec) {
+  const mean = a => a.reduce((s, v) => s + v, 0) / a.length, { tsa, ti } = wx;
   const T = steady(ms, mean(tsa), mean(ti)), d = new Float64Array(ms.N), N = ms.N;
   const frames = rec ? [] : null; let eIn = 0, eOut = 0;
-  for (let s = 0; s < DAYS * SPD; s++) {
+  for (let s = 0; s < DAYS_AC * SPD; s++) {
     const j = (s + 1) % SPD; step(ms, T, tsa[j], ti[j], d);
-    if (s >= (DAYS - 1) * SPD) {
+    if (s >= (DAYS_AC - 1) * SPD) {
       const qi = ms.G[N] * (T[N - 1] - ti[j]);
       if (qi > 0) eIn += qi * DT / 3600; else eOut -= qi * DT / 3600;
-      if (rec && j % REC === 0) {
-        const qe = ms.G[0] * (tsa[j] - T[0]);
-        frames[j / REC] = { T: Float32Array.from(T), qi, tsi: ti[j] + qi * RSI, tse: tsa[j] - qe * RSE };
-      }
+      if (rec && j % REC === 0) frames[j / REC] = { T: Float32Array.from(T), qi, tsi: ti[j] + qi * RSI, tse: tsa[j] - ms.G[0] * (tsa[j] - T[0]) * RSE, tr: ti[j] };
     }
   }
   return { frames, eIn, eOut };
 }
+// sala sem climatização: a parede da variante + pavimento, tecto e divisórias comuns, acoplados à sala de forma implícita
+const ROOM_MS = () => [
+  { ms: mesh(["bleve", "bet", "spc"], true, 0.17), A: ROOM.Afl },
+  { ms: mesh(["gc"], true, 0.10), A: ROOM.Ace },
+  { ms: mesh(["pl"], true), A: ROOM.Apa },
+];
+function simulateFree(wall, wx, rec, night) {
+  const S = [{ ms: wall, A: ROOM.Aw, ext: true }, ...ROOM_MS()];
+  const mean = a => a.reduce((s, v) => s + v, 0) / a.length;
+  let tr = mean(wx.te) + 3;
+  for (const s of S) { s.T = s.ext ? steady(s.ms, mean(wx.tsa), tr) : new Float64Array(s.ms.N).fill(tr); s.d = new Float64Array(s.ms.N); }
+  const Cr = 1206 * ROOM.V + ROOM.Cfurn * ROOM.Afl, cdt = Cr / DT, frames = rec ? [] : null;
+  let tmin = 1e9, tmax = -1e9, hot = 0, cold = 0;
+  for (let s = 0; s < DAYS_FREE * SPD; s++) {
+    const j = (s + 1) % SPD, h = j * DT / 3600, te = wx.te[j];
+    const n = night && (h >= 22 || h < 8) && te < tr ? ROOM.nNight : ROOM.n;
+    const Ho = ROOM.Uwin * ROOM.Awin + 1206 * n / 3600 * ROOM.V;
+    const Q = ROOM.qint * ROOM.Afl + ROOM.Awin * ROOM.glass * ROOM.g * wx.I[j];
+    let num = cdt * tr + Ho * te + Q, den = cdt + Ho;
+    for (const x of S) {
+      step(x.ms, x.T, x.ext ? wx.tsa[j] : 0, 0, x.d);
+      const N = x.ms.N, gA = x.A * x.ms.G[N];
+      num += gA * x.T[N - 1]; den += gA * (1 - x.ms.phi[N - 1]);
+    }
+    tr = num / den;
+    for (const x of S) for (let i = 0; i < x.ms.N; i++) x.T[i] += tr * x.ms.phi[i];
+    if (s >= (DAYS_FREE - 1) * SPD) {
+      tmin = Math.min(tmin, tr); tmax = Math.max(tmax, tr);
+      if (tr > 26) hot += (tr - 26) * DT / 3600; if (tr < 18) cold += (18 - tr) * DT / 3600;
+      if (rec && j % REC === 0) {
+        const ms = wall, T = S[0].T, N = ms.N, qi = ms.G[N] * (T[N - 1] - tr);
+        frames[j / REC] = { T: Float32Array.from(T), qi, tsi: tr + qi * RSI, tse: wx.tsa[j] - ms.G[0] * (wx.tsa[j] - T[0]) * RSE, tr };
+      }
+    }
+  }
+  return { frames, tmin, tmax, hot, cold };
+}
 function admittance(ms) {
   const ti = Array.from({ length: SPD }, (_, j) => 20 + Math.sin(2 * Math.PI * j / SPD));
-  const tsa = new Array(SPD).fill(20), T = steady(ms, 20, 20), d = new Float64Array(ms.N);
+  const T = steady(ms, 20, 20), d = new Float64Array(ms.N);
   let lo = 1e9, hi = -1e9;
-  for (let s = 0; s < DAYS * SPD; s++) {
-    const j = (s + 1) % SPD; step(ms, T, tsa[j], ti[j], d);
-    if (s >= (DAYS - 1) * SPD) { const q = ms.G[ms.N] * (ti[j] - T[ms.N - 1]); lo = Math.min(lo, q); hi = Math.max(hi, q); }
+  for (let s = 0; s < DAYS_AC * SPD; s++) {
+    const j = (s + 1) % SPD; step(ms, T, 20, ti[j], d);
+    if (s >= (DAYS_AC - 1) * SPD) { const q = ms.G[ms.N] * (ti[j] - T[ms.N - 1]); lo = Math.min(lo, q); hi = Math.max(hi, q); }
   }
   return (hi - lo) / 2;
 }
@@ -198,6 +253,8 @@ function weather(season, tmin, tmax, ori, clear) {
   }
   return { te, I, tsa, ti: new Array(SPD).fill(S.ti) };
 }
+const kwhDay = (r, season) => season === "inv" ? Math.max(0, r.eOut - r.eIn) : r.eIn;   // Wh/m²·dia
+const eurMonth = (whm2, A) => whm2 * A / 1000 / st.cop * PRICE * 30;
 
 // ---------- estado calculado ----------
 let V = [], WX = null, SCALE = null;
@@ -205,18 +262,18 @@ const particles = [];
 function compute() {
   WX = weather(st.season, st.tmin, st.tmax, st.ori, st.clear);
   V = variants().map(v => {
-    const ms = mesh(v.L), r = simulate(ms, WX.tsa, WX.ti, true);
+    const ms = mesh(v.L), r = free() ? simulateFree(ms, WX, true, st.night && !inv()) : simulate(ms, WX, true);
     return { ...v, ms, ...r, Y: admittance(ms) };
   });
   let lo = 1e9, hi = -1e9;
-  for (const v of V) for (const fr of v.frames) for (const t of fr.T) { lo = Math.min(lo, t); hi = Math.max(hi, t); }
-  for (const t of WX.te) { lo = Math.min(lo, t); hi = Math.max(hi, t); }
-  for (let j = 0; j < SPD; j += REC) { const s = WX.tsa[j]; for (const v of V) hi = Math.max(hi, v.frames[j / REC].tse); lo = Math.min(lo, s); }
-  const ti = SEASON[st.season].ti;
+  const see = t => { lo = Math.min(lo, t); hi = Math.max(hi, t); };
+  for (const v of V) for (const fr of v.frames) { for (const t of fr.T) see(t); see(fr.tse); see(fr.tr); }
+  WX.te.forEach(see);
+  const ti = free() ? (inv() ? 20 : 25) : SEASON[st.season].ti;
   SCALE = { lo: Math.floor(lo - 1), hi: Math.ceil(hi + 1), ti, span: Math.max(ti - lo, hi - ti, 4) };
   particles.length = 0;
   V.forEach(() => particles.push(Array.from({ length: 34 }, () => ({ x: Math.random(), y: 0.28 + Math.random() * 0.64 }))));
-  sizeWall(); table(); summary(); legendKeys();
+  sizeWall(); notes(); table(); summary(); legendKeys();
 }
 
 // ---------- cores ----------
@@ -239,11 +296,11 @@ function sizeWall() {
 function lerpFrame(v, fpos) {
   const a = Math.floor(fpos) % NF, b = (a + 1) % NF, f = fpos - Math.floor(fpos), A = v.frames[a], B = v.frames[b];
   const T = A.T.map((t, i) => t + (B.T[i] - t) * f), L = (x, y) => x + (y - x) * f;
-  return { T, qi: L(A.qi, B.qi), tsi: L(A.tsi, B.tsi), tse: L(A.tse, B.tse) };
+  return { T, qi: L(A.qi, B.qi), tsi: L(A.tsi, B.tsi), tse: L(A.tse, B.tse), tr: L(A.tr, B.tr) };
 }
 function wxAt(fpos) {
-  const a = Math.floor(fpos) % NF, b = (a + 1) % NF, f = fpos - Math.floor(fpos), L = (arr) => arr[a * REC] + (arr[b * REC] - arr[a * REC]) * f;
-  return { te: L(WX.te), I: L(WX.I), tsa: L(WX.tsa), ti: WX.ti[0] };
+  const a = Math.floor(fpos) % NF, b = (a + 1) % NF, f = fpos - Math.floor(fpos), L = arr => arr[a * REC] + (arr[b * REC] - arr[a * REC]) * f;
+  return { te: L(WX.te), I: L(WX.I), tsa: L(WX.tsa) };
 }
 function text(s, x, y, o = {}) {
   cx.font = `${o.w || 400} ${o.s || 11.5}px system-ui,sans-serif`; cx.textAlign = o.a || "left";
@@ -254,21 +311,22 @@ function drawWall(fpos, dtReal) {
   const H = HEAD + V.length * ROWH, wx = wxAt(fpos);
   cx.clearRect(0, 0, W, H);
   const S = SEASON[st.season];
-  text(`${hhmm(fpos / NF * 24)} · ${S.nome} · fachada ${ORIN[st.ori]} · ar exterior ${f1(wx.te)} °C · sol na fachada ${f0(wx.I)} W/m²`, 8, 14, { w: 600, s: 12.5 });
-  text("EXTERIOR", 8, 29, { c: "#6b6866", s: 10.5 }); text(`INTERIOR ${S.ti} °C`, W - 8, 29, { c: "#6b6866", s: 10.5, a: "right" });
-  // escala de cor
+  const win = free() ? ` · sol pela janela ${f0(ROOM.Awin * ROOM.glass * ROOM.g * wx.I)} W` : "";
+  text(`${hhmm(fpos / NF * 24)} · ${S.nome} · fachada ${ORIN[st.ori]} · ar exterior ${f1(wx.te)} °C · sol na fachada ${f0(wx.I)} W/m²${win}`, 8, 14, { w: 600, s: 12.5 });
+  text("EXTERIOR", 8, 29, { c: "#6b6866", s: 10.5 });
+  text(free() ? "SALA SEM CLIMATIZAÇÃO" : `INTERIOR ${S.ti} °C`, W - 8, 29, { c: "#6b6866", s: 10.5, a: "right" });
   const gx = 300, gw = 260;
   for (let i = 0; i < gw; i++) { cx.fillStyle = tcol(SCALE.lo + (SCALE.hi - SCALE.lo) * i / gw); cx.fillRect(gx + i, 21, 1.2, 9); }
   text(`${SCALE.lo} °C`, gx - 4, 29, { a: "right", s: 10, c: "#6b6866" }); text(`${SCALE.hi} °C`, gx + gw + 4, 29, { s: 10, c: "#6b6866" });
   V.forEach((v, r) => drawRow(v, lerpFrame(v, fpos), wx, HEAD + r * ROWH, r, dtReal));
 }
 function drawRow(v, fr, wx, y, r, dtReal) {
-  const ms = v.ms, by = y + 24, bh = 58, xw1 = X0 + ms.thick * 100 * PXCM, ti = wx.ti;
+  const ms = v.ms, by = y + 24, bh = 58, xw1 = X0 + ms.thick * 100 * PXCM, ti = fr.tr;
   const ty = t => by + bh - 4 - (t - SCALE.lo) / (SCALE.hi - SCALE.lo) * (bh - 14);
   cx.fillStyle = VCOL[r]; cx.fillRect(8, y + 5, 4, 14);
   text(v.nome, 17, y + 16, { w: 600, s: 12.5 });
   cx.font = "600 12.5px system-ui"; const tw = cx.measureText(v.nome).width;
-  text(`U = ${f2(ms.U)} W/m²·°C${v.sub ? " · " + v.sub : ""}`, 17 + tw + 8, y + 16, { c: "#6b6866", s: 11.5 });
+  text(`U ${f2(ms.U)} · inércia útil ${f1(v.Y)} W/m²·°C${v.sub ? " · " + v.sub : ""}`, 17 + tw + 8, y + 16, { c: "#6b6866", s: 11.5 });
   // ar exterior e sol
   cx.fillStyle = tcol(wx.te); cx.fillRect(8, by, X0 - 8, bh);
   if (wx.I > 5) {
@@ -280,9 +338,10 @@ function drawRow(v, fr, wx, y, r, dtReal) {
   // células
   let x = X0;
   for (let i = 0; i < ms.N; i++) { const w = ms.dx[i] * 100 * PXCM; cx.fillStyle = tcol(fr.T[i]); cx.fillRect(x, by, w + 0.6, bh); x += w; }
-  // ar interior
+  // sala
   cx.fillStyle = tcol(ti); cx.fillRect(xw1, by, W - 8 - xw1, bh);
-  // camadas: faixa de material, limites, nomes
+  if (free()) text(`sala ${f1(ti)} °C`, W - 12, by + 16, { a: "right", w: 700, s: 13, halo: true });
+  // camadas
   x = X0;
   ms.L.forEach(key => {
     const m = MATS[key], w = m.e * 100 * PXCM;
@@ -314,15 +373,16 @@ function drawRow(v, fr, wx, y, r, dtReal) {
   for (let i = 0; i < ms.N; i++) cx.lineTo(X0 + ms.xc[i] * 100 * PXCM, ty(fr.T[i]));
   cx.lineTo(xw1, ty(fr.tsi)); cx.lineTo(W - 14, ty(ti)); cx.stroke();
   // seta e números
-  const q = fr.qi, ay = by + bh / 2, ax = Math.min(W - 70, xw1 + 70), len = Math.min(60, 6 + Math.abs(q) * 4), dir = q >= 0 ? 1 : -1;
+  const q = fr.qi, ay = by + bh / 2 + (free() ? 8 : 0), ax = Math.min(W - 70, xw1 + 70), len = Math.min(60, 6 + Math.abs(q) * 4), dir = q >= 0 ? 1 : -1;
   if (Math.abs(q) > 0.05) {
     const c = q >= 0 ? "#b3261e" : "#1f4f8a", x0 = ax - dir * len / 2, x1 = ax + dir * len / 2;
     cx.strokeStyle = c; cx.fillStyle = c; cx.lineWidth = 2 + Math.min(4, Math.abs(q) / 4);
     cx.beginPath(); cx.moveTo(x0, ay); cx.lineTo(x1, ay); cx.stroke();
     cx.beginPath(); cx.moveTo(x1 + dir * 7, ay); cx.lineTo(x1 - dir * 2, ay - 7); cx.lineTo(x1 - dir * 2, ay + 7); cx.fill();
   }
+  const verb = free() ? (q >= 0 ? "a parede aquece a sala" : "a parede absorve calor da sala") : (q >= 0 ? "a entrar na sala" : "a sair da sala");
   text(`ar ${f1(wx.te)} °C · superfície ${f1(fr.tse)} °C`, 8, by + bh + 15, { s: 11.5, c: "#444" });
-  text(`superfície ${f1(fr.tsi)} °C · ${f1(Math.abs(q))} W/m² ${q >= 0 ? "a entrar na sala" : "a sair da sala"}`, W - 8, by + bh + 15, { s: 11.5, a: "right", w: 600, c: q >= 0 ? "#b3261e" : "#1f4f8a" });
+  text(`superfície ${f1(fr.tsi)} °C · ${f1(Math.abs(q))} W/m² ${verb}`, W - 8, by + bh + 15, { s: 11.5, a: "right", w: 600, c: q >= 0 ? "#b3261e" : "#1f4f8a" });
 }
 
 // ---------- gráficos ----------
@@ -349,91 +409,133 @@ function chart(id, series, cursor, zero) {
 }
 function charts(fpos) {
   const h = fpos / NF * 24, sub = a => a.filter((_, j) => j % REC === 0);
-  chart("chT", [
-    { d: sub(WX.te), c: "#282828" }, { d: sub(WX.tsa), c: "#9a9a9a", dash: [5, 4] },
-    { d: WX.ti.slice(0, NF), c: "#282828", dash: [1, 3], w: 1 },
-    ...V.map((v, i) => ({ d: v.frames.map(f => f.tsi), c: VCOL[i] })),
-  ], h);
+  const room = free()
+    ? V.map((v, i) => ({ d: v.frames.map(f => f.tr), c: VCOL[i], w: 2.5 }))
+    : [{ d: WX.ti.slice(0, NF), c: "#282828", dash: [1, 3], w: 1 }, ...V.map((v, i) => ({ d: v.frames.map(f => f.tsi), c: VCOL[i] }))];
+  chart("chT", [{ d: sub(WX.te), c: "#282828" }, { d: sub(WX.tsa), c: "#9a9a9a", dash: [5, 4] }, ...room], h);
   chart("chQ", V.map((v, i) => ({ d: v.frames.map(f => f.qi), c: VCOL[i] })), h, true);
 }
 function legendKeys() {
   const sw = (c, t, dash) => `<span><i class="sw" style="background:${dash ? "repeating-linear-gradient(90deg," + c + " 0 5px,transparent 5px 8px)" : c}"></i>${t}</span>`;
-  document.getElementById("kT").innerHTML = sw("#282828", "ar exterior") + sw("#9a9a9a", "ar-sol na fachada (com sol)", 1) + sw("#282828", "sala", 1) +
-    V.map((v, i) => sw(VCOL[i], "superfície interior: " + v.nome)).join("");
+  document.getElementById("hT").textContent = free() ? "Temperatura da sala ao longo do dia" : "Temperaturas ao longo do dia";
+  document.getElementById("kT").innerHTML = sw("#282828", "ar exterior") + sw("#9a9a9a", "ar-sol na fachada (com sol)", 1) +
+    (free() ? V.map((v, i) => sw(VCOL[i], "sala: " + v.nome)).join("")
+            : sw("#282828", "sala", 1) + V.map((v, i) => sw(VCOL[i], "superfície interior: " + v.nome)).join(""));
   document.getElementById("kQ").innerHTML = V.map((v, i) => sw(VCOL[i], v.nome)).join("");
+}
+function notes() {
+  document.getElementById("wallNote").innerHTML = "Cor = temperatura em relação à sala (azul mais frio, vermelho mais quente). Linha preta = perfil de temperaturas. Os pontos amarelos são o calor a passar: andam mais depressa onde o fluxo é maior e mudam de sentido quando o fluxo se inverte. Faixa de cor no topo de cada camada = material." +
+    (free() ? " <b>Sem climatização:</b> cada linha é o mesmo quarto de canto (4 × 4 m, janela de 2 m² na mesma fachada) com aquela parede. Repare na seta à tarde: com estuque a parede absorve calor da sala (seta azul); com forro quase não absorve, e a sala aquece mais." : "");
 }
 
 // ---------- tabelas e leitura ----------
-const inv = () => st.season === "inv";
-const mainE = v => inv() ? v.eOut - v.eIn : v.eIn;   // Wh/m²·dia: perdas líquidas no Inverno, calor que entra no Verão
 function table() {
-  const A = AREA[st.wall], ref = mainE(V[0]);
-  const rows = V.map((v, i) => {
-    const qs = v.frames.map(f => f.qi), tsi = v.frames.map(f => f.tsi);
-    const pk = inv() ? Math.min(...qs) : Math.max(...qs), pkH = qs.indexOf(pk) / NF * 24, e = mainE(v);
-    const d = ref * A / 1000 >= 0.5 ? (e - ref) / ref * 100 : null;
-    return `<tr><td><i class="sw" style="background:${VCOL[i]}"></i>${v.nome}</td><td class="r">${f2(v.ms.U)}</td>
-      <td class="r">${f1(Math.min(...tsi))} – ${f1(Math.max(...tsi))}</td><td class="r">${f1(Math.abs(pk))} às ${hhmm(pkH)}</td>
-      <td class="r">${f0(e)}</td><td class="r">${f1(e * A / 1000)}</td><td class="r ${i && d !== null && d < -0.5 ? "ok" : ""}">${i && d !== null ? (d > 0 ? "+" : "") + f0(d) + " %" : "—"}</td>
-      <td class="r ${v.Y < V[0].Y * 0.6 ? "rv" : ""}">${f1(v.Y)}</td></tr>`;
-  }).join("");
-  document.getElementById("tab").innerHTML = `<table><tr><th style="min-width:190px">Solução</th><th class="r">U</th><th class="r">Sup. int. °C</th>
-    <th class="r">Pico ${inv() ? "a sair" : "a entrar"}<br>W/m²</th><th class="r">${inv() ? "Perdas" : "Ganhos"}<br>Wh/m²·dia</th>
-    <th class="r">Fachada<br>kWh/dia</th><th class="r">vs. 1.ª<br>linha</th><th class="r">Admitância<br>W/m²·°C</th></tr>${rows}</table>
-    <p class="n">Fachada = ${String(A).replace(".", ",")} m² ${st.wall === "nova" ? "de paredes novas" : "de paredes existentes"}, todas tratadas como se tivessem a orientação escolhida. ${inv() ? "Perdas = calor que o aquecimento tem de repor no dia (descontado o que o sol devolve)." : "Ganhos = calor que entra pela parede e que o ar condicionado tem de retirar."} Energia térmica, não eléctrica: com bomba de calor ou ar condicionado divide-se por ≈ 3–4.</p>`;
+  const A = AREA[st.wall];
+  let rows, head, foot;
+  if (free()) {
+    head = `<tr><th style="min-width:190px">Solução</th><th class="r">U</th><th class="r">Inércia útil<br>W/m²·°C</th><th class="r">Sala mín.<br>°C</th><th class="r">Sala máx.<br>°C</th><th class="r">Oscilação<br>°C</th><th class="r">${inv() ? "Frio: °C·h<br>abaixo de 18 °C" : "Calor: °C·h<br>acima de 26 °C"}</th></tr>`;
+    const best = inv() ? Math.max(...V.map(v => v.tmin)) : Math.min(...V.map(v => v.tmax));
+    rows = V.map((v, i) => `<tr><td><i class="sw" style="background:${VCOL[i]}"></i>${v.nome}</td><td class="r">${f2(v.ms.U)}</td><td class="r ${v.Y < V[0].Y * 0.6 ? "rv" : ""}">${f1(v.Y)}</td>
+      <td class="r ${inv() && v.tmin === best ? "ok" : ""}">${f1(v.tmin)}</td><td class="r ${!inv() && v.tmax === best ? "ok" : ""}">${f1(v.tmax)}</td><td class="r">${f1(v.tmax - v.tmin)}</td><td class="r">${f0(inv() ? v.cold : v.hot)}</td></tr>`).join("");
+    foot = `Quarto de canto de referência sem aquecimento nem ar condicionado, com duas paredes exteriores desta solução e janela de 2 m² na mesma fachada (pressupostos no fim). ${!inv() ? (st.night ? "Janelas abertas das 22 h às 8 h quando lá fora está mais fresco." : "Janelas fechadas à noite.") : ""}`;
+  } else {
+    const ref = kwhDay(V[0], st.season);
+    head = `<tr><th style="min-width:190px">Solução</th><th class="r">U</th><th class="r">Inércia útil<br>W/m²·°C</th><th class="r">Pico ${inv() ? "a sair" : "a entrar"}<br>W/m²</th><th class="r">${inv() ? "Perdas" : "Ganhos"}<br>Wh/m²·dia</th><th class="r">Fachada<br>kWh/dia</th><th class="r">€/dia</th><th class="r">€/mês<br>(30 dias assim)</th><th class="r">vs. 1.ª<br>linha</th></tr>`;
+    rows = V.map((v, i) => {
+      const qs = v.frames.map(f => f.qi), pk = inv() ? Math.min(...qs) : Math.max(...qs), pkH = qs.indexOf(pk) / NF * 24, e = kwhDay(v, st.season);
+      const d = ref * A / 1000 >= 0.5 ? (e - ref) / ref * 100 : null, m = eurMonth(e, A);
+      return `<tr><td><i class="sw" style="background:${VCOL[i]}"></i>${v.nome}</td><td class="r">${f2(v.ms.U)}</td><td class="r ${v.Y < V[0].Y * 0.6 ? "rv" : ""}">${f1(v.Y)}</td>
+        <td class="r">${f1(Math.abs(pk))} às ${hhmm(pkH)}</td><td class="r">${f0(e)}</td><td class="r">${f1(e * A / 1000)}</td><td class="r">${eur(m / 30)}</td><td class="r">${eur(m)}</td>
+        <td class="r ${i && d !== null && d < -0.5 ? "ok" : ""}">${i && d !== null ? (d > 0 ? "+" : "") + f0(d) + " %" : "—"}</td></tr>`;
+    }).join("");
+    foot = `Fachada = ${String(A).replace(".", ",")} m² ${st.wall === "nova" ? "de paredes novas" : "de paredes existentes"}, todas tratadas como se tivessem a orientação escolhida. ${inv() ? "Perdas = calor que o aquecimento tem de repor no dia (descontado o que o sol devolve)." : "Ganhos = calor que entra pela parede e que o ar condicionado tem de retirar."} € = kWh térmicos ÷ ${f1(st.cop)} × 0,18 €/kWh.`;
+  }
+  document.getElementById("tab").innerHTML = `<table>${head}${rows}</table><p class="n">${foot}</p>`;
   leitura();
 }
 function leitura() {
-  const A = AREA[st.wall], v = V, E = v.map(mainE), Y = v.map(x => x.Y), tsiMin = v.map(x => Math.min(...x.frames.map(f => f.tsi))), tsiMax = v.map(x => Math.max(...x.frames.map(f => f.tsi)));
-  const kd = (a, b) => f1((E[a] - E[b]) * A / 1000), pc = (a, b) => f0((E[a] - E[b]) / E[a] * 100);
-  const tiny = !inv() && E[0] * A / 1000 < 0.5;
-  const quiet = `<b>Verão.</b> Neste dia quase não entra calor pela parede: o que entra à tarde sai na noite fresca, e a diferença entre soluções é desprezável. As diferenças aparecem nos dias «Quente» e «Onda de calor». `;
+  const A = AREA[st.wall], v = V, Y = v.map(x => x.Y);
   let h = "";
-  if (st.wall === "nova") {
-    if (inv()) h = `<b>Inverno.</b> O forro com lã 3 cm corta as perdas desta parede de ${f0(E[0])} para ${f0(E[1])} Wh/m²·dia (−${pc(0, 1)} %), ≈ ${kd(0, 1)} kWh térmicos por dia em toda a fachada nova. A superfície interior sobe só de ${f1(tsiMin[0])} para ${f1(tsiMin[1])} °C: com o EPS grafite por fora a parede já está quente e o conforto quase não muda.`;
-    else h = (tiny ? quiet : `<b>Verão.</b> Com o forro entram ${f0(E[1])} em vez de ${f0(E[0])} Wh/m²·dia (−${pc(0, 1)} %, ≈ ${kd(0, 1)} kWh/dia na fachada). `) + `${tiny ? "O que muda é a inércia: a lã" : "Mas a lã"} esconde o bloco da sala: a parede absorve ${f1(Y[1])} W/m² por cada °C que a sala aquece, contra ${f1(Y[0])} sem forro (${f1(Y[0] / Y[1])}× mais). É essa massa que segura a temperatura quando o sol entra pelas janelas ou o ar condicionado está desligado; a TER.4 contou com ela («inércia forte»).`;
+  if (free()) {
+    const tx = v.map(x => x.tmax), tn = v.map(x => x.tmin), dh = v.map(x => inv() ? x.cold : x.hot);
+    const ext = inv() ? tn : tx, bi = ext.indexOf(inv() ? Math.max(...ext) : Math.min(...ext));
+    const list = v.map((x, i) => `${x.nome}: <b>${f1(ext[i])} °C</b>`).join("; ");
+    h = inv()
+      ? `<b>Inverno, sem aquecimento.</b> Temperatura mínima da sala — ${list}. A mais confortável é «${v[bi].nome}». Sem aquecimento manda sobretudo o U; a inércia só suaviza a descida nocturna.`
+      : `<b>Verão, sem ar condicionado.</b> Temperatura máxima da sala — ${list}. A mais fresca é «${v[bi].nome}». `;
+    if (!inv() && st.wall === "nova") h += `O forro isola mais (U ${f2(v[1].ms.U)} contra ${f2(v[0].ms.U)}), mas a sala fica ${f1(tx[1] - tx[0])} °C mais quente no pico e acumula ${f0(dh[1])} °C·h acima de 26 °C contra ${f0(dh[0])}: a lã esconde o bloco da sala (inércia ${f1(Y[1])} em vez de ${f1(Y[0])} W/m²·°C). É por isso que a TER.4 conta com estuque e «inércia forte».`;
+    if (!inv() && st.wall === "exist") { const dF = tx[2] - tx[1]; h += `${Math.abs(dF) < 0.05 ? "Com o forro, o pico fica igual ao da caixa cheia" : `Com o forro a sala fica ${f1(Math.abs(dF))} °C ${dF > 0 ? "mais quente" : "mais fresca"} no pico do que só com a caixa cheia`}, e oscila mais (${f1(v[2].tmax - v[2].tmin)} contra ${f1(v[1].tmax - v[1].tmin)} °C): a caixa cheia deixa o pano interior de tijolo do lado da sala (inércia ${f1(Y[1])}); o forro tira-o (${f1(Y[2])}).${bi === 0 ? " A parede sem isolamento sai mais fresca porque a sala, com o sol da janela e os ganhos internos, está mais quente do que a rua quase todo o dia: uma parede que isola menos deixa sair esse calor. Com o ar condicionado ligado, ou no Inverno, perde." : ""}`; }
   } else {
-    const best = E.indexOf(Math.min(...E));
-    if (inv()) h = `<b>Inverno.</b> Parede como está: ${f0(E[0])} Wh/m²·dia. A lã injectada na caixa baixa para ${f0(E[1])} (−${pc(0, 1)} %, ≈ ${kd(0, 1)} kWh/dia em ${f0(A)} m²) sem tocar no interior. O forro sozinho dá ${f0(E[2])} (−${pc(0, 2)} %). As duas juntas, ${f0(E[3])} (−${pc(0, 3)} %), mas o segundo passo vale só mais ${kd(1, 3)} kWh/dia. Superfície interior no pior momento: ${f1(tsiMin[0])} °C sem nada, ${f1(tsiMin[1])} °C com a caixa cheia.`;
-    else h = (tiny ? quiet : `<b>Verão.</b> Calor que entra: ${f0(E[0])} Wh/m²·dia sem nada, ${f0(E[1])} com a caixa cheia, ${f0(E[2])} com o forro, ${f0(E[3])} com os dois. `) + `Com a caixa cheia a parede continua a ter ${f1(Y[1])} W/m²·°C de admitância (o pano interior de tijolo fica do lado da sala); com o forro desce para ${f1(Y[2])}. A caixa cheia isola sem tirar inércia; o forro isola e tira-a. Superfície interior máxima: ${f1(tsiMax[0])} °C → ${f1(tsiMax[1])} °C com a caixa cheia.`;
-    if (best !== 3 && !tiny) h += ` Neste cenário a melhor é «${v[best].nome}».`;
+    const E = v.map(x => kwhDay(x, st.season)), M = E.map(e => eurMonth(e, A));
+    const tiny = !inv() && E[0] * A / 1000 < 0.5, pc = (a, b) => f0((E[a] - E[b]) / E[a] * 100);
+    const em = (a, b) => `${eur(M[a] - M[b])}/mês`;
+    const quiet = `<b>Verão.</b> Neste dia quase não entra calor pela parede: o que entra à tarde sai na noite fresca, e a diferença entre soluções é desprezável. As diferenças aparecem nos dias «Quente» e «Onda de calor». `;
+    if (st.wall === "nova") {
+      if (inv()) h = `<b>Inverno.</b> O forro com lã 3 cm corta as perdas desta parede ${pc(0, 1)} % (de ${f0(E[0])} para ${f0(E[1])} Wh/m²·dia). Na fachada nova inteira são ≈ ${em(0, 1)} a 0,18 €/kWh com COP ${f1(st.cop)}. A superfície interior quase não muda: com o EPS grafite por fora a parede já está quente.`;
+      else h = (tiny ? quiet : `<b>Verão.</b> Com o forro entram ${pc(0, 1)} % menos (≈ ${em(0, 1)} de ar condicionado). `) + `${tiny ? "O que muda é a inércia: a lã" : "Mas a lã"} esconde o bloco da sala (inércia ${f1(Y[1])} contra ${f1(Y[0])} W/m²·°C). Veja o modo «Desligada (inércia)»: sem ar condicionado a sala aquece mais com o forro.`;
+    } else {
+      const best = E.indexOf(Math.min(...E));
+      if (inv()) h = `<b>Inverno.</b> A lã injectada corta ${pc(0, 1)} % das perdas (≈ ${em(0, 1)} nos ${f0(A)} m²) sem tocar no interior. O forro sozinho corta ${pc(0, 2)} % (≈ ${em(0, 2)}). As duas juntas, ${pc(0, 3)} %; o forro por cima da caixa cheia vale só mais ≈ ${em(1, 3)}.`;
+      else h = (tiny ? quiet : `<b>Verão.</b> Ar condicionado poupado face à parede actual: ${em(0, 1)} com a caixa cheia, ${em(0, 2)} com o forro, ${em(0, 3)} com os dois. `) + `A caixa cheia mantém a inércia (${f1(Y[1])} W/m²·°C); o forro corta-a para ${f1(Y[2])}.`;
+      if (best !== 3 && !tiny) h += ` Neste cenário a melhor é «${v[best].nome}».`;
+    }
   }
   document.getElementById("leitura").innerHTML = h;
 }
 function summary() {
   const vs = variants(), A = AREA[st.wall], ms = vs.map(v => mesh(v.L));
+  document.getElementById("hRes").textContent = free() ? "Resumo sem climatização: temperatura da sala a várias temperaturas exteriores" : "Resumo com climatização: custo a várias temperaturas exteriores";
   let h = `<table><tr><th>Cenário</th><th class="r">Ar exterior</th>${vs.map((v, i) => `<th class="r"><i class="sw" style="background:${VCOL[i]}"></i>${v.nome}</th>`).join("")}</tr>`;
   for (const se of ["inv", "ver"]) {
-    const S = SEASON[se];
-    h += `<tr><td colspan="${2 + vs.length}" style="background:#fafafa"><b>${S.nome}</b> — ${se === "inv" ? "perdas" : "ganhos"} na fachada inteira, kWh/dia · sala a ${S.ti} °C · fachada ${ORIN[se === st.season ? st.ori : S.ori]}</td></tr>`;
+    const S = SEASON[se], ori = se === st.season ? st.ori : S.ori;
+    const what = free() ? (se === "inv" ? "temperatura mínima da sala, sem aquecimento" : `temperatura máxima da sala, sem ar condicionado${st.night ? ", janelas abertas à noite" : ""}`)
+                        : `${se === "inv" ? "aquecimento" : "ar condicionado"} para a fachada inteira, €/mês (30 dias assim) e kWh térmicos/dia · sala a ${S.ti} °C`;
+    h += `<tr><td colspan="${2 + vs.length}" style="background:#fafafa"><b>${S.nome}</b> — ${what} · fachada ${ORIN[ori]}</td></tr>`;
     for (const [nm, a, b] of S.presets) {
-      const wx = weather(se, a, b, se === st.season ? st.ori : S.ori, st.clear);
-      const E = ms.map(m => { const r = simulate(m, wx.tsa, wx.ti, false); return se === "inv" ? r.eOut - r.eIn : r.eIn; });
-      h += `<tr><td>${nm}</td><td class="r">${a} → ${b} °C</td>${E.map((e, i) => `<td class="r">${f1(e * A / 1000)}${i && E[0] * A / 1000 >= 0.5 ? ` <span class="n">(${e <= E[0] ? "−" : "+"}${f0(Math.abs(e - E[0]) / E[0] * 100)} %)</span>` : ""}</td>`).join("")}</tr>`;
+      const wx = weather(se, a, b, ori, st.clear);
+      let cells;
+      if (free()) {
+        const T = ms.map(m => { const r = simulateFree(m, wx, false, st.night && se === "ver"); return se === "inv" ? r.tmin : r.tmax; });
+        const best = se === "inv" ? Math.max(...T) : Math.min(...T);
+        cells = T.map(t => `<td class="r ${t === best ? "ok" : ""}">${f1(t)} °C</td>`);
+      } else {
+        const E = ms.map(m => kwhDay(simulate(m, wx, false), se));
+        cells = E.map((e, i) => `<td class="r"><b>${eur(eurMonth(e, A))}</b> <span class="n">${f1(e * A / 1000)} kWh${i && E[0] * A / 1000 >= 0.5 ? ` · ${e <= E[0] ? "−" : "+"}${f0(Math.abs(e - E[0]) / E[0] * 100)} %` : ""}</span></td>`);
+      }
+      h += `<tr><td>${nm}</td><td class="r">${a} → ${b} °C</td>${cells.join("")}</tr>`;
     }
   }
   document.getElementById("resumo").innerHTML = h + "</table>";
-  document.getElementById("resumoNota").textContent = `Mesmo modelo, ${st.wall === "nova" ? "paredes novas" : "paredes existentes"}, céu ${st.clear ? "limpo" : "encoberto"}. Percentagens em relação à 1.ª coluna. A orientação da estação que não está a ver é a do pior caso (Norte no Inverno, Oeste no Verão).`;
+  document.getElementById("resumoNota").textContent = `Mesmo modelo, ${st.wall === "nova" ? "paredes novas" : "paredes existentes"}, céu ${st.clear ? "limpo" : "encoberto"}. ` +
+    (free() ? "Verde = sala mais confortável em cada cenário." : `Custos com COP/EER ${f1(st.cop)} e 0,18 €/kWh; percentagens em relação à 1.ª coluna.`) +
+    " A orientação da estação que não está a ver é a do pior caso (Norte no Inverno, Oeste no Verão).";
 }
 
 // ---------- controlos ----------
 const $ = id => document.getElementById(id);
 function syncUI() {
-  for (const g of ["sWall", "sSeason"]) for (const b of $(g).querySelectorAll("button")) b.classList.toggle("on", b.dataset.v === (g === "sWall" ? st.wall : st.season));
+  const segs = { sMode: st.mode, sWall: st.wall, sSeason: st.season };
+  for (const g in segs) for (const b of $(g).querySelectorAll("button")) b.classList.toggle("on", b.dataset.v === segs[g]);
   $("sPre").innerHTML = "<b>Dia</b>" + SEASON[st.season].presets.map(([n, a, b]) =>
     `<button data-a="${a}" data-b="${b}" class="${a === st.tmin && b === st.tmax ? "on" : ""}">${n} ${a}–${b} °C</button>`).join("");
   $("tmin").value = st.tmin; $("tmax").value = st.tmax; $("ori").value = st.ori; $("sky").value = st.clear ? "1" : "0";
+  $("cop").value = st.cop; $("night").value = st.night ? "1" : "0";
   $("gRt").style.display = st.wall === "exist" ? "" : "none";
+  $("gCop").style.display = free() ? "none" : "";
+  $("gNight").style.display = free() && !inv() ? "" : "none";
 }
 function update() { syncUI(); compute(); }
+$("sMode").onclick = e => { if (e.target.dataset.v) { st.mode = e.target.dataset.v; update(); } };
 $("sWall").onclick = e => { if (e.target.dataset.v) { st.wall = e.target.dataset.v; update(); } };
-$("sSeason").onclick = e => { const s = e.target.dataset.v; if (!s) return; st.season = s; const p = SEASON[s].presets[0]; st.tmin = p[1]; st.tmax = p[2]; st.ori = SEASON[s].ori; update(); };
+$("sSeason").onclick = e => { const s = e.target.dataset.v; if (!s) return; st.season = s; const p = SEASON[s].presets[s === "ver" && free() ? 1 : 0]; st.tmin = p[1]; st.tmax = p[2]; st.ori = SEASON[s].ori; update(); };
 $("sPre").onclick = e => { if (e.target.dataset.a === undefined) return; st.tmin = +e.target.dataset.a; st.tmax = +e.target.dataset.b; update(); };
 $("tmin").onchange = () => { st.tmin = Math.min(+$("tmin").value, st.tmax); update(); };
 $("tmax").onchange = () => { st.tmax = Math.max(+$("tmax").value, st.tmin); update(); };
 $("ori").onchange = () => { st.ori = $("ori").value; update(); };
 $("sky").onchange = () => { st.clear = $("sky").value === "1"; update(); };
 $("rt").onchange = () => { st.rt = $("rt").value === "1"; update(); };
+$("cop").onchange = () => { st.cop = Math.max(1, +$("cop").value || 3.5); update(); };
+$("night").onchange = () => { st.night = $("night").value === "1"; update(); };
 $("play").onclick = () => { st.playing = !st.playing; $("play").textContent = st.playing ? "❚❚" : "▶"; };
 $("speed").onchange = () => { st.speed = +$("speed").value; };
 $("time").oninput = () => { st.simH = +$("time").value / NF * 24; };
