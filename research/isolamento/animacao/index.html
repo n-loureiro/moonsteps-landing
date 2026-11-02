@@ -1,5 +1,5 @@
 <!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow">
-<meta name="viewport" content="width=device-width, initial-scale=1"><title>Isolamento das paredes: animação de Inverno e de Verão</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Paredes exteriores: decisão, custos anuais e simulação</title>
 <style>:root{--ink:#282828;--grey:#6b6866;--rule:#d9d9d9;--panel:#f3f3f2}*{box-sizing:border-box}
 body{margin:0;font:15px/1.5 -apple-system,system-ui,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);padding:16px;max-width:900px;margin:auto}
 h1{font:600 22px/1.3 Georgia,serif;margin:8px 0}h2{font:500 12px/1.3 sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin:28px 0 8px}
@@ -16,10 +16,52 @@ td.ok{background:#d8efdf;color:#11552a;font-weight:600}td.rv{background:#f6d3d0;
 .player{display:flex;gap:10px;align-items:center;margin:4px 0 6px;font-size:13px}.player input{flex:1}
 #clock{font:600 15px ui-monospace,Menlo,monospace;min-width:52px}
 canvas{display:block;width:100%;min-width:640px;height:auto}.sw{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:4px}
-.keys{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;margin:2px 0 4px}</style></head><body>
+.keys{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;margin:2px 0 4px}
+.dec{border:2px solid #282828;border-radius:8px;padding:12px 14px;margin:12px 0 18px}.dec h2{margin:2px 0 8px;color:var(--ink);font-size:13px}
+.dec .big{font-size:16px;line-height:1.45;margin:0 0 10px}.dec td,.dec th{font-size:13.5px}.yes{color:#11552a;font-weight:700}.no{color:#8a1f1f;font-weight:700}.opt{color:#7a5200;font-weight:700}
+tr.sum td{border-top:2px solid #282828;font-weight:600}.sc>table{min-width:640px}</style></head><body>
 <p class="n"><a href="../">← Isolamento: comparação de soluções</a></p>
-<h1>Como o calor atravessa as paredes, de Inverno e de Verão</h1>
-<p class="n">Moradia em Oeiras · 24 horas de um dia de céu limpo, simuladas em regime variável (o calor demora a atravessar e fica guardado na alvenaria). Dois modos: <b>climatização ligada</b> (sala fixa a 20 °C no Inverno e 25 °C no Verão; mostra energia e custo a 0,18 €/kWh) e <b>climatização desligada</b> (a temperatura da sala flutua; mostra o efeito da inércia térmica). Cálculo próprio, valores nominais, sem pontes térmicas [CÁLCULO]. Não substitui a memória térmica do projectista.</p>
+<h1>Paredes exteriores: o que fazer</h1>
+
+<div class="dec">
+<h2>Decisão</h2>
+<p class="big"><span class="yes">Isolar por fora, encher a caixa de ar e deixar a alvenaria à vista da sala.</span> <span class="no">Sem forro de gesso cartonado com lã.</span></p>
+<div class="sc"><table>
+<tr><th>Paredes</th><th>O que fazer</th><th class="r">Obra (s/IVA)</th><th class="r">Aquecimento + AC<br>das paredes, €/ano</th><th>Porquê</th></tr>
+<tr><td>Novas<br><span class="n">123 m²</span></td><td class="yes">EPS grafite 5 cm por fora + estuque por dentro</td><td class="r">≈ +340 €<br><span class="n">face ao EPS branco</span></td><td class="r"><b>57 €</b></td><td>U 0,38: cumpre o alvo de 0,40 que o EPS branco (0,42) falha. O bloco fica à vista da sala e guarda o calor e o fresco.</td></tr>
+<tr><td>Existentes<br><span class="n">78 m²</span></td><td class="yes">Lã injectada na caixa de ar</td><td class="r">1 270–2 850 €</td><td class="r"><b>43 €</b><br><span class="n">hoje 91 €</span></td><td>Hoje U 0,85: não cumpre o máximo legal de 0,50. É a forma mais barata de cumprir (U 0,40), sem mexer na fachada nem no interior.</td></tr>
+<tr><td>Existentes</td><td class="opt">Opcional: + ETICS EPS grafite 5 cm, se a Câmara deixar</td><td class="r">5 300–8 700 €</td><td class="r">25 €<br><span class="n">−18 €/ano</span></td><td>Não se paga em energia. Vale por cobrir as pontes térmicas (lajes, ombreiras, caixas de estore), manter a parede seca e igualar a fachada.</td></tr>
+<tr><td>Todas</td><td class="no">Não: forro de gesso cartonado com lã</td><td class="r">≈ 8 500 €<br><span class="n">≈ 700 € se o gesso já lá estiver</span></td><td class="r">−15 a −23 €/ano</td><td>Não se paga (≥ 30 anos só a lã). Tira inércia: sem AC, a sala fica 0,6–1 °C mais quente no Verão. Nas existentes, risco de condensação atrás do forro.</td></tr>
+<tr class="sum"><td colspan="3">Total das paredes com a decisão (novas + existentes com lã injectada)</td><td class="r">100 €/ano</td><td>Com ETICS nas existentes: 82 €/ano. Com forro com lã em tudo: 77 ou 67 €/ano.</td></tr>
+</table></div>
+<p class="n" style="margin:8px 0 0"><b>Leitura:</b> com bomba de calor e 0,18 €/kWh, as paredes custam ≈ 100 €/ano. Entre as opções razoáveis a diferença é de dezenas de euros por ano, por isso a decisão faz-se pelo <b>custo da obra, pelo cumprimento do U máximo, pelo conforto de Verão e pelo risco de humidade</b>. Para baixar a conta de Verão, o dinheiro rende mais no sombreamento exterior das janelas a Sul e a Poente.</p>
+</div>
+
+<h2>Riscos e como se controlam</h2>
+<div class="sc"><table>
+<tr><th>Solução</th><th>Risco</th><th>Controlo</th></tr>
+<tr><td>Lã injectada</td><td>Caixa estreita ou com entulho e rebarbas → enchimento incompleto ou água a passar para dentro</td><td>Endoscópio em todas as fachadas antes de decidir; limpar a base; lã de vidro hidrófuga A1 (tipo Knauf Supafil); reboco exterior contínuo e pintura de silicato</td></tr>
+<tr><td>ETICS (novas e existentes)</td><td>Limite de 5 cm da Câmara; algas e bolores junto à costa; EPS grafite aquece ao sol durante a obra; formigas e água no arranque</td><td>Confirmar com a Câmara (isolante ou sistema; paredes existentes); acabamento de silicato ou siloxano com pingadeiras; rede de sombra no andaime; arranque ≥ 15 cm acima do terreno, selado</td></tr>
+<tr><td>Forro com lã (se mesmo assim se fizer)</td><td>Menos inércia (sala mais quente no Verão, menos «bateria» para o solar); condensação atrás do forro nas paredes existentes; perde área útil</td><td>Freio de vapor higrovariável contínuo, com fitas e caixas eléctricas estanques; nunca placa com alumínio</td></tr>
+<tr><td>Projecto actual nas existentes (reboco térmico + forro lã 5 cm)</td><td>Mesma energia que só a lã injectada (41 contra 43 €/ano), mas obra mais cara, sem inércia e com risco de condensação</td><td>Substituir por lã injectada</td></tr>
+</table></div>
+
+<h2>Contas anuais por solução</h2>
+<div class="sc"><table>
+<tr><th>Paredes</th><th>Solução</th><th class="r">U</th><th class="r">Aquecimento<br>kWh térm./ano</th><th class="r">AC<br>kWh térm./ano</th><th class="r">€/ano</th></tr>
+<tr><td rowspan="2">Novas (122,66 m²)</td><td><b>EPS grafite + estuque</b></td><td class="r">0,38</td><td class="r">1 079</td><td class="r">28</td><td class="r"><b>57</b></td></tr>
+<tr><td>EPS grafite + forro lã 3 cm</td><td class="r">0,31</td><td class="r">886</td><td class="r">15</td><td class="r">46</td></tr>
+<tr><td rowspan="6">Existentes (77,83 m²)</td><td>Como estão hoje</td><td class="r">0,85</td><td class="r">1 702</td><td class="r">75</td><td class="r">91</td></tr>
+<tr><td>Projecto: reboco térmico + forro lã 5 cm</td><td class="r">0,39</td><td class="r">792</td><td class="r">8</td><td class="r">41</td></tr>
+<tr><td><b>Lã injectada</b></td><td class="r">0,40</td><td class="r">813</td><td class="r">24</td><td class="r"><b>43</b></td></tr>
+<tr><td>Lã injectada + forro lã 5 cm</td><td class="r">0,29</td><td class="r">586</td><td class="r">7</td><td class="r">31</td></tr>
+<tr><td>ETICS grafite + lã injectada</td><td class="r">0,24</td><td class="r">490</td><td class="r">5</td><td class="r">25</td></tr>
+<tr><td>ETICS + lã injectada + forro lã 5 cm</td><td class="r">0,20</td><td class="r">397</td><td class="r">3</td><td class="r">21</td></tr>
+</table></div>
+<p class="n">Mesmo modelo da simulação abaixo, um dia médio por mês e por fachada: temperaturas das normais IPMA 1991–2020 (Lisboa, Instituto Geofísico); radiação real média 2005–2020 em Oeiras por orientação (PVGIS-SARAH2, inclui dias nublados); áreas por fachada do mapa de quantidades (1.1.1–1.1.4, 1.2.1, 1.4.1–1.4.3). Aquecimento de Novembro a Abril a 20 °C e arrefecimento de Junho a Setembro a 25 °C, 24 h por dia, COP/EER 3,5, 0,18 €/kWh [CÁLCULO]. Com a casa climatizada 24 h, a energia fica por excesso: os valores reais e as diferenças serão menores. Sem pontes térmicas, o que subvaloriza o ETICS. Custos de obra: lã injectada 16–37 €/m² (instalador EnergyEase, Oeiras); ETICS EPS 68–112 €/m² (Gerador de Preços CYPE); forro com lã 44 €/m² (CYPE ZFT021), lã sozinha ≈ 3,7 €/m²; EPS grafite +2,74 €/m² face ao branco (placa Topeca). Cálculo reproduzível em pesquisa/_calc_anual_paredes.mjs.</p>
+
+<h2>Simulação: como o calor atravessa as paredes</h2>
+<p class="n">24 horas de um dia de céu limpo, simuladas em regime variável (o calor demora a atravessar e fica guardado na alvenaria). Dois modos: <b>climatização ligada</b> (sala fixa a 20 °C no Inverno e 25 °C no Verão; mostra energia e custo a 0,18 €/kWh) e <b>climatização desligada</b> (a temperatura da sala flutua; mostra o efeito da inércia térmica). Cálculo próprio, valores nominais, sem pontes térmicas [CÁLCULO]. Não substitui a memória térmica do projectista.</p>
 
 <div class="ctl">
   <div class="g seg" id="sMode"><b>Climatização</b><button data-v="ac">Ligada (energia e €)</button><button data-v="free">Desligada (inércia)</button></div>
