@@ -29,7 +29,7 @@ canvas{display:block;width:100%;min-width:640px;height:auto}.sw{display:inline-b
   <div class="g"><b>Mín.</b><input id="tmin" type="number" step="1"> <b>Máx.</b><input id="tmax" type="number" step="1"> °C</div>
   <div class="g"><b>Fachada</b><select id="ori"><option value="N">Norte</option><option value="E">Este</option><option value="S">Sul</option><option value="O">Oeste</option></select></div>
   <div class="g"><b>Céu</b><select id="sky"><option value="1">limpo</option><option value="0">encoberto</option></select></div>
-  <div class="g" id="gRt"><b>Exterior</b><select id="rt"><option value="1">reboco térmico 2 cm (projecto)</option><option value="0">reboco actual</option></select></div>
+  <div class="g" id="gRt"><b>Exterior</b><select id="rt"><option value="rt">reboco térmico 2 cm (projecto)</option><option value="rb">reboco actual</option><option value="eg">ETICS EPS grafite 5 cm</option></select></div>
   <div class="g" id="gCop"><b>COP / EER</b><input id="cop" type="number" step="0.5" min="1"> <span class="n">a 0,18 €/kWh</span></div>
   <div class="g" id="gNight"><b>Janelas abertas à noite</b><select id="night"><option value="1">sim (22 h–8 h)</option><option value="0">não</option></select></div>
 </div>
@@ -103,7 +103,7 @@ const SEASON = {
          presets: [["Típico", 18, 27], ["Quente", 21, 33], ["Onda de calor", 25, 40]] },
 };
 const ORI = { S: 0, O: 90, N: 180, E: -90 }, ORIN = { S: "Sul", O: "Oeste", N: "Norte", E: "Este" };
-const st = { mode: "ac", wall: "nova", season: "inv", tmin: 8, tmax: 15, ori: "N", clear: true, rt: true, cop: 3.5, night: true, playing: true, simH: 0, speed: 1 };
+const st = { mode: "ac", wall: "nova", season: "inv", tmin: 8, tmax: 15, ori: "N", clear: true, ext: "rt", cop: 3.5, night: true, playing: true, simH: 0, speed: 1 };
 const f1 = v => v.toFixed(1).replace(".", ","), f2 = v => v.toFixed(2).replace(".", ","), f0 = v => Math.round(v).toString();
 const eur = v => v < 10 ? v.toFixed(2).replace(".", ",") + " €" : f0(v) + " €";
 const hhmm = h => { const m = Math.round(((h % 24) + 24) % 24 * 60) % 1440; return String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"); };
@@ -114,7 +114,7 @@ function variants(wall = st.wall) {
     { nome: "EPS grafite 5 cm + estuque", sub: "sem isolamento interior", L: ["fin", "eg", "bl", "es"] },
     { nome: "EPS grafite 5 cm + forro com lã 3 cm", sub: "isolamento interior (desenhos)", L: ["fin", "eg", "bl", "la3", "pl"] },
   ];
-  const ext = st.rt ? ["rt", "rb"] : ["rb"], p = st.rt ? "projecto" : "";
+  const ext = { rt: ["rt", "rb"], rb: ["rb"], eg: ["fin", "eg", "rb"] }[st.ext], p = st.ext === "rt" ? "projecto" : "";
   return [
     { nome: "Caixa de ar vazia, sem forro", sub: "", L: [...ext, "tj", "ar", "tj", "es"] },
     { nome: "Lã injectada na caixa, sem forro", sub: "", L: [...ext, "tj", "cheia", "tj", "es"] },
@@ -464,7 +464,7 @@ function leitura() {
       ? `<b>Inverno, sem aquecimento.</b> Temperatura mínima da sala — ${list}. A mais confortável é «${v[bi].nome}». Sem aquecimento manda sobretudo o U; a inércia só suaviza a descida nocturna.`
       : `<b>Verão, sem ar condicionado.</b> Temperatura máxima da sala — ${list}. A mais fresca é «${v[bi].nome}». `;
     if (!inv() && st.wall === "nova") h += `O forro isola mais (U ${f2(v[1].ms.U)} contra ${f2(v[0].ms.U)}), mas a sala fica ${f1(tx[1] - tx[0])} °C mais quente no pico e acumula ${f0(dh[1])} °C·h acima de 26 °C contra ${f0(dh[0])}: a lã esconde o bloco da sala (inércia ${f1(Y[1])} em vez de ${f1(Y[0])} W/m²·°C). É por isso que a TER.4 conta com estuque e «inércia forte».`;
-    if (!inv() && st.wall === "exist") { const dF = tx[2] - tx[1]; h += `${Math.abs(dF) < 0.05 ? "Com o forro, o pico fica igual ao da caixa cheia" : `Com o forro a sala fica ${f1(Math.abs(dF))} °C ${dF > 0 ? "mais quente" : "mais fresca"} no pico do que só com a caixa cheia`}, e oscila mais (${f1(v[2].tmax - v[2].tmin)} contra ${f1(v[1].tmax - v[1].tmin)} °C): a caixa cheia deixa o pano interior de tijolo do lado da sala (inércia ${f1(Y[1])}); o forro tira-o (${f1(Y[2])}).${bi === 0 ? " A parede sem isolamento sai mais fresca porque a sala, com o sol da janela e os ganhos internos, está mais quente do que a rua quase todo o dia: uma parede que isola menos deixa sair esse calor. Com o ar condicionado ligado, ou no Inverno, perde." : ""}`; }
+    if (!inv() && st.wall === "exist") { const dF = tx[2] - tx[1]; h += `${Math.abs(dF) < 0.05 ? "Com o forro, o pico fica igual ao da caixa cheia" : `Com o forro a sala fica ${f1(Math.abs(dF))} °C ${dF > 0 ? "mais quente" : "mais fresca"} no pico do que só com a caixa cheia`}, e oscila mais (${f1(v[2].tmax - v[2].tmin)} contra ${f1(v[1].tmax - v[1].tmin)} °C): a caixa cheia deixa o pano interior de tijolo do lado da sala (inércia ${f1(Y[1])}); o forro tira-o (${f1(Y[2])}).${bi === 0 ? " A 1.ª linha, a que isola menos, sai mais fresca porque a sala, com o sol da janela e os ganhos internos, está mais quente do que a rua quase todo o dia: uma parede que isola menos deixa sair esse calor. Com o ar condicionado ligado, ou no Inverno, perde." : ""}`; }
   } else {
     const E = v.map(x => kwhDay(x, st.season)), M = E.map(e => eurMonth(e, A));
     const tiny = !inv() && E[0] * A / 1000 < 0.5, pc = (a, b) => f0((E[a] - E[b]) / E[a] * 100);
@@ -476,7 +476,7 @@ function leitura() {
     } else {
       const best = E.indexOf(Math.min(...E));
       if (inv()) h = `<b>Inverno.</b> A lã injectada corta ${pc(0, 1)} % das perdas (≈ ${em(0, 1)} nos ${f0(A)} m²) sem tocar no interior. O forro sozinho corta ${pc(0, 2)} % (≈ ${em(0, 2)}). As duas juntas, ${pc(0, 3)} %; o forro por cima da caixa cheia vale só mais ≈ ${em(1, 3)}.`;
-      else h = (tiny ? quiet : `<b>Verão.</b> Ar condicionado poupado face à parede actual: ${em(0, 1)} com a caixa cheia, ${em(0, 2)} com o forro, ${em(0, 3)} com os dois. `) + `A caixa cheia mantém a inércia (${f1(Y[1])} W/m²·°C); o forro corta-a para ${f1(Y[2])}.`;
+      else h = (tiny ? quiet : `<b>Verão.</b> Ar condicionado poupado face à 1.ª linha: ${em(0, 1)} com a caixa cheia, ${em(0, 2)} com o forro, ${em(0, 3)} com os dois. `) + `A caixa cheia mantém a inércia (${f1(Y[1])} W/m²·°C); o forro corta-a para ${f1(Y[2])}.`;
       if (best !== 3 && !tiny) h += ` Neste cenário a melhor é «${v[best].nome}».`;
     }
   }
@@ -533,7 +533,7 @@ $("tmin").onchange = () => { st.tmin = Math.min(+$("tmin").value, st.tmax); upda
 $("tmax").onchange = () => { st.tmax = Math.max(+$("tmax").value, st.tmin); update(); };
 $("ori").onchange = () => { st.ori = $("ori").value; update(); };
 $("sky").onchange = () => { st.clear = $("sky").value === "1"; update(); };
-$("rt").onchange = () => { st.rt = $("rt").value === "1"; update(); };
+$("rt").onchange = () => { st.ext = $("rt").value; update(); };
 $("cop").onchange = () => { st.cop = Math.max(1, +$("cop").value || 3.5); update(); };
 $("night").onchange = () => { st.night = $("night").value === "1"; update(); };
 $("play").onclick = () => { st.playing = !st.playing; $("play").textContent = st.playing ? "❚❚" : "▶"; };
