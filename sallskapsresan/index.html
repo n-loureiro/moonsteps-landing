@@ -67,7 +67,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .card-back::after{content:"";position:absolute;inset:3px;border:1.5px solid rgba(215,38,30,.35);border-radius:10px;pointer-events:none}
 
 /* ---------- Deck ---------- */
-.deck-screen{max-width:1100px;margin:0 auto;padding:22px 20px 60px}
+.deck-screen{max-width:1100px;margin:0 auto;padding:68px 20px 60px}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:22px}
 .topbar .wordmark{font-size:clamp(28px,5vw,40px);background:none;border:0;padding:0}
 .status{font-family:"Barlow Condensed",sans-serif;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:15px;color:var(--muted)}
@@ -82,7 +82,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .card-btn .num{position:absolute;top:12px;left:12px;width:26px;height:26px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:15px;box-shadow:0 1px 4px rgba(0,0,0,.2)}
 .card-btn.played{filter:saturate(.25) brightness(.92)}
 .card-btn.played .card-back{opacity:.7}
-.card-btn.played::after{content:"Played";position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) rotate(-12deg);
+.card-btn.played::after{content:var(--stamp,"Played");position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) rotate(-12deg);
   font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:clamp(14px,2.2vw,20px);
   color:var(--red);border:3px solid var(--red);border-radius:6px;padding:2px 10px;background:rgba(255,253,248,.85)}
 .card-btn.hidden-for-deal{visibility:hidden}
@@ -91,7 +91,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .done-banner p{margin:0;font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600}
 
 /* ---------- Stage / question card ---------- */
-.stage{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:20px;overflow:auto;
+.stage{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:64px 20px 20px;overflow:auto;
   background:rgba(25,18,10,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .stage.closing{animation:fadeout .25s ease forwards}
 @keyframes fadeout{to{opacity:0}}
@@ -132,6 +132,18 @@ button{font:inherit;color:inherit;cursor:pointer}
 .flip-hint{color:#f3e4c0;font-size:14px;opacity:.85;margin:0}
 .ghost-card{position:fixed;z-index:30;pointer-events:none;transform-origin:center;will-change:transform}
 
+/* ---------- Language switch ---------- */
+.lang{position:fixed;z-index:40;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));
+  display:flex;gap:2px;padding:4px;border-radius:999px;background:rgba(255,253,248,.88);
+  box-shadow:0 2px 10px rgba(60,30,0,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.lang button{display:flex;align-items:center;gap:6px;border:0;background:none;padding:5px 9px 5px 6px;border-radius:999px;
+  font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:14px;letter-spacing:.06em;color:var(--muted);
+  opacity:.55;filter:grayscale(.7);transition:opacity .15s,filter .15s,background .15s}
+.lang button:hover{opacity:.85;filter:none}
+.lang button[aria-pressed="true"]{opacity:1;filter:none;background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.lang button:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.lang svg{display:block;width:24px;height:16px;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+
 @media (max-width:860px){.deck{grid-template-columns:repeat(4,1fr)}}
 @media (max-width:640px){
   .deck{grid-template-columns:repeat(3,1fr)}
@@ -143,7 +155,7 @@ button{font:inherit;color:inherit;cursor:pointer}
   .panel{padding:8px 12px 10px 6px}
   .row{grid-template-columns:30px 1fr;gap:8px;padding:6px 0}
   .wedge{width:24px;height:26px}
-  .stage{padding:12px;place-items:start center}
+  .stage{padding:64px 12px 12px;place-items:start center}
 }
 @media (max-width:420px){.deck{grid-template-columns:repeat(2,1fr)}}
 @media (prefers-reduced-motion:reduce){
@@ -157,49 +169,88 @@ button{font:inherit;color:inherit;cursor:pointer}
   <span class="card-back" aria-hidden="true"><img class="art" src="stig-helmer.jpg" alt="" draggable="false"><span class="label"><span class="wordmark">Sällskapsresan</span></span></span>
 </template>
 
+<div class="lang" role="group" data-i18n-aria="language">
+  <button type="button" data-lang="en" aria-pressed="false" lang="en"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="uk-t"><path d="M30,15h30v15zv15H0zH0V0zV0h30z"/></clipPath><path d="M0,0v30h60V0z" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#uk-t)" stroke="#c8102e" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#c8102e" stroke-width="6"/></svg>EN</button>
+  <button type="button" data-lang="sv" aria-pressed="false" lang="sv"><svg viewBox="0 0 16 10" aria-hidden="true"><rect width="16" height="10" fill="#006aa7"/><rect x="5" width="2" height="10" fill="#fecc00"/><rect y="4" width="16" height="2" fill="#fecc00"/></svg>SV</button>
+</div>
+
 <main id="home" class="home">
   <div class="home-inner">
     <div class="sun"><div class="fan" id="fan"></div></div>
     <h1 class="wordmark">Sällskapsresan</h1>
-    <p class="tagline">Family trivia · 6 films · 60 questions</p>
-    <button class="play" id="play">Play Sällskapsresan</button>
+    <p class="tagline" data-i18n="tagline"></p>
+    <button class="play" id="play" data-i18n="play"></button>
     <ul class="films" id="film-legend"></ul>
   </div>
 </main>
 
 <main id="deck-screen" class="deck-screen" hidden>
   <div class="topbar">
-    <button class="wordmark" id="home-link" aria-label="Back to start">Sällskapsresan</button>
+    <button class="wordmark" id="home-link" data-i18n-aria="backToStart">Sällskapsresan</button>
     <div class="actions">
       <span class="status" id="status"></span>
-      <button class="ghost-btn" id="reshuffle">New shuffle</button>
+      <button class="ghost-btn" id="reshuffle" data-i18n="reshuffle"></button>
     </div>
   </div>
-  <p class="hint">Pick a card. Each one has a question from every film; tap the card to turn it over and see the answers.</p>
+  <p class="hint" data-i18n="hint"></p>
   <div class="deck" id="deck"></div>
   <div class="done-banner" id="done" hidden>
-    <p>That's the whole deck. Who won?</p>
-    <button class="play" id="again">Shuffle a new deck</button>
+    <p data-i18n="done"></p>
+    <button class="play" id="again" data-i18n="again"></button>
   </div>
 </main>
 
-<div class="stage" id="stage" hidden role="dialog" aria-modal="true" aria-label="Trivia card">
+<div class="stage" id="stage" hidden role="dialog" aria-modal="true" data-i18n-aria="dialog">
   <div class="stage-inner">
-    <button class="flip" id="flip" aria-label="Turn card over"></button>
-    <p class="flip-hint" id="flip-hint">Tap the card to see the answers</p>
+    <button class="flip" id="flip"></button>
+    <p class="flip-hint" id="flip-hint"></p>
     <div class="stage-actions">
-      <button class="ghost-btn" id="close">Back to deck</button>
-      <button class="ghost-btn" id="next">Next card</button>
+      <button class="ghost-btn" id="close" data-i18n="close"></button>
+      <button class="ghost-btn" id="next" data-i18n="next"></button>
     </div>
   </div>
 </div>
 
 <script>
-const FILMS = [{"title": "Sällskapsresan (1980)", "short": "Sällskapsresan", "year": 1980, "color": "blue", "questions": [{"q": "What is the name of the Swedish-packed resort on the Canary Islands where the charter group spends Christmas?", "a": "Nueva Estocolmo"}, {"q": "What mantra does Stig Helmer learn at the fear-of-flying clinic and repeat whenever he panics: \"Jag kan flyga, ___\" (\"I can fly, ___\")?", "a": "\"Jag är inte rädd\" (\"I'm not afraid\")"}, {"q": "At which bar in Nueva Estocolmo is Stig Helmer asked to drop off Dr Levander's \"Christmas package\"?", "a": "Viking Bar"}, {"q": "What is the first name of the Norwegian who ends up sharing a hotel room with Stig Helmer because of overbooking?", "a": "Ole (Ole Bramserud)"}, {"q": "Which bodega, supposedly pouring 80-proof rum into wine bottles, do Berra and Robban spend the whole holiday hunting for?", "a": "Pepes Bodega"}, {"q": "What animal nickname do the two Swedish women give the gangly Stig Helmer?", "a": "Giraffen (the Giraffe)"}, {"q": "Ole and Stig Helmer buy a donkey figure, paint it and put it in the package as a replacement gift. What traditional Swedish souvenir do they paint it to look like?", "a": "A Dala horse (dalahäst)"}, {"q": "Who does José bring along on his \"authentic Spanish restaurant\" dinner date?", "a": "His mother (\"Morsan!\")"}, {"q": "Stig Helmer's package is supposedly for a relative staying on the Canaries because of \"Epicondylitis humeri.\" What is that condition in plain Swedish?", "a": "Tennisarm (tennis elbow)"}, {"q": "Stig Helmer says that if you buy a toaster marked \"Kontrollerad av ___\" (\"Inspected by ___\"), it was him. What is the inspector code?", "a": "G17"}]}, {"title": "Sällskapsresan II – Snowroller (1985)", "short": "Snowroller", "year": 1985, "color": "pink", "questions": [{"q": "To which Alpine ski village does Stig-Helmer travel over New Year?", "a": "Kirchberg"}, {"q": "What is the name of the travel company whose bus takes the Swedes to the Alps?", "a": "Snowroller"}, {"q": "What hobby does Stig-Helmer's mother tease him about, saying he sits at home playing with it?", "a": "Toy trains (his model railway)"}, {"q": "Göte claims that a single rule is all you need to know about skiing. What is it?", "a": "\"Tyngden på dalskidan\" (weight on the downhill ski)"}, {"q": "What is the name of the woman Stig-Helmer meets at the resort and falls for?", "a": "Lotta"}, {"q": "The kicksled factory Brännströms Mekaniska in Ormträsk wants a development grant so it can switch to making what new product?", "a": "Skis (a \"svensk folkskida\", Swedish people's ski)"}, {"q": "What is the name of the specially designed Snowroller hat handed out each day to whoever makes the funniest blunder?", "a": "\"Stavfelet\""}, {"q": "Göte breaks his leg after a German shoves him in the lift queue. What did Göte call the German?", "a": "\"Liftwaffe\""}, {"q": "Rudi from the Katzenhütte speaks some Swedish because he once worked in Sweden. In which town?", "a": "Säffle (at Pizzeria Napoli)"}, {"q": "The tour guide tells the bus that Snowroller holds a record for a combined pee-and-smoke break. How many seconds is the record?", "a": "47 seconds"}]}, {"title": "SOS – en segelsällskapsresa (1988)", "short": "SOS", "year": 1988, "color": "yellow", "questions": [{"q": "Ole goes to the costume party as Superman; what costume has he rented for Stig-Helmer?", "a": "A (pink) rabbit"}, {"q": "What is the name of Ole's own sailboat, which he says is named after Fridtjof Nansen's ship?", "a": "Fram"}, {"q": "Which archipelago island, run by Anna Vera's father, is the target of the shady development scheme?", "a": "Stråholmen"}, {"q": "Stig-Helmer says he can't swim because he has problems with which part of his body?", "a": "His ears"}, {"q": "Which Swedish holiday weekend does the sailing trip take place over?", "a": "Midsummer"}, {"q": "What is the name of the 12-metre yacht that Madde borrows from Viktor Uggla for the all-women crew?", "a": "New Sweden"}, {"q": "In the bet with the women, Henrik promises to sail around which island in the children's boat, wearing a hat and dress?", "a": "Gotland"}, {"q": "Which slogan is painted on Kookaburra's spinnaker during the midsummer race?", "a": "\"Bevara Stråholmen\" (Save Stråholmen)"}, {"q": "Anna Vera says her father named her after his aftershave; what's the brand?", "a": "Aqua Vera"}, {"q": "What number is dialled to make the pager beep, so the lost bag can be found among ten thousand garbage bags on the barge?", "a": "004747211"}]}, {"title": "Den ofrivillige golfaren (1991)", "short": "Golfaren", "year": 1991, "color": "purple", "questions": [{"q": "To which country do Stig-Helmer and Ole travel so Stig-Helmer can learn golf in a week?", "a": "Scotland"}, {"q": "How much money is wagered on whether a random passer-by can beat club chairman Bruno Anderhage after just one week of golf?", "a": "One million kronor"}, {"q": "What is the name of Roderic McDougall's golf-swinging robot that Stig-Helmer trains with?", "a": "Vardon (named after Harry Vardon)"}, {"q": "Stig-Helmer loses his job when the Toastmaster factory closes. What did he check there all day?", "a": "Toasters"}, {"q": "What is Stig-Helmer's new job when Bruno picks him as the golf novice?", "a": "Street sweeper (gatsopare)"}, {"q": "Which relative's old golf clubs and clothes does Stig-Helmer dig out of his mother's attic?", "a": "His uncle Julle (morbror Julle / Julius)"}, {"q": "What is the title of Roderic \"Dogleg\" McDougall's famous 1960s golf book, the \"golf bible\" found in the uncle's bag?", "a": "\"Golf utan tårar\" (\"Golf Without Tears\")"}, {"q": "What is the name of the pub in the Scottish village?", "a": "The Laughing Duck"}, {"q": "On which hole does Stig-Helmer make the first par of his life, as announced in church?", "a": "The 13th"}, {"q": "Stig-Helmer's only farewell gift from Toastmaster was a toaster. According to his mother, which model was it?", "a": "The F41, the four-slice luxury model (\"F41 – lyxmodellen för fyra skivor\")"}]}, {"title": "Hälsoresan – En smal film av stor vikt (1999)", "short": "Hälsoresan", "year": 1999, "color": "green", "questions": [{"q": "What new name is given to the old Granhedsgården health farm when it is relaunched as a modern spa?", "a": "Gustav Vasa Spa"}, {"q": "What is the first name of Stig Helmer's New Age neighbour, who reads his aura and offers to become his personal coach?", "a": "Rebecka (Rebecka Melin)"}, {"q": "What birds are Stig Helmer and Ole dressed as when they finally walk out of the wilderness?", "a": "Chickens"}, {"q": "What does Bruno Anderhage turn his two tons of leftover chicken feed into?", "a": "Slimming crisps, sold as \"Slim Quick\""}, {"q": "What nationality is Stig Helmer's friend Ole Bramserud?", "a": "Norwegian"}, {"q": "Stig Helmer's mother sees his yellow fingers and asks if he smokes. What snack does he say stained them?", "a": "Ostbågar (cheese puffs / Cheese Doodles)"}, {"q": "Stig Helmer's one-armed father played in \"Bröderna Olssons Dixie Jazz Band\". What instrument did he play?", "a": "Drums"}, {"q": "What is the name of the guru the spa expects to arrive on the two o'clock train?", "a": "Viswanathan Raj"}, {"q": "Which scout patrol in Sofia scoutkår does Stig Helmer say taught him his wilderness skills?", "a": "Patrullen Bävern (the Beaver patrol)"}, {"q": "During the staged \"vegan\" attack, Bruno tells his accomplice to write \"mördare\" (murderer) on the broiler truck instead of \"svin\" (pig). What misspelled word ends up sprayed on it?", "a": "\"Smördare\""}]}, {"title": "The Stig-Helmer Story (2011)", "short": "Stig-Helmer Story", "year": 2011, "color": "orange", "questions": [{"q": "What is the full name of the Norwegian friend who listens to Stig-Helmer tell his life story and goes looking for Annika?", "a": "Ole Bramserud"}, {"q": "What childhood nickname does Biffen use to tease Stig-Helmer?", "a": "Tuff-Tuff"}, {"q": "What is the name of the model steam locomotive Uncle Julle gives Stig-Helmer, which he later gives to Annika?", "a": "Big Boy"}, {"q": "Which instrument does Annika teach young Stig-Helmer to play?", "a": "The banjo"}, {"q": "In which American city does the film end, where Stig-Helmer and Annika meet again?", "a": "New Orleans"}, {"q": "What name does Stig-Helmer's band from the Salvation Army play under in the contest at Nalen?", "a": "The Saints"}, {"q": "Ole thinks Annika went to China, but where did he actually find her?", "a": "Kinna, south of Borås"}, {"q": "Which station does Stig-Helmer give as his wrong answer on the TV quiz <em>Kvitt eller dubbelt<\/em> after Hjördis's teasing?", "a": "Hästveda"}, {"q": "According to his mother, how much did it cost to collect newborn Stig-Helmer from the maternity ward at Birkastan?", "a": "6.75 kronor"}, {"q": "When they meet again, Stig-Helmer tells Annika exactly how long it has been since they last saw each other. What is the precise figure?", "a": "49 years, 241 days, 22 hours and 13 minutes"}]}];
+const FILMS = [{"short": "Sällskapsresan", "year": 1980, "color": "blue", "questions": [{"q": {"en": "What is the name of the Swedish-packed resort on the Canary Islands where the charter group spends Christmas?", "sv": "Vad heter den svenskfyllda semesterorten på Kanarieöarna där sällskapet firar jul?"}, "a": {"en": "Nueva Estocolmo", "sv": "Nueva Estocolmo"}}, {"q": {"en": "What mantra does Stig Helmer learn at the fear-of-flying clinic and repeat whenever he panics: \"Jag kan flyga, ___\" (\"I can fly, ___\")?", "sv": "Vilket mantra lär sig Stig Helmer på flygrädslekursen och upprepar när paniken kommer: \"Jag kan flyga, ___\"?"}, "a": {"en": "\"Jag är inte rädd\" (\"I'm not afraid\")", "sv": "\"Jag är inte rädd\""}}, {"q": {"en": "At which bar in Nueva Estocolmo is Stig Helmer asked to drop off Dr Levander's \"Christmas package\"?", "sv": "Till vilken bar i Nueva Estocolmo ska Stig Helmer lämna dr Levanders \"julpaket\"?"}, "a": {"en": "Viking Bar", "sv": "Viking Bar"}}, {"q": {"en": "What is the first name of the Norwegian who ends up sharing a hotel room with Stig Helmer because of overbooking?", "sv": "Vad heter norrmannen i förnamn som får dela hotellrum med Stig Helmer på grund av överbokning?"}, "a": {"en": "Ole (Ole Bramserud)", "sv": "Ole (Ole Bramserud)"}}, {"q": {"en": "Which bodega, supposedly pouring 80-proof rum into wine bottles, do Berra and Robban spend the whole holiday hunting for?", "sv": "Vilken bodega, som sägs hälla 80-procentig rom på vinflaskor, letar Berra och Robban efter hela semestern?"}, "a": {"en": "Pepes Bodega", "sv": "Pepes Bodega"}}, {"q": {"en": "What animal nickname do the two Swedish women give the gangly Stig Helmer?", "sv": "Vilket djuröknamn ger de två svenska tjejerna den gänglige Stig Helmer?"}, "a": {"en": "Giraffen (the Giraffe)", "sv": "Giraffen"}}, {"q": {"en": "Ole and Stig Helmer buy a donkey figure, paint it and put it in the package as a replacement gift. What traditional Swedish souvenir do they paint it to look like?", "sv": "Ole och Stig Helmer köper en åsnefigur, målar den och lägger den i paketet som ersättning. Vilken klassisk svensk souvenir målar de den som?"}, "a": {"en": "A Dala horse (dalahäst)", "sv": "En dalahäst"}}, {"q": {"en": "Who does José bring along on his \"authentic Spanish restaurant\" dinner date?", "sv": "Vem tar José med sig på middagen på den \"äkta spanska restaurangen\"?"}, "a": {"en": "His mother (\"Morsan!\")", "sv": "Sin mamma (\"Morsan!\")"}}, {"q": {"en": "Stig Helmer's package is supposedly for a relative staying on the Canaries because of \"Epicondylitis humeri.\" What is that condition in plain Swedish?", "sv": "Stig Helmers paket sägs vara till en släkting som vistas på Kanarieöarna på grund av \"Epicondylitis humeri\". Vad heter det på vanlig svenska?"}, "a": {"en": "Tennisarm (tennis elbow)", "sv": "Tennisarm"}}, {"q": {"en": "Stig Helmer says that if you buy a toaster marked \"Kontrollerad av ___\" (\"Inspected by ___\"), it was him. What is the inspector code?", "sv": "Stig Helmer säger att om du köper en brödrost där det står \"Kontrollerad av ___\", så är det han. Vilken är kontrollantkoden?"}, "a": {"en": "G17", "sv": "G17"}}]}, {"short": "Snowroller", "year": 1985, "color": "pink", "questions": [{"q": {"en": "To which Alpine ski village does Stig-Helmer travel over New Year?", "sv": "Till vilken alpby reser Stig-Helmer över nyår?"}, "a": {"en": "Kirchberg", "sv": "Kirchberg"}}, {"q": {"en": "What is the name of the travel company whose bus takes the Swedes to the Alps?", "sv": "Vad heter resebolaget vars buss tar svenskarna till Alperna?"}, "a": {"en": "Snowroller", "sv": "Snowroller"}}, {"q": {"en": "What hobby does Stig-Helmer's mother tease him about, saying he sits at home playing with it?", "sv": "Vilken hobby retar Stig-Helmers mamma honom för, när hon säger att han sitter hemma och leker?"}, "a": {"en": "Toy trains (his model railway)", "sv": "Tåg (hans modelljärnväg)"}}, {"q": {"en": "Göte claims that a single rule is all you need to know about skiing. What is it?", "sv": "Göte menar att en enda regel är allt man behöver kunna om skidåkning. Vilken?"}, "a": {"en": "\"Tyngden på dalskidan\" (weight on the downhill ski)", "sv": "\"Tyngden på dalskidan\""}}, {"q": {"en": "What is the name of the woman Stig-Helmer meets at the resort and falls for?", "sv": "Vad heter kvinnan som Stig-Helmer träffar på skidorten och faller för?"}, "a": {"en": "Lotta", "sv": "Lotta"}}, {"q": {"en": "The kicksled factory Brännströms Mekaniska in Ormträsk wants a development grant so it can switch to making what new product?", "sv": "Sparkfabriken Brännströms Mekaniska i Ormträsk söker utvecklingsbidrag för att ställa om till vilken ny produkt?"}, "a": {"en": "Skis (a \"svensk folkskida\", Swedish people's ski)", "sv": "Skidor (en \"svensk folkskida\")"}}, {"q": {"en": "What is the name of the specially designed Snowroller hat handed out each day to whoever makes the funniest blunder?", "sv": "Vad heter Snowrollers specialdesignade mössa som varje dag delas ut till den som gjort den roligaste tabben?"}, "a": {"en": "\"Stavfelet\"", "sv": "\"Stavfelet\""}}, {"q": {"en": "Göte breaks his leg after a German shoves him in the lift queue. What did Göte call the German?", "sv": "Göte bryter benet efter att en tysk knuffat honom i liftkön. Vad hade Göte kallat tysken?"}, "a": {"en": "\"Liftwaffe\"", "sv": "\"Liftwaffe\""}}, {"q": {"en": "Rudi from the Katzenhütte speaks some Swedish because he once worked in Sweden. In which town?", "sv": "Rudi på Katzenhütte pratar lite svenska eftersom han har jobbat i Sverige. I vilken stad?"}, "a": {"en": "Säffle (at Pizzeria Napoli)", "sv": "Säffle (på pizzeria Napoli)"}}, {"q": {"en": "The tour guide tells the bus that Snowroller holds a record for a combined pee-and-smoke break. How many seconds is the record?", "sv": "Reseledaren berättar att Snowroller har rekord i kombinerad kiss- och rökpaus. Hur många sekunder är rekordet?"}, "a": {"en": "47 seconds", "sv": "47 sekunder"}}]}, {"short": "SOS", "year": 1988, "color": "yellow", "questions": [{"q": {"en": "Ole goes to the costume party as Superman; what costume has he rented for Stig-Helmer?", "sv": "Ole går på maskeraden som Stålmannen. Vilken dräkt har han hyrt åt Stig-Helmer?"}, "a": {"en": "A (pink) rabbit", "sv": "En (rosa) kanin"}}, {"q": {"en": "What is the name of Ole's own sailboat, which he says is named after Fridtjof Nansen's ship?", "sv": "Vad heter Oles egen segelbåt, som han säger är uppkallad efter Fridtjof Nansens skepp?"}, "a": {"en": "Fram", "sv": "Fram"}}, {"q": {"en": "Which archipelago island, run by Anna Vera's father, is the target of the shady development scheme?", "sv": "Vilken skärgårdsö, som drivs av Anna Veras pappa, är måltavla för det skumma exploateringsprojektet?"}, "a": {"en": "Stråholmen", "sv": "Stråholmen"}}, {"q": {"en": "Stig-Helmer says he can't swim because he has problems with which part of his body?", "sv": "Stig-Helmer säger att han inte kan simma eftersom han har problem med vilken kroppsdel?"}, "a": {"en": "His ears", "sv": "Öronen"}}, {"q": {"en": "Which Swedish holiday weekend does the sailing trip take place over?", "sv": "Över vilken svensk helg utspelar sig seglatsen?"}, "a": {"en": "Midsummer", "sv": "Midsommar"}}, {"q": {"en": "What is the name of the 12-metre yacht that Madde borrows from Viktor Uggla for the all-women crew?", "sv": "Vad heter tolvmetersbåten som Madde lånar av Viktor Uggla till sin dambesättning?"}, "a": {"en": "New Sweden", "sv": "New Sweden"}}, {"q": {"en": "In the bet with the women, Henrik promises to sail around which island in the children's boat, wearing a hat and dress?", "sv": "I vadet med kvinnorna lovar Henrik att segla runt vilken ö i ungarnas båt, iklädd hatt och klänning?"}, "a": {"en": "Gotland", "sv": "Gotland"}}, {"q": {"en": "Which slogan is painted on Kookaburra's spinnaker during the midsummer race?", "sv": "Vilken slogan står på Kookaburras spinnaker under midsommarseglingen?"}, "a": {"en": "\"Bevara Stråholmen\" (Save Stråholmen)", "sv": "\"Bevara Stråholmen\""}}, {"q": {"en": "Anna Vera says her father named her after his aftershave; what's the brand?", "sv": "Anna Vera säger att hennes pappa döpte henne efter sitt rakvatten. Vilket märke?"}, "a": {"en": "Aqua Vera", "sv": "Aqua Vera"}}, {"q": {"en": "What number is dialled to make the pager beep, so the lost bag can be found among ten thousand garbage bags on the barge?", "sv": "Vilket nummer ringer man för att få personsökaren att pipa, så att den borttappade påsen hittas bland tiotusen soppåsar på pråmen?"}, "a": {"en": "004747211", "sv": "004747211"}}]}, {"short": "Golfaren", "year": 1991, "color": "purple", "questions": [{"q": {"en": "To which country do Stig-Helmer and Ole travel so Stig-Helmer can learn golf in a week?", "sv": "Till vilket land reser Stig-Helmer och Ole för att Stig-Helmer ska lära sig golf på en vecka?"}, "a": {"en": "Scotland", "sv": "Skottland"}}, {"q": {"en": "How much money is wagered on whether a random passer-by can beat club chairman Bruno Anderhage after just one week of golf?", "sv": "Hur mycket pengar satsas på att en slumpvis vald förbipasserande kan slå klubbordföranden Bruno Anderhage efter bara en veckas golf?"}, "a": {"en": "One million kronor", "sv": "En miljon kronor"}}, {"q": {"en": "What is the name of Roderic McDougall's golf-swinging robot that Stig-Helmer trains with?", "sv": "Vad heter Roderic McDougalls golfsvingande robot som Stig-Helmer tränar med?"}, "a": {"en": "Vardon (named after Harry Vardon)", "sv": "Vardon (uppkallad efter Harry Vardon)"}}, {"q": {"en": "Stig-Helmer loses his job when the Toastmaster factory closes. What did he check there all day?", "sv": "Stig-Helmer förlorar jobbet när Toastmaster-fabriken läggs ner. Vad kontrollerade han där hela dagarna?"}, "a": {"en": "Toasters", "sv": "Brödrostar"}}, {"q": {"en": "What is Stig-Helmer's new job when Bruno picks him as the golf novice?", "sv": "Vilket nytt jobb har Stig-Helmer när Bruno väljer ut honom som golfnybörjare?"}, "a": {"en": "Street sweeper (gatsopare)", "sv": "Gatsopare"}}, {"q": {"en": "Which relative's old golf clubs and clothes does Stig-Helmer dig out of his mother's attic?", "sv": "Vilken släktings gamla golfklubbor och kläder letar Stig-Helmer fram på sin mammas vind?"}, "a": {"en": "His uncle Julle (morbror Julle / Julius)", "sv": "Morbror Julles"}}, {"q": {"en": "What is the title of Roderic \"Dogleg\" McDougall's famous 1960s golf book, the \"golf bible\" found in the uncle's bag?", "sv": "Vad heter Roderic \"Dogleg\" McDougalls berömda golfbok från 60-talet, \"golfbibeln\" som hittas i morbroderns bag?"}, "a": {"en": "\"Golf utan tårar\" (\"Golf Without Tears\")", "sv": "\"Golf utan tårar\""}}, {"q": {"en": "What is the name of the pub in the Scottish village?", "sv": "Vad heter puben i den skotska byn?"}, "a": {"en": "The Laughing Duck", "sv": "The Laughing Duck"}}, {"q": {"en": "On which hole does Stig-Helmer make the first par of his life, as announced in church?", "sv": "På vilket hål gör Stig-Helmer sitt livs första par, enligt tillkännagivandet i kyrkan?"}, "a": {"en": "The 13th", "sv": "Det trettonde"}}, {"q": {"en": "Stig-Helmer's only farewell gift from Toastmaster was a toaster. According to his mother, which model was it?", "sv": "Stig-Helmers enda avskedsgåva från Toastmaster var en brödrost. Vilken modell var det enligt hans mamma?"}, "a": {"en": "The F41, the four-slice luxury model (\"F41 – lyxmodellen för fyra skivor\")", "sv": "F41 – lyxmodellen för fyra skivor"}}]}, {"short": "Hälsoresan", "year": 1999, "color": "green", "questions": [{"q": {"en": "What new name is given to the old Granhedsgården health farm when it is relaunched as a modern spa?", "sv": "Vilket nytt namn får den gamla kurorten Granhedsgården när den nylanseras som modernt spa?"}, "a": {"en": "Gustav Vasa Spa", "sv": "Gustav Vasa Spa"}}, {"q": {"en": "What is the first name of Stig Helmer's New Age neighbour, who reads his aura and offers to become his personal coach?", "sv": "Vad heter Stig Helmers new age-granne i förnamn, hon som läser hans aura och erbjuder sig att bli hans personliga coach?"}, "a": {"en": "Rebecka (Rebecka Melin)", "sv": "Rebecka (Rebecka Melin)"}}, {"q": {"en": "What birds are Stig Helmer and Ole dressed as when they finally walk out of the wilderness?", "sv": "Vilka fåglar är Stig Helmer och Ole utklädda till när de till slut tar sig ut ur vildmarken?"}, "a": {"en": "Chickens", "sv": "Kycklingar"}}, {"q": {"en": "What does Bruno Anderhage turn his two tons of leftover chicken feed into?", "sv": "Vad gör Bruno Anderhage av sina två ton överblivet hönsfoder?"}, "a": {"en": "Slimming crisps, sold as \"Slim Quick\"", "sv": "Bantningschips, sålda som \"Slim Quick\""}}, {"q": {"en": "What nationality is Stig Helmer's friend Ole Bramserud?", "sv": "Vilken nationalitet har Stig Helmers vän Ole Bramserud?"}, "a": {"en": "Norwegian", "sv": "Norsk"}}, {"q": {"en": "Stig Helmer's mother sees his yellow fingers and asks if he smokes. What snack does he say stained them?", "sv": "Stig Helmers mamma ser hans gula fingrar och frågar om han röker. Vilket snacks säger han har färgat dem?"}, "a": {"en": "Ostbågar (cheese puffs / Cheese Doodles)", "sv": "Ostbågar"}}, {"q": {"en": "Stig Helmer's one-armed father played in \"Bröderna Olssons Dixie Jazz Band\". What instrument did he play?", "sv": "Stig Helmers enarmade pappa spelade i \"Bröderna Olssons Dixie Jazz Band\". Vilket instrument spelade han?"}, "a": {"en": "Drums", "sv": "Trummor"}}, {"q": {"en": "What is the name of the guru the spa expects to arrive on the two o'clock train?", "sv": "Vad heter gurun som spaet väntar på med tvåtåget?"}, "a": {"en": "Viswanathan Raj", "sv": "Viswanathan Raj"}}, {"q": {"en": "Which scout patrol in Sofia scoutkår does Stig Helmer say taught him his wilderness skills?", "sv": "Vilken patrull i Sofia scoutkår säger Stig Helmer har lärt honom att klara sig i vildmarken?"}, "a": {"en": "Patrullen Bävern (the Beaver patrol)", "sv": "Patrullen Bävern"}}, {"q": {"en": "During the staged \"vegan\" attack, Bruno tells his accomplice to write \"mördare\" (murderer) on the broiler truck instead of \"svin\" (pig). What misspelled word ends up sprayed on it?", "sv": "Under den iscensatta \"veganattacken\" säger Bruno åt sin medhjälpare att skriva \"mördare\" i stället för \"svin\" på broilerbilen. Vilket felstavat ord blir det som sprejas?"}, "a": {"en": "\"Smördare\"", "sv": "\"Smördare\""}}]}, {"short": "Stig-Helmer Story", "year": 2011, "color": "orange", "questions": [{"q": {"en": "What is the full name of the Norwegian friend who listens to Stig-Helmer tell his life story and goes looking for Annika?", "sv": "Vad heter den norske vännen i fullständigt namn, han som lyssnar på Stig-Helmers livshistoria och åker iväg för att leta efter Annika?"}, "a": {"en": "Ole Bramserud", "sv": "Ole Bramserud"}}, {"q": {"en": "What childhood nickname does Biffen use to tease Stig-Helmer?", "sv": "Vilket barndomsöknamn retar Biffen Stig-Helmer med?"}, "a": {"en": "Tuff-Tuff", "sv": "Tuff-Tuff"}}, {"q": {"en": "What is the name of the model steam locomotive Uncle Julle gives Stig-Helmer, which he later gives to Annika?", "sv": "Vad heter modelloket som morbror Julle ger Stig-Helmer och som han senare ger till Annika?"}, "a": {"en": "Big Boy", "sv": "Big Boy"}}, {"q": {"en": "Which instrument does Annika teach young Stig-Helmer to play?", "sv": "Vilket instrument lär Annika unge Stig-Helmer att spela?"}, "a": {"en": "The banjo", "sv": "Banjo"}}, {"q": {"en": "In which American city does the film end, where Stig-Helmer and Annika meet again?", "sv": "I vilken amerikansk stad slutar filmen, där Stig-Helmer och Annika möts igen?"}, "a": {"en": "New Orleans", "sv": "New Orleans"}}, {"q": {"en": "What name does Stig-Helmer's band from the Salvation Army play under in the contest at Nalen?", "sv": "Under vilket namn spelar Stig-Helmers band från Frälsningsarmén i tävlingen på Nalen?"}, "a": {"en": "The Saints", "sv": "The Saints"}}, {"q": {"en": "Ole thinks Annika went to China, but where did he actually find her?", "sv": "Ole tror att Annika åkte till Kina, men var hittade han henne egentligen?"}, "a": {"en": "Kinna, south of Borås", "sv": "Kinna, söder om Borås"}}, {"q": {"en": "Which station does Stig-Helmer give as his wrong answer on the TV quiz <em>Kvitt eller dubbelt<\/em> after Hjördis's teasing?", "sv": "Vilken station svarar Stig-Helmer felaktigt i tv-frågesporten <em>Kvitt eller dubbelt<\/em>, efter Hjördis retande?"}, "a": {"en": "Hästveda", "sv": "Hästveda"}}, {"q": {"en": "According to his mother, how much did it cost to collect newborn Stig-Helmer from the maternity ward at Birkastan?", "sv": "Hur mycket kostade det enligt hans mamma att lösa ut nyfödde Stig-Helmer från BB i Birkastan?"}, "a": {"en": "6.75 kronor", "sv": "6,75 kronor"}}, {"q": {"en": "When they meet again, Stig-Helmer tells Annika exactly how long it has been since they last saw each other. What is the precise figure?", "sv": "När de möts igen säger Stig-Helmer exakt hur länge sedan det var de sågs. Hur lång tid?"}, "a": {"en": "49 years, 241 days, 22 hours and 13 minutes", "sv": "49 år, 241 dagar, 22 timmar och 13 minuter"}}]}];
 const LEVELS = ["Easy","Easy","Easy","Easy","Easy","Medium","Medium","Medium","Hard","Expert"];
 const CARD_COUNT = 10;
 const STORE = "sallskapsresan-trivia-v1";
+const LANG_STORE = "sallskapsresan-lang";
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+const I18N = {
+  en: {
+    title: "Sällskapsresan · Family Trivia", tagline: "Family trivia · 6 films · 60 questions", play: "Play Sällskapsresan",
+    language: "Language", backToStart: "Back to start", reshuffle: "New shuffle",
+    hint: "Pick a card. Each one has a question from every film; tap the card to turn it over and see the answers.",
+    done: "That's the whole deck. Who won?", again: "Shuffle a new deck", dialog: "Trivia card",
+    close: "Back to deck", next: "Next card", questions: "Questions", answers: "Answers",
+    showAnswers: "Show answers", showQuestions: "Show questions",
+    hintAnswers: "Tap the card to see the answers", hintQuestions: "Tap the card to see the questions again",
+    status: n => `${n} of ${CARD_COUNT} played`, card: n => `Card ${n}`, playedSuffix: " (played)", stamp: "Played",
+    confirmShuffle: "Shuffle a new deck? Played cards will be reset.",
+    Easy: "Easy", Medium: "Medium", Hard: "Hard", Expert: "Expert"
+  },
+  sv: {
+    title: "Sällskapsresan · Familjefrågesport", tagline: "Familjefrågesport · 6 filmer · 60 frågor", play: "Spela Sällskapsresan",
+    language: "Språk", backToStart: "Tillbaka till start", reshuffle: "Blanda om",
+    hint: "Välj ett kort. Varje kort har en fråga från varje film – tryck på kortet för att vända det och se svaren.",
+    done: "Det var hela kortleken. Vem vann?", again: "Blanda en ny kortlek", dialog: "Frågekort",
+    close: "Tillbaka till korten", next: "Nästa kort", questions: "Frågor", answers: "Svar",
+    showAnswers: "Visa svaren", showQuestions: "Visa frågorna",
+    hintAnswers: "Tryck på kortet för att se svaren", hintQuestions: "Tryck på kortet för att se frågorna igen",
+    status: n => `${n} av ${CARD_COUNT} spelade`, card: n => `Kort ${n}`, playedSuffix: " (spelat)", stamp: "Spelat",
+    confirmShuffle: "Blanda en ny kortlek? Spelade kort nollställs.",
+    Easy: "Lätt", Medium: "Medel", Hard: "Svår", Expert: "Expert"
+  }
+};
+function initialLang(){
+  try{ const s = localStorage.getItem(LANG_STORE); if(s in I18N) return s; }catch{}
+  return (navigator.language || "").toLowerCase().startsWith("sv") ? "sv" : "en";
+}
+let lang = initialLang();
+const t = k => I18N[lang][k];
 
 const $ = id => document.getElementById(id);
 const backTpl = $("back-tpl");
@@ -250,7 +301,6 @@ function renderDeck(){
     b.className = "card-btn" + (game.played.includes(i) ? " played" : "");
     b.style.setProperty("--i", i);
     b.style.setProperty("--r", (i % 2 ? 4 : -4) + "deg");
-    b.setAttribute("aria-label", `Card ${i+1}` + (game.played.includes(i) ? " (played)" : ""));
     b.append(makeBack());
     const n = document.createElement("span"); n.className = "num"; n.textContent = i+1; b.append(n);
     b.onclick = () => openCard(i, b);
@@ -260,11 +310,12 @@ function renderDeck(){
 }
 function updateStatus(){
   const n = game.played.length;
-  $("status").textContent = `${n} of ${CARD_COUNT} played`;
+  $("status").textContent = t("status")(n);
   $("done").hidden = n < CARD_COUNT;
+  [...$("deck").children].forEach((b, i) => b.setAttribute("aria-label", t("card")(i+1) + (game.played.includes(i) ? t("playedSuffix") : "")));
 }
 function reshuffle(){
-  if(game.played.length && game.played.length < CARD_COUNT && !confirm("Shuffle a new deck? Played cards will be reset.")) return;
+  if(game.played.length && game.played.length < CARD_COUNT && !confirm(t("confirmShuffle"))) return;
   game = newGame(); save(); renderDeck();
 }
 $("reshuffle").onclick = reshuffle;
@@ -276,20 +327,20 @@ function face(cardIdx, side){
   const rows = game.cards[cardIdx].map((qi, m) => {
     const f = FILMS[m], q = f.questions[qi], lvl = LEVELS[qi];
     return `<div class="row"><i class="wedge" style="--c:var(--c-${f.color})"></i>
-      <div><div class="txt">${side === "q" ? q.q : q.a}</div>
-      <span class="meta">${f.short} · ${f.year}<span class="lvl ${lvl}">${lvl}</span></span></div></div>`;
+      <div><div class="txt">${side === "q" ? q.q[lang] : q.a[lang]}</div>
+      <span class="meta">${f.short} · ${f.year}<span class="lvl ${lvl}">${t(lvl)}</span></span></div></div>`;
   }).join("");
   return `<div class="face ${side === "q" ? "questions" : "answers"}"><div class="qcard">
     <div class="strip"><span class="wordmark">Sällskapsresan</span>
       <span class="mini">${FILMS.map(f => `<i style="--c:var(--c-${f.color})"></i>`).join("")}</span>
-      <span class="side">${side === "q" ? "Questions" : "Answers"}</span></div>
+      <span class="side">${t(side === "q" ? "questions" : "answers")}</span></div>
     <div class="panel">${rows}<span class="corner">${cardIdx+1}</span></div>
   </div></div>`;
 }
 function setFlipped(on){
   $("flip").classList.toggle("flipped", on);
-  $("flip").setAttribute("aria-label", on ? "Show questions" : "Show answers");
-  $("flip-hint").textContent = on ? "Tap the card to see the questions again" : "Tap the card to see the answers";
+  $("flip").setAttribute("aria-label", t(on ? "showQuestions" : "showAnswers"));
+  $("flip-hint").textContent = t(on ? "hintQuestions" : "hintAnswers");
 }
 async function openCard(i, fromEl){
   current = i;
@@ -356,6 +407,28 @@ $("next").onclick = nextCard;
 $("stage").addEventListener("click", e => { if(e.target === e.currentTarget) closeStage(); });
 addEventListener("keydown", e => { if(e.key === "Escape") closeStage(); });
 
+/* ---------- Language ---------- */
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.title = t("title");
+  document.documentElement.style.setProperty("--stamp", JSON.stringify(t("stamp")));
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  updateStatus();
+  if(!$("stage").hidden && current >= 0){
+    const flipped = $("flip").classList.contains("flipped");
+    $("flip").querySelector(".flip-inner").innerHTML = face(current,"q") + face(current,"a");
+    setFlipped(flipped);
+  }
+}
+document.querySelectorAll(".lang button").forEach(b => b.onclick = () => {
+  lang = b.dataset.lang;
+  try{ localStorage.setItem(LANG_STORE, lang) }catch{}
+  applyLang();
+});
+
+applyLang();
 show(location.hash === "#play" ? "deck" : "home");
 </script>
 </body>
