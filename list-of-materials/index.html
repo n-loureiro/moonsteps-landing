@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>List of materials specified by the architect</title>
+<style>
+:root{--ink:#282828;--grey:#6b6866;--soft:#504945;--rule:#d9d9d9;--panel:#f3f3f2;--accent:#e3f4ef;
+--serif:"Iowan Old Style BT","Iowan Old Style",Georgia,serif;
+--sans:"GT America",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+--mono:"SF Mono",Monaco,Inconsolata,"Fira Code",monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:#fff;color:var(--ink);font:17px/1.6 var(--serif);-webkit-font-smoothing:antialiased}
+a{color:#676767;text-decoration:underline;text-decoration-color:rgba(103,103,103,.3);text-underline-offset:2px}
+a:hover{text-decoration-color:currentColor}
+header.site{position:sticky;top:0;z-index:20;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
+.wordmark{font:500 15px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.site nav{display:flex;gap:22px;font:400 14px var(--sans)}
+.site nav a{color:var(--ink);text-decoration:none}
+.site nav a:hover{text-decoration:underline}
+.heading{max-width:600px;margin:48px auto 0;text-align:center}
+h1{font:600 30px/1.4 var(--serif);margin:0}
+.meta{font:400 14px/1.6 var(--sans);color:var(--ink);margin-top:22px}
+.meta .date{color:var(--grey);display:block;margin-top:4px}
+.hero{max-width:880px;margin:36px auto 8px;padding:0 16px}
+.layout{display:grid;grid-template-columns:1fr 660px 1fr;column-gap:40px;margin-top:40px}
+.toc{grid-column:1;justify-self:end;width:210px;position:sticky;top:90px;align-self:start;font:400 13px/1.4 var(--sans)}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc li{margin:0 0 11px;position:relative}
+.toc a{color:var(--soft);text-decoration:none}
+.toc li.on a{color:var(--ink)}
+.toc li.on::before{content:"";position:absolute;left:-12px;top:6px;width:4px;height:4px;border-radius:50%;background:var(--ink)}
+article{grid-column:2;min-width:0}
+article p{margin:0 0 23px}
+h2{font:600 23px/1.4 var(--serif);margin:50px 0 19px}
+h3{font:400 21.5px/1.4 var(--serif);margin:40px 0 16px}
+article ul,article ol{padding-left:1.3em;margin:0 0 23px}
+article li{margin:0 0 8px}
+code{font:13.5px var(--mono);color:var(--soft);background:var(--panel);padding:1px 5px;border-radius:4px}
+figure{margin:30px 0}
+:root{--side:min(220px,calc(50vw - 400px),calc(100vw - 990px))}
+figure.wide{margin-right:calc(-1 * (var(--side) + 40px))}
+figure svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--sans)}
+svg .t{fill:var(--ink);font-size:16px;font-weight:400;text-anchor:middle}
+svg .s{fill:var(--grey);font-size:13px;text-anchor:middle}
+svg .l{fill:var(--grey);font-size:13px}
+svg .n{fill:var(--grey)}
+svg .cap{fill:var(--grey);font-size:12px;letter-spacing:.12em;text-anchor:middle}
+svg .e{fill:none;stroke:#1e2a38;stroke-width:2}
+svg .e.d{stroke-dasharray:8 6}
+svg .e.f{stroke-opacity:.45}
+figcaption{font:400 13px/1.4 var(--sans);color:var(--grey);margin-top:13px;max-width:660px}
+figcaption b{color:var(--ink);font-weight:500}
+.tablewrap{margin:36px 0}
+table{width:100%;border-collapse:collapse;font:400 13px/1.5 var(--sans)}
+th{color:var(--grey);font-weight:400;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule)}
+td code{white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top}
+.tablewrap figcaption{margin-top:14px}
+blockquote{margin:0 0 23px;padding:0 0 0 18px;border-left:2px solid var(--rule);color:var(--soft);font-style:italic}
+.side{float:right;clear:right;width:var(--side);margin:4px calc(-1 * (var(--side) + 40px)) 16px 0;font:400 13.5px/1.45 var(--serif);color:var(--soft)}
+.side sup,sup.ref{font:400 11px var(--sans);color:var(--grey)}
+.status{font:400 13px var(--sans);padding:1px 8px;border-radius:10px;white-space:nowrap}
+.st-ok{background:#e3f4ef}.st-warn{background:#f6efdc}.st-bad{background:#f8e5e1}.st-human{background:#eceef6}
+footer{grid-column:2;font:400 13px/1.5 var(--sans);color:var(--grey);border-top:1px solid var(--rule);margin:60px 0 80px;padding-top:16px}
+@media (max-width:1120px){figure.wide{margin-right:0}.side{display:block;float:none;width:auto;margin:4px 0 16px;padding-left:18px;border-left:2px solid var(--rule)}}
+@media (max-width:1000px){.layout{grid-template-columns:1fr;padding:0 20px}.toc{display:none}article,footer{grid-column:1;max-width:660px;margin-left:auto;margin-right:auto;width:100%}.site nav{display:none}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:0 0 30px;font-family:var(--sans)}
+.stats div{border-top:1px solid var(--rule);padding-top:10px}
+.stats b{display:block;font:400 28px/1.2 var(--serif)}
+.stats span{display:block;font-size:13px;line-height:1.4;color:var(--grey);margin-top:4px}
+pre{font:13px/1.6 var(--mono);color:var(--soft);background:var(--panel);padding:14px 16px;border-radius:8px;overflow-x:auto;margin:0 0 23px}
+.quote{font:400 17px/1.6 var(--serif);background:var(--panel);border-radius:8px;padding:14px 18px;margin:0 0 23px}
+mark{background:var(--accent);color:inherit;padding:1px 3px;border-radius:3px}
+mark.c{background:#f6efdc}
+mark sup{font:400 10px var(--sans);color:var(--grey);margin-left:2px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:0 0 23px;font:400 14px/1.5 var(--sans)}
+.cols h4{font:500 13px var(--sans);color:var(--grey);margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em}
+.cols ul{padding-left:1.1em;margin:0}
+.cols li{margin:0 0 9px}
+.cols small{display:block;color:var(--grey);font-size:12px}
+@media (max-width:1000px){.stats,.cols{grid-template-columns:1fr 1fr}}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0 0;font:400 13px var(--sans)}
+.btn{font:400 13px var(--sans);color:var(--ink);background:var(--panel);border:0;border-radius:14px;padding:5px 12px;cursor:pointer}
+.btn:hover{background:#e8e8e6}
+.btn.on{background:var(--ink);color:#fff}
+.btn:focus-visible,figure:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.controls .pos{color:var(--grey);margin-left:6px}
+.panel{margin-top:12px;padding:14px 18px;background:#fafaf9;border-left:2px solid var(--rule);font:400 15px/1.55 var(--sans);color:var(--soft);min-height:92px}
+.panel h4{font:600 17px/1.3 var(--serif);color:var(--ink);margin:0 0 6px}
+.panel p{margin:0 0 6px}
+.panel code{font-size:12.5px}
+svg [data-step],svg [data-id]{transition:opacity .35s}
+svg .dim{opacity:.3}
+svg g.hl rect{stroke:#1e2a38;stroke-width:2}
+svg path.hl{stroke-opacity:1;stroke-width:3}
+html.js .grow{transform-box:fill-box;transform-origin:left center;transform:scaleX(0);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+html.js .in .grow{transform:none}
+html.js [data-reveal] .seq{opacity:.12;transition:opacity .6s}
+html.js [data-reveal].in .seq{opacity:1}
+.check{display:flex;gap:10px;align-items:flex-start;margin:0 0 8px;font:400 14px/1.4 var(--sans);cursor:pointer}
+.check input{margin-top:3px;accent-color:#1e2a38}
+@media (prefers-reduced-motion:reduce){svg [data-step],svg [data-id],.grow,.seq{transition:none!important}}
+
+article{min-width:0}
+.tscroll{overflow-x:auto;max-width:100%}
+article li code,article p code{white-space:normal;word-break:break-all}
+article ul ul{margin-top:4px}
+.tscroll.wide{max-width:none;margin-right:calc(-1 * (var(--side) + 40px))}
+.tscroll.wide td,.tscroll.wide th{padding:10px 10px;overflow-wrap:anywhere}
+.tscroll.wide td:first-child{overflow-wrap:normal;min-width:84px}
+@media (max-width:1120px){.tscroll.wide{margin-right:0}}
+
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<header class="site"><a class="wordmark" href="#overview">Materials</a>
+<nav><a href="#bathrooms">Bathrooms</a><a href="#windows">Windows</a><a href="/hub/">Hub</a></nav></header>
+<div class="heading">
+<h1>List of materials specified by the architect</h1>
+<div class="meta">Casa Nova Oeiras · BVC Arquitectura, Execução (WIP) 25/09/2026<span class="date">3 November 2026</span></div>
+</div>
+<div class="hero"><svg viewBox="0 0 880 210" role="img" aria-label="Dot field with a lens showing a miniature specification sheet: item labels and product lines"><defs><marker id="chev" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M2,2 L12,7 L2,12" fill="none" stroke="#1e2a38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><circle cx="10" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="352" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="370" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="388" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="406" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="424" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="442" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="460" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="478" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="496" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="514" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="10" r="1.6" fill="#d9d9d9"/><circle cx="10" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="352" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="370" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="388" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="496" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="514" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="28" r="1.6" fill="#d9d9d9"/><circle cx="10" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="352" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="514" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="46" r="1.6" fill="#d9d9d9"/><circle cx="10" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="352" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="64" r="1.6" fill="#d9d9d9"/><circle cx="10" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="82" r="1.6" fill="#d9d9d9"/><circle cx="10" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="100" r="1.6" fill="#d9d9d9"/><circle cx="10" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="118" r="1.6" fill="#d9d9d9"/><circle cx="10" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="352" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="136" r="1.6" fill="#d9d9d9"/><circle cx="10" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="352" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="154" r="1.6" fill="#d9d9d9"/><circle cx="10" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="352" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="370" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="514" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="172" r="1.6" fill="#d9d9d9"/><circle cx="10" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="352" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="370" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="388" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="478" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="496" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="514" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="190" r="1.6" fill="#d9d9d9"/><circle cx="10" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="28" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="46" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="64" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="82" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="100" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="118" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="136" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="154" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="172" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="190" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="208" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="226" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="244" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="262" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="280" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="298" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="316" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="334" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="352" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="370" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="388" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="406" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="424" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="442" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="460" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="478" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="496" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="514" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="532" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="550" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="568" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="586" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="604" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="622" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="640" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="658" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="676" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="694" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="712" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="730" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="748" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="766" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="784" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="802" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="820" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="838" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="856" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="874" cy="208" r="1.6" fill="#d9d9d9"/><circle cx="440" cy="105" r="86" fill="#fff" stroke="#d9d9d9" stroke-width="1.5"/><rect x="388" y="62" width="22" height="9" rx="4.5" fill="#e3f4ef"/><rect x="418" y="62" width="70" height="9" rx="4.5" fill="#ececeb"/><rect x="388" y="81" width="22" height="9" rx="4.5" fill="#e3f4ef"/><rect x="418" y="81" width="52" height="9" rx="4.5" fill="#ececeb"/><rect x="388" y="100" width="22" height="9" rx="4.5" fill="#e3f4ef"/><rect x="418" y="100" width="78" height="9" rx="4.5" fill="#ececeb"/><rect x="388" y="119" width="22" height="9" rx="4.5" fill="#e3f4ef"/><rect x="418" y="119" width="60" height="9" rx="4.5" fill="#ececeb"/><rect x="388" y="138" width="22" height="9" rx="4.5" fill="#e3f4ef"/><rect x="418" y="138" width="44" height="9" rx="4.5" fill="#ececeb"/></svg></div>
+<div class="layout">
+<aside class="toc"><ol><li data-for="overview"><a href="#overview">Overview</a></li><li data-for="bathrooms"><a href="#bathrooms">Bathrooms</a></li><li data-for="windows"><a href="#windows">Exterior windows and doors</a></li><li data-for="interior-doors"><a href="#interior-doors">Interior doors</a></li><li data-for="wardrobes"><a href="#wardrobes">Wardrobes and storage</a></li><li data-for="stairs"><a href="#stairs">Stairs</a></li><li data-for="equipment"><a href="#equipment">Equipment and electrical</a></li><li data-for="walls"><a href="#walls">Walls, ceilings, skirting</a></li><li data-for="facade"><a href="#facade">Facade and roof</a></li><li data-for="missing"><a href="#missing">Not specified yet</a></li></ol></aside>
+<article>
+
+<h2 id="overview">Overview</h2>
+<p>This page lists every material, product and fitting that BVC Arquitectura has already specified in the
+construction drawings package <code>260925_PublicacaoObra</code> (phase “Execução (WIP)”, dated 25/09/2026).
+All 30 drawings and the drawing list were read. Brand names and references are copied exactly as they appear
+on the drawings.</p>
+<p>Two drawings on the drawing list are marked <b>“NÃO ENTREGUE”</b> (not delivered): <b>Cortes</b> (sections)
+and <b>Cozinha</b> (kitchen). So there are no kitchen materials yet.</p>
+
+<h2 id="bathrooms">1. Bathrooms</h2><p>Drawings 20.01–20.05. There are five bathrooms: 01.08, 01.09, 01.10 and 01.11 on the ground floor, and 02.04 in the attic.</p><div class="tscroll"><figure class="tablewrap"><table><thead><tr><th>Item</th><th>Specification</th></tr></thead><tbody><tr><td>Toilet</td><td>Wall-hung toilet, RUBICER GLAMIC, matte white, ref. RSO53EUQ3MW</td></tr><tr><td>Toilet frame + cistern</td><td>RUBICER SLIMFIT, ref. RES1101SLM</td></tr><tr><td>Flush plate</td><td>GEBERIT Sigma20, brushed/polished stainless steel, ref. 115.882.SN.1</td></tr><tr><td>Basin tap</td><td>RUBICER SMOOTH single-lever, brushed nickel, ref. RT0391LAVNQ</td></tr><tr><td>Basin trap</td><td>RUBICER, round, chrome, ref. RC53412</td></tr><tr><td>Isolation valves</td><td>SANINDUSA angle valves, ref. TNR5000000000167</td></tr><tr><td>Towel rail</td><td>RUBICER CONFY, electric, aluminium, ref. RTCONFYELE (870×500×100)</td></tr><tr><td>Extract vent</td><td>KOOLAIR GPD, wired to the light switch</td></tr><tr><td>Floor tile</td><td>RUBICER NUANCE WHITE-MATE, ref. RCN60120NUWH, 1200×600 rectified</td></tr><tr><td>Ceiling</td><td>Moisture-resistant plasterboard, anti-fungal paint, white RAL 9010</td></tr><tr><td>Waterproofing</td><td>Waterproofing paint under the floor, running 0.20 m up the walls and 2.00 m in the shower area</td></tr><tr><td>Other</td><td>2 sockets + 1 light point for the mirror</td></tr></tbody></table><figcaption><b>Table 1:</b> the same products are used in all five bathrooms.</figcaption></figure></div><div class="tscroll wide"><figure class="tablewrap"><table><thead><tr><th></th><th>01.08</th><th>01.09</th><th>01.10</th><th>01.11</th><th>02.04</th></tr></thead><tbody><tr><td>Basin / vanity</td><td>Solid surface basin + STRIA OAK 800×400 drawer unit, RMSTRIA80NOK</td><td>same as 01.08</td><td>Solid surface basin + wall-hung STRIA WALNUT 1200×500, RMSTRIA120WNT</td><td>Pedestal basin, round STRIA OAK Ø450, RMSTRIAPED45NOK</td><td>same as 01.08</td></tr><tr><td>Shower / bath mixer</td><td>SMOOTH exposed mixer with rail, overhead and hand shower, RR039NQ</td><td>RR039NQ</td><td>SMOOTH <b>built-in</b> set, RKE039NQ</td><td>RR039NQ</td><td>Bath mixer SMOOTH RT0394BANNQ + SANINDUSA DUO 60 shower rail 5R31070111</td></tr><tr><td>Tray / bathtub</td><td>Acrylic shower tray LEVEL UP 1600×800, B352/528</td><td>LEVEL UP 1800×800, B396/594</td><td>LEVEL UP 1800×800, B396/594</td><td>LEVEL UP 1400×800, B308/462</td><td>Acrylic bath PLANA 1800×800, RBPLANA-180-80</td></tr><tr><td>Glass screen</td><td>TIMELESS chrome, fixed + sliding panel, RTF160+RPERFTMLCRM160, 8 mm extra-clear</td><td>RTF180+RPERFTMLCRM180</td><td>none listed</td><td>RTF140+RPERFTMLCRM140</td><td>Bath screen VIKING chrome, RTS80, 800×1400</td></tr><tr><td>Wall tiles</td><td>LINHO MATE RF60120LIN 1200×600 + NAIS Costa Nova 50×200 in <b>ALOE</b> on the shower wall</td><td>LINHO MATE + NAIS <b>BABY BLUE</b></td><td>NUANCE WHITE-MATE (upper) + MOONLIGHT OFF-WHITE STREAM-NATURAL RM60120MOW204140E (lower)</td><td>LINHO MATE + NAIS <b>TANSY GREEN</b></td><td>LINHO MATE + NAIS <b>BEIGE PALE</b> on the bath wall</td></tr><tr><td>Extras</td><td>Matte aluminium edge profile RAOAA12PMT at the window</td><td>same profile</td><td>same profile + porcelain shower niche RN3666 (360×660×100)</td><td>same profile</td><td>Panelling in moisture-resistant wood-veneered MDF, with a roof-space access panel built in</td></tr><tr><td>Lighting</td><td>LED strip in a ceiling recess over the shower + spotlights</td><td>same</td><td>same</td><td>same</td><td>Surface-mounted LED on the wall</td></tr></tbody></table><figcaption><b>Table 2:</b> what changes from one bathroom to the next: vanity, shower set, tray size, screen and the accent tile colour.</figcaption></figure></div>
+<h2 id="windows">2. Exterior windows and doors</h2><p>Drawings 60.01–60.04.</p><ul><li><b>Window and door frames:</b> FINSTRAL PVC+PVC with thermal break, NOVA LINE 77, installed on a FIN-Fix sub-frame. Colour is satin grey ref. 46 (RAL 7044), with light-grey seals.<ul><li>One fixed sash + one tilt-and-turn sash: 3 in the existing bedrooms, 2 in the new bedroom and office.</li><li>One tilt-and-turn sash: 3 in the kitchen and 4 in the bathrooms. One window in the upper bedroom is listed as “Sem estore” (no shutter).</li><li>VE.02.02 (3.15×1.00 m): sliding window with three sashes.</li><li>Window handles: standard Série 2, clear anodised aluminium (colour 79). Standard 4-point security lock and concealed hinges (opening up to 93°).</li></ul></li><li><b>Glass:</b> Plus-Valor double glazing, Uw 1.2 W/m²K, acoustic 32 dB. Some windows get “Body safe” tempered glass, others Multiprotect.</li><li><b>Living room sliding doors VE.02.01</b> (2.90×2.20 m), 2 units: FINSTRAL FIN-SLIDE Slim-line 144, two sliding sashes, Uw 1.4, lock with 2 hook latches.</li><li><b>Front door:</b> FINSTRAL FIN DOOR Step Planar in aluminium, RAL 7044 matte (M744), with a fixed glazed side panel.<ul><li>Glass: Multiprotect laminated safety glass, 38 dB.</li><li>Handles: Barra 70515 bar outside, Série 13 inside.</li><li>Locking: class 2 security cylinder, 5-point locking.</li><li>Also: 2 cm threshold and a door viewer (peephole).</li></ul></li><li><b>Shutters:</b> extruded aluminium security shutters, RAL 7044 finish.</li><li><b>VELUX roof windows</b> (white polyurethane, electric, remote control):<ul><li>GPU-SK06 panoramic, attic bedroom, with electric blackout blind and exterior awning</li><li>GGU-UK04, attic bathroom, with exterior awning</li><li>GGU-SK06, stairs</li></ul></li></ul>
+<h2 id="interior-doors">3. Interior doors</h2><p>Drawings 50.01–50.03.</p><ul><li><b>Leaves:</b> high-density glass-particle core with solid-wood facing. Solid pine frames, to be painted in a RAL colour still “a definir” (not yet defined).</li><li><b>Single and double hinged doors:</b><ul><li>Hinges: 3 BG hinges per leaf, D.8319</li><li>Handles: stainless lever pair with standard key, PIN8104.I2</li><li>Lock: magnetic lock F11091.01R50.F17</li><li>Door stop: floor stop BPIN811230.I2</li></ul></li><li><b>Pocket sliding door:</b> BG pocket cassette BK.10.2.3069 (2000×800) + BG pull handle pair PMIN870722410.I2.</li><li><b>Wall-track sliding door:</b> BG ESSENTIAL TIMBER RAIL SF-RA 90 TF, with bottom guide and soft-close (2200×1100).</li><li><b>Pivot door in acoustic panelling:</b><ul><li>Pivot: BG D.1962.02</li><li>Latch: roller latch T.9793.5.00</li><li>Panelling: Rubicar acoustic panel ref. MEL</li></ul></li><li><b>Hinged panel:</b> 25 mm painted MDF, 2 × D.8319 hinges, stainless handle PM.IN.8752.20, 2 magnetic catches FX.7207.6.</li></ul>
+<h2 id="wardrobes">4. Wardrobes and under-stair storage</h2><p>Drawings 40.01–40.04 and 30.02.</p><ul><li><b>Fronts:</b><ul><li>40.01–40.03: 25 mm wood-veneered MDF</li><li>40.04: 19 mm wood-veneered MDF</li><li>Under the stairs: 25 mm MDF faced with Rubicar MEL acoustic panel</li></ul></li><li><b>Insides:</b> 19 mm MDF in Cancun melamine; 11 mm Cancun melamine for the backs.</li><li><b>BG hardware:</b><ul><li>Handles: stainless PM.IN.8752.20</li><li>Hanging rail: VARIN.3322520.I with side supports ASM811.I2</li><li>Catches: magnetic, 2 per door, FX.7207.6. The under-stair storage uses push-to-open instead.</li><li>Hinges: concealed hinges DGRAFO28138885 (half-overlay) or DGRAFO28138884 (full-overlay)</li><li>Shelf supports: stainless S5221.F4</li></ul></li></ul>
+<h2 id="stairs">5. Stairs</h2><p>Drawings 30.01–30.02.</p><ul><li>Wooden treads and risers, with a 2 cm projecting nosing.</li><li>Glass balustrades GR.01.01 and GR.01.02, with their fixings.</li><li>Skirting on the stairs in painted marine plywood.</li></ul>
+<h2 id="equipment">6. Equipment and electrical</h2><p>Drawing 70.01 and the floor plans.</p><ul><li><b>Wood-burning stove (recuperador de calor):</b> C&amp;A CHAMA, Cristal 69, with side ventilation.</li><li><b>Switches and sockets:</b> EFAPEL SIZA series.</li><li><b>Roof equipment:</b> flat solar panels, 1 heat pump and 3 air-conditioning units. No models are given.</li><li><b>Lighting:</b> only a legend of light types (recessed spot, IP65 recessed spot, LED in a ceiling recess, wall light, outdoor surface spot, suspended light bar, pendant points). No product models.</li><li><b>Kitchen symbols on the ground-floor plan:</b> FR, FG/EX, MLL, LL, FN, MO, MLR, MSR, with no specification. A likely reading is fridge, hob/extractor, dishwasher, sink, oven, microwave, washing machine, dryer (an interpretation, not stated on the drawing).</li></ul>
+<h2 id="walls">7. Walls, ceilings, skirting</h2><p>Drawings 01.05, 01.06 and the floor plans.</p><ul><li><b>Walls:</b><ul><li>Reinforced concrete structure.</li><li>250 mm thermal/acoustic block for new walls; 150 mm structural concrete block.</li><li>Outside: 50 mm external insulation (capotto) on new walls; 20 mm smooth thermal render on existing walls.</li><li>Inside face of exterior walls: rock wool + plasterboard (50 mm on existing walls, 30 mm on new walls).</li><li>Partitions: plasterboard with rock wool; some on a light-steel (LSF) frame with at least 50 mm rock wool.</li></ul></li><li><b>Ceilings:</b> plasterboard false ceilings at +2.70 m; moisture-resistant at +2.60 m in the bathrooms. In the attic, the ceiling follows the roof slope.</li><li><b>Skirting:</b> projecting wooden skirting, to be painted.</li></ul>
+<h2 id="facade">8. Facade and roof</h2><p>Drawings 80.01–80.02.</p><ul><li><b>Roof:</b> Telha Lusa tiles (matching the existing), breathable roof membrane, OSB board, light-steel structure, zinc flashings and zinc gutters.</li><li><b>Facade:</b><ul><li>New facade: capotto painted white.</li><li>Existing facade: thermal render painted yellow (existing colour).</li></ul></li><li><b>Stone:</b> stone window surrounds, stone plinth, stone sill and stone threshold.</li><li><b>Flat roof:</b> waterproofing membranes with washed gravel on top.</li><li><b>Floor build-up:</b> screed with underfloor heating, waterproofing and a geodrain behind the foundations.</li></ul>
+<h2 id="missing">Not specified anywhere in the documents</h2><ul><li><b>Floor finishes outside the bathrooms</b>: living room, kitchen, bedrooms, office, corridors, attic rooms and the balcony. No drawing names a floor material. The construction details (80.01/80.02) only show a layer called “Revestimento” (finish) on top of the screed with underfloor heating, and the floor plans have no finish legend. The bathrooms are the only rooms with a floor tile specified.</li><li>Paint colours for doors and walls (“RAL a definir”).</li><li>Light fitting models.</li><li>Heat pump, air-conditioning and solar panel models.</li><li>Mirrors.</li><li>Anything for the kitchen.</li></ul>
+</article>
+<footer>Generated on 3 November 2026 from the text of the 30 PDF drawings and the drawing list in 260925_PublicacaoObra. Brand names and references are as written on the drawings; the Cortes and Cozinha drawings were not delivered.</footer>
+</div>
+<script>
+(() => {
+  const items = [...document.querySelectorAll('.toc li')];
+  const targets = items.map(li => document.getElementById(li.dataset.for)).filter(Boolean);
+  if (!targets.length) return;
+  const set = () => {
+    let cur = targets[0];
+    for (const t of targets) if (t.getBoundingClientRect().top < 140) cur = t;
+    items.forEach(li => li.classList.toggle('on', li.dataset.for === cur.id));
+  };
+  addEventListener('scroll', set, {passive: true}); set();
+})();
+</script>
+<script>
+// editorial-html interactions. Inline this file once per page, after the article.
+// Every behaviour is declared in markup; pages add no per-figure code for these patterns.
+//
+//   <figure data-stepper [data-interval="3500"]>      walk through SVG parts one at a time
+//     svg groups/paths with data-step="k"             clickable; the active one is outlined, others dimmed
+//     .controls with [data-act=prev|play|next], [data-role=pos]
+//     .panel with <div data-step="k">…</div>          one note per step, in order
+//
+//   <figure data-scenarios>                            pick a case, light up its path
+//     buttons [data-scn="key"][data-path="id id …"]   ids refer to svg elements with data-id
+//     .panel with <div data-scn-note="key">…</div>
+//
+//   <div data-toggle>                                  segmented switch
+//     buttons [data-val="v"]; descendants [data-when="v"] show only for the chosen value
+//
+//   <figure data-reveal> / any [data-reveal]           adds .in when scrolled into view
+//     (.grow bars grow in; .seq elements fade in, staggered with style="transition-delay:…")
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const by = (root, sel) => [...root.querySelectorAll(sel)];
+
+  by(document, '[data-stepper]').forEach(fig => {
+    const parts = by(fig, 'svg [data-step]');
+    const notes = by(fig, '.panel [data-step]');
+    const pos = fig.querySelector('[data-role=pos]');
+    const play = fig.querySelector('[data-act=play]');
+    const n = notes.length;
+    let cur = 0, timer = null;
+    const show = i => {
+      cur = (i + n) % n;
+      const key = notes[cur].dataset.step;
+      parts.forEach(p => { const on = p.dataset.step === key; p.classList.toggle('hl', on); p.classList.toggle('dim', !on); });
+      notes.forEach((d, j) => { d.hidden = j !== cur; });
+      if (pos) pos.textContent = `${cur + 1} / ${n}`;
+    };
+    const stop = () => { clearInterval(timer); timer = null; if (play) { play.textContent = 'Play'; play.classList.remove('on'); } };
+    const start = () => {
+      if (reduce) return;
+      timer = setInterval(() => show(cur + 1), +(fig.dataset.interval || 3500));
+      play.textContent = 'Pause'; play.classList.add('on');
+    };
+    fig.querySelector('[data-act=prev]')?.addEventListener('click', () => { stop(); show(cur - 1); });
+    fig.querySelector('[data-act=next]')?.addEventListener('click', () => { stop(); show(cur + 1); });
+    play?.addEventListener('click', () => (timer ? stop() : start()));
+    parts.forEach(p => {
+      p.style.cursor = 'pointer';
+      p.addEventListener('click', () => { stop(); show(notes.findIndex(d => d.dataset.step === p.dataset.step)); });
+    });
+    fig.tabIndex = 0;
+    fig.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { stop(); show(cur + 1); }
+      if (e.key === 'ArrowLeft') { stop(); show(cur - 1); }
+    });
+    show(0);
+  });
+
+  by(document, '[data-scenarios]').forEach(fig => {
+    const btns = by(fig, '[data-scn]');
+    const notes = by(fig, '.panel [data-scn-note]');
+    const els = by(fig, 'svg [data-id]');
+    const pick = btn => {
+      const path = (btn.dataset.path || '').split(/\s+/);
+      btns.forEach(b => b.classList.toggle('on', b === btn));
+      els.forEach(el => {
+        const i = path.indexOf(el.dataset.id);
+        el.classList.toggle('hl', i >= 0);
+        el.classList.toggle('dim', i < 0);
+        el.style.transitionDelay = reduce || i < 0 ? '0s' : `${i * 0.15}s`;
+      });
+      notes.forEach(d => { d.hidden = d.dataset.scnNote !== btn.dataset.scn; });
+    };
+    btns.forEach(b => b.addEventListener('click', () => pick(b)));
+    if (btns.length) pick(btns[0]);
+  });
+
+  by(document, '[data-toggle]').forEach(box => {
+    const btns = by(box, '[data-val]');
+    const set = v => {
+      btns.forEach(b => b.classList.toggle('on', b.dataset.val === v));
+      by(box, '[data-when]').forEach(el => { el.hidden = el.dataset.when !== v; });
+    };
+    btns.forEach(b => b.addEventListener('click', () => set(b.dataset.val)));
+    if (btns.length) set(btns[0].dataset.val);
+  });
+
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.25 });
+  by(document, '[data-reveal]').forEach(el => (reduce ? el.classList.add('in') : io.observe(el)));
+})();
+
+</script>
+
+</body>
+</html>
