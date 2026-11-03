@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Sällskapsresan · Family Trivia</title>
+<meta name="theme-color" content="#f3e4c0">
+<link rel="icon" href="stig-helmer.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,600&family=Barlow:wght@400;500;600&family=Shrikhand&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sand:#f3e4c0;--sand-2:#e9d4a4;--ink:#2a1f14;--muted:#6f5d45;--red:#d7261e;--red-dark:#a91a14;
+  --navy:#173a5e;--navy-2:#0f2a46;--gold:#e7bd5d;--paper:#fffdf8;
+  --c-blue:#2f86d1;--c-pink:#d6247c;--c-yellow:#f2be12;--c-purple:#7c3fa3;--c-green:#3aa648;--c-orange:#f0841a;
+  --ease:cubic-bezier(.2,.75,.25,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  font-family:Barlow,system-ui,sans-serif;color:var(--ink);background:var(--sand);
+  background-image:radial-gradient(circle at 20% 0%,#f8edd2 0,transparent 55%),radial-gradient(circle at 100% 100%,#ecd6a6 0,transparent 50%);
+  min-height:100vh;-webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+.wordmark{font-family:Shrikhand,cursive;color:var(--red);font-weight:400;letter-spacing:.01em;line-height:1}
+[hidden]{display:none!important}
+
+/* ---------- Home ---------- */
+.home{min-height:100vh;display:grid;place-items:center;padding:32px 20px;text-align:center;overflow:hidden}
+.home-inner{display:grid;justify-items:center;gap:26px;max-width:720px}
+.sun{position:relative;width:min(300px,64vw);aspect-ratio:1;margin-bottom:-64px}
+.sun::before{content:"";position:absolute;inset:0;border-radius:50%;
+  background:linear-gradient(#f9c74f 0 30%,#f8961e 30% 52%,#f3722c 52% 70%,#d7261e 70% 100%);
+  -webkit-mask:linear-gradient(#000 0 30%,transparent 30% 33%,#000 33% 52%,transparent 52% 56%,#000 56% 70%,transparent 70% 75%,#000 75%);
+          mask:linear-gradient(#000 0 30%,transparent 30% 33%,#000 33% 52%,transparent 52% 56%,#000 56% 70%,transparent 70% 75%,#000 75%);
+  opacity:.9}
+.fan{position:absolute;left:50%;bottom:-6px;width:118px;height:165px;transform:translateX(-50%)}
+.fan .card-back{position:absolute;inset:0;width:118px;box-shadow:0 10px 24px rgba(60,30,0,.28)}
+.fan .card-back:nth-child(1){transform:rotate(-16deg) translate(-38px,6px)}
+.fan .card-back:nth-child(2){transform:rotate(14deg) translate(38px,6px)}
+.fan .card-back:nth-child(3){transform:translateY(-8px)}
+.home h1{font-size:clamp(46px,11vw,96px);margin:58px 0 0;text-shadow:3px 3px 0 #f8d98e}
+.tagline{margin:-10px 0 0;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:clamp(16px,3.6vw,21px);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.play{
+  border:0;border-radius:999px;background:var(--red);color:#fff;padding:18px 34px 17px;
+  font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:clamp(20px,4.4vw,26px);letter-spacing:.04em;
+  box-shadow:0 6px 0 var(--red-dark),0 14px 26px rgba(150,20,10,.3);transition:transform .15s var(--ease),box-shadow .15s var(--ease)
+}
+.play:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--red-dark),0 18px 30px rgba(150,20,10,.32)}
+.play:active{transform:translateY(4px);box-shadow:0 2px 0 var(--red-dark),0 8px 16px rgba(150,20,10,.25)}
+.play:focus-visible,.card-btn:focus-visible,.ghost-btn:focus-visible,.flip:focus-visible{outline:3px solid var(--navy);outline-offset:4px}
+.films{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 14px;margin:6px 0 0;padding:0;list-style:none;font-size:14px;color:var(--muted)}
+.films li{display:flex;align-items:center;gap:6px}
+.tri{display:inline-block;width:12px;height:14px;clip-path:polygon(0 0,100% 50%,0 100%);background:var(--c)}
+
+/* ---------- Card back ---------- */
+.card-back{
+  display:block;width:100%;aspect-ratio:5/7;border-radius:12px;background:var(--paper);padding:7px;
+  box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 6px 16px rgba(70,40,0,.18);position:relative;overflow:hidden;container-type:inline-size
+}
+.card-back .art{display:block;width:100%;height:76%;object-fit:cover;object-position:50% 18%;border-radius:7px 7px 2px 2px;background:#dcc48e}
+.card-back .label{display:grid;place-items:center;height:24%;padding:0 4px}
+.card-back .label span{font-size:11.5cqw;white-space:nowrap}
+.card-back::after{content:"";position:absolute;inset:3px;border:1.5px solid rgba(215,38,30,.35);border-radius:10px;pointer-events:none}
+
+/* ---------- Deck ---------- */
+.deck-screen{max-width:1100px;margin:0 auto;padding:22px 20px 60px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.topbar .wordmark{font-size:clamp(28px,5vw,40px);background:none;border:0;padding:0}
+.status{font-family:"Barlow Condensed",sans-serif;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:15px;color:var(--muted)}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ghost-btn{border:2px solid var(--ink);background:transparent;border-radius:999px;padding:8px 16px;font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.05em;font-size:16px;transition:background .15s,color .15s}
+.ghost-btn:hover{background:var(--ink);color:var(--sand)}
+.hint{margin:0 0 18px;color:var(--muted);font-size:15px}
+.deck{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(12px,2.2vw,24px);perspective:1200px}
+.card-btn{border:0;background:none;padding:0;position:relative;border-radius:12px;transition:transform .25s var(--ease),filter .25s;animation:deal .5s var(--ease) both;animation-delay:calc(var(--i)*45ms)}
+.card-btn:hover{transform:translateY(-8px) rotate(-1.2deg)}
+.card-btn:nth-child(even):hover{transform:translateY(-8px) rotate(1.2deg)}
+.card-btn .num{position:absolute;top:12px;left:12px;width:26px;height:26px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:15px;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.card-btn.played{filter:saturate(.25) brightness(.92)}
+.card-btn.played .card-back{opacity:.7}
+.card-btn.played::after{content:"Played";position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) rotate(-12deg);
+  font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:clamp(14px,2.2vw,20px);
+  color:var(--red);border:3px solid var(--red);border-radius:6px;padding:2px 10px;background:rgba(255,253,248,.85)}
+.card-btn.hidden-for-deal{visibility:hidden}
+@keyframes deal{from{opacity:0;transform:translateY(30px) rotate(var(--r,0deg)) scale(.92)}to{opacity:1}}
+.done-banner{margin-top:28px;text-align:center;display:grid;justify-items:center;gap:12px}
+.done-banner p{margin:0;font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600}
+
+/* ---------- Stage / question card ---------- */
+.stage{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:20px;overflow:auto;
+  background:rgba(25,18,10,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.stage.closing{animation:fadeout .25s ease forwards}
+@keyframes fadeout{to{opacity:0}}
+.stage-inner{display:grid;justify-items:center;gap:16px;width:min(780px,100%);margin:auto}
+.flip{width:100%;perspective:1800px;border:0;background:none;padding:0;text-align:left;cursor:pointer;border-radius:18px}
+.flip-inner{display:grid;transform-style:preserve-3d;transition:transform .75s var(--ease)}
+.flip.flipped .flip-inner{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face.answers{transform:rotateY(180deg)}
+.qcard{
+  display:grid;grid-template-columns:70px 1fr;border-radius:18px;padding:12px 12px 12px 0;min-height:100%;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(255,255,255,.07) 0 1px,transparent 1.5px) 0 0/7px 7px,
+    radial-gradient(circle at 60% 40%,rgba(0,0,0,.18) 0 1px,transparent 1.5px) 0 0/5px 5px,
+    linear-gradient(160deg,var(--navy),var(--navy-2));
+  box-shadow:0 30px 60px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.06) inset
+}
+.strip{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:10px 0}
+.strip .wordmark{writing-mode:vertical-rl;transform:rotate(180deg);font-size:30px;
+  background:linear-gradient(180deg,#f6dc95,var(--gold) 45%,#b98a2c);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.35))}
+.strip .mini{display:grid;gap:3px}
+.strip .mini i{display:block;width:9px;height:10px;clip-path:polygon(0 0,100% 50%,0 100%);background:var(--c)}
+.strip .side{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);writing-mode:vertical-rl;transform:rotate(180deg)}
+.panel{background:var(--paper);border-radius:12px;padding:14px 18px 12px 12px;display:grid;gap:4px;position:relative}
+.row{display:grid;grid-template-columns:42px 1fr;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #efe6d6}
+.row:last-of-type{border-bottom:0}
+.wedge{width:34px;height:36px;clip-path:polygon(0 0,100% 50%,0 100%);background:linear-gradient(135deg,color-mix(in srgb,var(--c) 70%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 80%,#000));justify-self:center}
+.txt{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:clamp(16px,2.3vw,19px);line-height:1.18}
+.answers .txt{font-weight:700;font-size:clamp(17px,2.5vw,21px)}
+.meta{display:block;margin-top:3px;font-family:Barlow,sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#8d7b62}
+.lvl{display:inline-block;margin-left:6px;padding:0 6px;border-radius:4px;background:#f1e7d3;color:#6a563a;letter-spacing:.06em}
+.lvl.Hard{background:#fbe0cf;color:#9a3b10}.lvl.Expert{background:var(--red);color:#fff}
+.corner{position:absolute;right:14px;bottom:8px;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:15px;color:#8d7b62}
+.stage-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.stage .ghost-btn{border-color:var(--sand);color:var(--sand)}
+.stage .ghost-btn:hover{background:var(--sand);color:var(--ink)}
+.flip-hint{color:#f3e4c0;font-size:14px;opacity:.85;margin:0}
+.ghost-card{position:fixed;z-index:30;pointer-events:none;transform-origin:center;will-change:transform}
+
+@media (max-width:860px){.deck{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:640px){
+  .deck{grid-template-columns:repeat(3,1fr)}
+  .qcard{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding:0 10px 10px}
+  .strip{flex-direction:row;padding:10px 4px 8px;gap:10px}
+  .strip .wordmark,.strip .side{writing-mode:horizontal-tb;transform:none}
+  .strip .wordmark{font-size:24px}
+  .strip .mini{grid-auto-flow:column}
+  .panel{padding:8px 12px 10px 6px}
+  .row{grid-template-columns:30px 1fr;gap:8px;padding:6px 0}
+  .wedge{width:24px;height:26px}
+  .stage{padding:12px;place-items:start center}
+}
+@media (max-width:420px){.deck{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<template id="back-tpl">
+  <span class="card-back" aria-hidden="true"><img class="art" src="stig-helmer.jpg" alt="" draggable="false"><span class="label"><span class="wordmark">Sällskapsresan</span></span></span>
+</template>
+
+<main id="home" class="home">
+  <div class="home-inner">
+    <div class="sun"><div class="fan" id="fan"></div></div>
+    <h1 class="wordmark">Sällskapsresan</h1>
+    <p class="tagline">Family trivia · 6 films · 60 questions</p>
+    <button class="play" id="play">Play Sällskapsresan</button>
+    <ul class="films" id="film-legend"></ul>
+  </div>
+</main>
+
+<main id="deck-screen" class="deck-screen" hidden>
+  <div class="topbar">
+    <button class="wordmark" id="home-link" aria-label="Back to start">Sällskapsresan</button>
+    <div class="actions">
+      <span class="status" id="status"></span>
+      <button class="ghost-btn" id="reshuffle">New shuffle</button>
+    </div>
+  </div>
+  <p class="hint">Pick a card. Each one has a question from every film; tap the card to turn it over and see the answers.</p>
+  <div class="deck" id="deck"></div>
+  <div class="done-banner" id="done" hidden>
+    <p>That's the whole deck. Who won?</p>
+    <button class="play" id="again">Shuffle a new deck</button>
+  </div>
+</main>
+
+<div class="stage" id="stage" hidden role="dialog" aria-modal="true" aria-label="Trivia card">
+  <div class="stage-inner">
+    <button class="flip" id="flip" aria-label="Turn card over"></button>
+    <p class="flip-hint" id="flip-hint">Tap the card to see the answers</p>
+    <div class="stage-actions">
+      <button class="ghost-btn" id="close">Back to deck</button>
+      <button class="ghost-btn" id="next">Next card</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const FILMS = [{"title": "Sällskapsresan (1980)", "short": "Sällskapsresan", "year": 1980, "color": "blue", "questions": [{"q": "What is the name of the Swedish-packed resort on the Canary Islands where the charter group spends Christmas?", "a": "Nueva Estocolmo"}, {"q": "What mantra does Stig Helmer learn at the fear-of-flying clinic and repeat whenever he panics: \"Jag kan flyga, ___\" (\"I can fly, ___\")?", "a": "\"Jag är inte rädd\" (\"I'm not afraid\")"}, {"q": "At which bar in Nueva Estocolmo is Stig Helmer asked to drop off Dr Levander's \"Christmas package\"?", "a": "Viking Bar"}, {"q": "What is the first name of the Norwegian who ends up sharing a hotel room with Stig Helmer because of overbooking?", "a": "Ole (Ole Bramserud)"}, {"q": "Which bodega, supposedly pouring 80-proof rum into wine bottles, do Berra and Robban spend the whole holiday hunting for?", "a": "Pepes Bodega"}, {"q": "What animal nickname do the two Swedish women give the gangly Stig Helmer?", "a": "Giraffen (the Giraffe)"}, {"q": "Ole and Stig Helmer buy a donkey figure, paint it and put it in the package as a replacement gift. What traditional Swedish souvenir do they paint it to look like?", "a": "A Dala horse (dalahäst)"}, {"q": "Who does José bring along on his \"authentic Spanish restaurant\" dinner date?", "a": "His mother (\"Morsan!\")"}, {"q": "Stig Helmer's package is supposedly for a relative staying on the Canaries because of \"Epicondylitis humeri.\" What is that condition in plain Swedish?", "a": "Tennisarm (tennis elbow)"}, {"q": "Stig Helmer says that if you buy a toaster marked \"Kontrollerad av ___\" (\"Inspected by ___\"), it was him. What is the inspector code?", "a": "G17"}]}, {"title": "Sällskapsresan II – Snowroller (1985)", "short": "Snowroller", "year": 1985, "color": "pink", "questions": [{"q": "To which Alpine ski village does Stig-Helmer travel over New Year?", "a": "Kirchberg"}, {"q": "What is the name of the travel company whose bus takes the Swedes to the Alps?", "a": "Snowroller"}, {"q": "What hobby does Stig-Helmer's mother tease him about, saying he sits at home playing with it?", "a": "Toy trains (his model railway)"}, {"q": "Göte claims that a single rule is all you need to know about skiing. What is it?", "a": "\"Tyngden på dalskidan\" (weight on the downhill ski)"}, {"q": "What is the name of the woman Stig-Helmer meets at the resort and falls for?", "a": "Lotta"}, {"q": "The kicksled factory Brännströms Mekaniska in Ormträsk wants a development grant so it can switch to making what new product?", "a": "Skis (a \"svensk folkskida\", Swedish people's ski)"}, {"q": "What is the name of the specially designed Snowroller hat handed out each day to whoever makes the funniest blunder?", "a": "\"Stavfelet\""}, {"q": "Göte breaks his leg after a German shoves him in the lift queue. What did Göte call the German?", "a": "\"Liftwaffe\""}, {"q": "Rudi from the Katzenhütte speaks some Swedish because he once worked in Sweden. In which town?", "a": "Säffle (at Pizzeria Napoli)"}, {"q": "The tour guide tells the bus that Snowroller holds a record for a combined pee-and-smoke break. How many seconds is the record?", "a": "47 seconds"}]}, {"title": "SOS – en segelsällskapsresa (1988)", "short": "SOS", "year": 1988, "color": "yellow", "questions": [{"q": "Ole goes to the costume party as Superman; what costume has he rented for Stig-Helmer?", "a": "A (pink) rabbit"}, {"q": "What is the name of Ole's own sailboat, which he says is named after Fridtjof Nansen's ship?", "a": "Fram"}, {"q": "Which archipelago island, run by Anna Vera's father, is the target of the shady development scheme?", "a": "Stråholmen"}, {"q": "Stig-Helmer says he can't swim because he has problems with which part of his body?", "a": "His ears"}, {"q": "Which Swedish holiday weekend does the sailing trip take place over?", "a": "Midsummer"}, {"q": "What is the name of the 12-metre yacht that Madde borrows from Viktor Uggla for the all-women crew?", "a": "New Sweden"}, {"q": "In the bet with the women, Henrik promises to sail around which island in the children's boat, wearing a hat and dress?", "a": "Gotland"}, {"q": "Which slogan is painted on Kookaburra's spinnaker during the midsummer race?", "a": "\"Bevara Stråholmen\" (Save Stråholmen)"}, {"q": "Anna Vera says her father named her after his aftershave; what's the brand?", "a": "Aqua Vera"}, {"q": "What number is dialled to make the pager beep, so the lost bag can be found among ten thousand garbage bags on the barge?", "a": "004747211"}]}, {"title": "Den ofrivillige golfaren (1991)", "short": "Golfaren", "year": 1991, "color": "purple", "questions": [{"q": "To which country do Stig-Helmer and Ole travel so Stig-Helmer can learn golf in a week?", "a": "Scotland"}, {"q": "How much money is wagered on whether a random passer-by can beat club chairman Bruno Anderhage after just one week of golf?", "a": "One million kronor"}, {"q": "What is the name of Roderic McDougall's golf-swinging robot that Stig-Helmer trains with?", "a": "Vardon (named after Harry Vardon)"}, {"q": "Stig-Helmer loses his job when the Toastmaster factory closes. What did he check there all day?", "a": "Toasters"}, {"q": "What is Stig-Helmer's new job when Bruno picks him as the golf novice?", "a": "Street sweeper (gatsopare)"}, {"q": "Which relative's old golf clubs and clothes does Stig-Helmer dig out of his mother's attic?", "a": "His uncle Julle (morbror Julle / Julius)"}, {"q": "What is the title of Roderic \"Dogleg\" McDougall's famous 1960s golf book, the \"golf bible\" found in the uncle's bag?", "a": "\"Golf utan tårar\" (\"Golf Without Tears\")"}, {"q": "What is the name of the pub in the Scottish village?", "a": "The Laughing Duck"}, {"q": "On which hole does Stig-Helmer make the first par of his life, as announced in church?", "a": "The 13th"}, {"q": "Stig-Helmer's only farewell gift from Toastmaster was a toaster. According to his mother, which model was it?", "a": "The F41, the four-slice luxury model (\"F41 – lyxmodellen för fyra skivor\")"}]}, {"title": "Hälsoresan – En smal film av stor vikt (1999)", "short": "Hälsoresan", "year": 1999, "color": "green", "questions": [{"q": "What new name is given to the old Granhedsgården health farm when it is relaunched as a modern spa?", "a": "Gustav Vasa Spa"}, {"q": "What is the first name of Stig Helmer's New Age neighbour, who reads his aura and offers to become his personal coach?", "a": "Rebecka (Rebecka Melin)"}, {"q": "What birds are Stig Helmer and Ole dressed as when they finally walk out of the wilderness?", "a": "Chickens"}, {"q": "What does Bruno Anderhage turn his two tons of leftover chicken feed into?", "a": "Slimming crisps, sold as \"Slim Quick\""}, {"q": "What nationality is Stig Helmer's friend Ole Bramserud?", "a": "Norwegian"}, {"q": "Stig Helmer's mother sees his yellow fingers and asks if he smokes. What snack does he say stained them?", "a": "Ostbågar (cheese puffs / Cheese Doodles)"}, {"q": "Stig Helmer's one-armed father played in \"Bröderna Olssons Dixie Jazz Band\". What instrument did he play?", "a": "Drums"}, {"q": "What is the name of the guru the spa expects to arrive on the two o'clock train?", "a": "Viswanathan Raj"}, {"q": "Which scout patrol in Sofia scoutkår does Stig Helmer say taught him his wilderness skills?", "a": "Patrullen Bävern (the Beaver patrol)"}, {"q": "During the staged \"vegan\" attack, Bruno tells his accomplice to write \"mördare\" (murderer) on the broiler truck instead of \"svin\" (pig). What misspelled word ends up sprayed on it?", "a": "\"Smördare\""}]}, {"title": "The Stig-Helmer Story (2011)", "short": "Stig-Helmer Story", "year": 2011, "color": "orange", "questions": [{"q": "What is the full name of the Norwegian friend who listens to Stig-Helmer tell his life story and goes looking for Annika?", "a": "Ole Bramserud"}, {"q": "What childhood nickname does Biffen use to tease Stig-Helmer?", "a": "Tuff-Tuff"}, {"q": "What is the name of the model steam locomotive Uncle Julle gives Stig-Helmer, which he later gives to Annika?", "a": "Big Boy"}, {"q": "Which instrument does Annika teach young Stig-Helmer to play?", "a": "The banjo"}, {"q": "In which American city does the film end, where Stig-Helmer and Annika meet again?", "a": "New Orleans"}, {"q": "What name does Stig-Helmer's band from the Salvation Army play under in the contest at Nalen?", "a": "The Saints"}, {"q": "Ole thinks Annika went to China, but where did he actually find her?", "a": "Kinna, south of Borås"}, {"q": "Which station does Stig-Helmer give as his wrong answer on the TV quiz <em>Kvitt eller dubbelt<\/em> after Hjördis's teasing?", "a": "Hästveda"}, {"q": "According to his mother, how much did it cost to collect newborn Stig-Helmer from the maternity ward at Birkastan?", "a": "6.75 kronor"}, {"q": "When they meet again, Stig-Helmer tells Annika exactly how long it has been since they last saw each other. What is the precise figure?", "a": "49 years, 241 days, 22 hours and 13 minutes"}]}];
+const LEVELS = ["Easy","Easy","Easy","Easy","Easy","Medium","Medium","Medium","Hard","Expert"];
+const CARD_COUNT = 10;
+const STORE = "sallskapsresan-trivia-v1";
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+const $ = id => document.getElementById(id);
+const backTpl = $("back-tpl");
+const makeBack = () => backTpl.content.firstElementChild.cloneNode(true);
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+/* Each film's 10 questions are spread over the 10 cards exactly once.
+   Offsets {0,2,3,5,6,9} give every card a mix of easy, medium and hard,
+   and shuffling within each difficulty band varies the combinations per game. */
+function newGame(){
+  const offsets = shuffle([0,2,3,5,6,9]);
+  const perms = FILMS.map(() => [...shuffle([0,1,2,3,4]), ...shuffle([5,6,7]), 8, 9]);
+  const cards = Array.from({length:CARD_COUNT}, (_, c) => FILMS.map((_, m) => perms[m][(c + offsets[m]) % CARD_COUNT]));
+  return {cards: shuffle(cards), played: []};
+}
+function load(){
+  try{
+    const s = JSON.parse(localStorage.getItem(STORE));
+    if(s && Array.isArray(s.cards) && s.cards.length === CARD_COUNT && s.cards.every(c => c.length === FILMS.length)) return s;
+  }catch{}
+  return newGame();
+}
+let game = load();
+const save = () => { try{ localStorage.setItem(STORE, JSON.stringify(game)) }catch{} };
+save();
+
+/* ---------- Home ---------- */
+for(let i=0;i<3;i++) $("fan").append(makeBack());
+$("film-legend").innerHTML = FILMS.map(f => `<li><i class="tri" style="--c:var(--c-${f.color})"></i>${f.short}</li>`).join("");
+
+function show(screen){
+  $("home").hidden = screen !== "home";
+  $("deck-screen").hidden = screen !== "deck";
+  if(screen === "deck") renderDeck();
+  window.scrollTo(0,0);
+}
+$("play").onclick = () => { history.pushState({s:"deck"}, "", "#play"); show("deck"); };
+$("home-link").onclick = () => { history.pushState({s:"home"}, "", location.pathname); show("home"); };
+addEventListener("popstate", () => { closeStage(true); show(location.hash === "#play" ? "deck" : "home"); });
+
+/* ---------- Deck ---------- */
+function renderDeck(){
+  const deck = $("deck");
+  deck.replaceChildren();
+  game.cards.forEach((_, i) => {
+    const b = document.createElement("button");
+    b.className = "card-btn" + (game.played.includes(i) ? " played" : "");
+    b.style.setProperty("--i", i);
+    b.style.setProperty("--r", (i % 2 ? 4 : -4) + "deg");
+    b.setAttribute("aria-label", `Card ${i+1}` + (game.played.includes(i) ? " (played)" : ""));
+    b.append(makeBack());
+    const n = document.createElement("span"); n.className = "num"; n.textContent = i+1; b.append(n);
+    b.onclick = () => openCard(i, b);
+    deck.append(b);
+  });
+  updateStatus();
+}
+function updateStatus(){
+  const n = game.played.length;
+  $("status").textContent = `${n} of ${CARD_COUNT} played`;
+  $("done").hidden = n < CARD_COUNT;
+}
+function reshuffle(){
+  if(game.played.length && game.played.length < CARD_COUNT && !confirm("Shuffle a new deck? Played cards will be reset.")) return;
+  game = newGame(); save(); renderDeck();
+}
+$("reshuffle").onclick = reshuffle;
+$("again").onclick = reshuffle;
+
+/* ---------- Question card ---------- */
+let current = -1;
+function face(cardIdx, side){
+  const rows = game.cards[cardIdx].map((qi, m) => {
+    const f = FILMS[m], q = f.questions[qi], lvl = LEVELS[qi];
+    return `<div class="row"><i class="wedge" style="--c:var(--c-${f.color})"></i>
+      <div><div class="txt">${side === "q" ? q.q : q.a}</div>
+      <span class="meta">${f.short} · ${f.year}<span class="lvl ${lvl}">${lvl}</span></span></div></div>`;
+  }).join("");
+  return `<div class="face ${side === "q" ? "questions" : "answers"}"><div class="qcard">
+    <div class="strip"><span class="wordmark">Sällskapsresan</span>
+      <span class="mini">${FILMS.map(f => `<i style="--c:var(--c-${f.color})"></i>`).join("")}</span>
+      <span class="side">${side === "q" ? "Questions" : "Answers"}</span></div>
+    <div class="panel">${rows}<span class="corner">${cardIdx+1}</span></div>
+  </div></div>`;
+}
+function setFlipped(on){
+  $("flip").classList.toggle("flipped", on);
+  $("flip").setAttribute("aria-label", on ? "Show questions" : "Show answers");
+  $("flip-hint").textContent = on ? "Tap the card to see the questions again" : "Tap the card to see the answers";
+}
+async function openCard(i, fromEl){
+  current = i;
+  const flip = $("flip"), stage = $("stage");
+  flip.innerHTML = `<div class="flip-inner">${face(i,"q")}${face(i,"a")}</div>`;
+  setFlipped(false);
+  stage.classList.remove("closing");
+  stage.hidden = false;
+  stage.scrollTop = 0;
+  document.body.style.overflow = "hidden";
+  if(!game.played.includes(i)){ game.played.push(i); save(); }
+  $("next").hidden = game.played.length >= CARD_COUNT;
+
+  if(fromEl && !reduceMotion.matches){
+    const from = fromEl.getBoundingClientRect();
+    const to = flip.getBoundingClientRect();
+    const ghost = makeBack(); ghost.classList.add("ghost-card");
+    Object.assign(ghost.style, {left: from.left+"px", top: from.top+"px", width: from.width+"px", height: from.height+"px"});
+    document.body.append(ghost);
+    fromEl.classList.add("hidden-for-deal");
+    flip.style.visibility = "hidden";
+    const dx = to.left + to.width/2 - (from.left + from.width/2);
+    const dy = to.top + Math.min(to.height, innerHeight - to.top)/2 - (from.top + from.height/2);
+    const s = Math.min(to.height, innerHeight*.8) / from.height;
+    await ghost.animate([
+      {transform:"perspective(1400px) translate(0,0) scale(1) rotateY(0deg)"},
+      {transform:`perspective(1400px) translate(${dx}px,${dy}px) scale(${s}) rotateY(90deg)`}
+    ], {duration:520, easing:"cubic-bezier(.3,.6,.4,1)", fill:"forwards"}).finished;
+    ghost.remove();
+    fromEl.classList.remove("hidden-for-deal");
+    fromEl.classList.add("played");
+    flip.style.visibility = "";
+    await flip.animate([
+      {transform:"perspective(1800px) rotateY(-90deg)"},
+      {transform:"perspective(1800px) rotateY(0)"}
+    ], {duration:380, easing:"cubic-bezier(.2,.8,.3,1)"}).finished;
+  }
+  flip.focus({preventScroll:true});
+  updateStatus();
+}
+function closeStage(instant){
+  const stage = $("stage");
+  if(stage.hidden || (stage.classList.contains("closing") && !instant)) return;
+  const done = () => {
+    stage.hidden = true; stage.classList.remove("closing"); document.body.style.overflow = "";
+    renderDeck();
+    const btn = $("deck").children[current]; if(btn) btn.focus({preventScroll:true});
+  };
+  if(instant || reduceMotion.matches) return done();
+  stage.classList.add("closing");
+  setTimeout(done, 250);
+}
+function nextCard(){
+  const remaining = game.cards.map((_, i) => i).filter(i => !game.played.includes(i));
+  if(!remaining.length) return closeStage();
+  const i = remaining[Math.floor(Math.random()*remaining.length)];
+  const flip = $("flip");
+  flip.animate([{transform:"translateX(0)",opacity:1},{transform:"translateX(-60px)",opacity:0}], {duration:reduceMotion.matches?1:220, easing:"ease-in"})
+    .finished.then(() => { openCard(i, null); flip.animate([{transform:"translateX(60px)",opacity:0},{transform:"none",opacity:1}], {duration:reduceMotion.matches?1:260, easing:"ease-out"}); });
+}
+$("flip").onclick = () => setFlipped(!$("flip").classList.contains("flipped"));
+$("close").onclick = () => closeStage();
+$("next").onclick = nextCard;
+$("stage").addEventListener("click", e => { if(e.target === e.currentTarget) closeStage(); });
+addEventListener("keydown", e => { if(e.key === "Escape") closeStage(); });
+
+show(location.hash === "#play" ? "deck" : "home");
+</script>
+</body>
+</html>
