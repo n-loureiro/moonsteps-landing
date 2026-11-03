@@ -51,7 +51,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 }
 .play:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--red-dark),0 18px 30px rgba(150,20,10,.32)}
 .play:active{transform:translateY(4px);box-shadow:0 2px 0 var(--red-dark),0 8px 16px rgba(150,20,10,.25)}
-.play:focus-visible,.card-btn:focus-visible,.ghost-btn:focus-visible,.flip:focus-visible{outline:3px solid var(--navy);outline-offset:4px}
+.play:focus-visible,.ghost-btn:focus-visible,.flip:focus-visible{outline:3px solid var(--navy);outline-offset:4px}
 .films{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 14px;margin:6px 0 0;padding:0;list-style:none;font-size:14px;color:var(--muted)}
 .films li{display:flex;align-items:center;gap:6px}
 .tri{display:inline-block;width:12px;height:14px;clip-path:polygon(0 0,100% 50%,0 100%);background:var(--c)}
@@ -74,19 +74,27 @@ button{font:inherit;color:inherit;cursor:pointer}
 .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .ghost-btn{border:2px solid var(--ink);background:transparent;border-radius:999px;padding:8px 16px;font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.05em;font-size:16px;transition:background .15s,color .15s}
 .ghost-btn:hover{background:var(--ink);color:var(--sand)}
-.hint{margin:0 0 18px;color:var(--muted);font-size:15px}
-.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:clamp(10px,1.8vw,20px);perspective:1200px}
-.card-btn{border:0;background:none;padding:0;position:relative;border-radius:12px;transition:transform .25s var(--ease),filter .25s;animation:deal .5s var(--ease) both;animation-delay:calc(min(var(--i),16)*35ms)}
-.card-btn:hover{transform:translateY(-8px) rotate(-1.2deg)}
-.card-btn:nth-child(even):hover{transform:translateY(-8px) rotate(1.2deg)}
-.card-btn .num{position:absolute;top:12px;left:12px;width:26px;height:26px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:15px;box-shadow:0 1px 4px rgba(0,0,0,.2)}
-.card-btn.played{filter:saturate(.25) brightness(.92)}
-.card-btn.played .card-back{opacity:.7}
-.card-btn.played::after{content:var(--stamp,"Played");position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) rotate(-12deg);
-  font-family:"Barlow Condensed",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:clamp(14px,2.2vw,20px);
-  color:var(--red);border:3px solid var(--red);border-radius:6px;padding:2px 10px;background:rgba(255,253,248,.85)}
-.card-btn.hidden-for-deal{visibility:hidden}
-@keyframes deal{from{opacity:0;transform:translateY(30px) rotate(var(--r,0deg)) scale(.92)}to{opacity:1}}
+.hint{margin:0 auto 10px;max-width:560px;text-align:center;color:var(--muted);font-size:15px}
+.table{display:flex;justify-content:center;align-items:flex-start;gap:clamp(28px,9vw,110px);margin:34px 0 10px}
+.pile{display:grid;justify-items:center;gap:22px}
+.pile-slot{position:relative;display:block;width:clamp(138px,30vw,250px);aspect-ratio:5/7;border:0;background:none;padding:0;border-radius:12px}
+.pile-slot:focus-visible{outline:3px solid var(--navy);outline-offset:8px}
+.pile-slot .card-back{position:absolute;inset:0;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 1px 2px rgba(70,40,0,.25)}
+.stack .card-back{transform:translate(calc(var(--k) * .6px),calc(var(--k) * 2.6px))}
+.stack .card-back.bottom{box-shadow:0 14px 26px rgba(70,40,0,.28),0 2px 3px rgba(70,40,0,.2)}
+.stack .card-back.top{transition:transform .22s var(--ease),box-shadow .22s var(--ease)}
+.stack:hover .card-back.top,.stack:focus-visible .card-back.top{transform:translate(-4px,-14px) rotate(-3deg);box-shadow:0 18px 30px rgba(70,40,0,.3)}
+.stack:active .card-back.top{transform:translate(-2px,-6px) rotate(-1.5deg)}
+.stack .card-back.lifting{visibility:hidden}
+.discard .card-back{transform:translate(var(--x),var(--y)) rotate(var(--rot))}
+.discard .card-back:last-child{box-shadow:0 10px 22px rgba(70,40,0,.25)}
+.discard:not(:disabled):hover .card-back:last-child{transform:translate(var(--x),calc(var(--y) - 8px)) rotate(var(--rot))}
+.discard:disabled{cursor:default}
+.empty-slot{position:absolute;inset:0;display:grid;place-items:center;padding:14px;border:3px dashed rgba(42,31,20,.22);border-radius:12px;
+  text-align:center;font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:17px;letter-spacing:.04em;color:var(--muted)}
+.pile-label{margin:0;font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:15px;color:var(--muted)}
+.pile-label strong{color:var(--ink);font-size:20px;letter-spacing:.02em;margin-right:4px}
+@media (max-width:420px){.table{gap:22px}.pile-slot{width:40vw}}
 .done-banner{margin-top:28px;text-align:center;display:grid;justify-items:center;gap:12px}
 .done-banner p{margin:0;font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600}
 
@@ -197,12 +205,20 @@ button{font:inherit;color:inherit;cursor:pointer}
   <div class="topbar">
     <button class="wordmark" id="home-link" data-i18n-aria="backToStart">Sällskapsresan</button>
     <div class="actions">
-      <span class="status" id="status"></span>
       <button class="ghost-btn" id="reshuffle" data-i18n="reshuffle"></button>
     </div>
   </div>
   <p class="hint" data-i18n="hint"></p>
-  <div class="deck" id="deck"></div>
+  <div class="table">
+    <div class="pile">
+      <button class="pile-slot stack" id="stack"></button>
+      <p class="pile-label" id="left-label"></p>
+    </div>
+    <div class="pile">
+      <button class="pile-slot discard" id="discard"></button>
+      <p class="pile-label" id="played-label"></p>
+    </div>
+  </div>
   <div class="done-banner" id="done" hidden>
     <p data-i18n="done"></p>
     <button class="play" id="again" data-i18n="again"></button>
@@ -233,12 +249,13 @@ const I18N = {
   en: {
     title: "Sällskapsresan · Family Trivia", tagline: `Family trivia · ${FILMS.length} films · ${QUESTION_COUNT} questions`, play: "Play Sällskapsresan",
     language: "Language", backToStart: "Back to start", reshuffle: "New shuffle",
-    hint: "Pick a card. Each one has a question from every film; tap the card to turn it over and see the answers.",
+    hint: "Tap the deck to draw a card. Each card has a question from every film – tap it to turn it over and see the answers.",
     done: "That's the whole deck. Who won?", again: "Shuffle a new deck", dialog: "Trivia card",
     close: "Back to deck", next: "Next card", questions: "Questions", answers: "Answers",
     showAnswers: "Show answers", showQuestions: "Show questions",
     hintAnswers: "Tap the card to see the answers", hintQuestions: "Tap the card to see the questions again",
-    status: n => `${n} of ${game.cards.length} played`, card: n => `Card ${n}`, playedSuffix: " (played)", stamp: "Played",
+    left: n => `<strong>${n}</strong> left in the deck`, playedPile: n => `<strong>${n}</strong> played`,
+    draw: "Draw a card", lastCard: "Show the last card again", noPlayed: "Played cards go here", deckEmpty: "Deck empty",
     confirmShuffle: "Shuffle a new deck? Played cards will be reset.",
     Easy: "Easy", Medium: "Medium", Hard: "Hard", Expert: "Expert",
     watch: "Watch", watchAria: f => `Watch the scene from ${f} on YouTube`
@@ -246,12 +263,13 @@ const I18N = {
   sv: {
     title: "Sällskapsresan · Familjefrågesport", tagline: `Familjefrågesport · ${FILMS.length} filmer · ${QUESTION_COUNT} frågor`, play: "Spela Sällskapsresan",
     language: "Språk", backToStart: "Tillbaka till start", reshuffle: "Blanda om",
-    hint: "Välj ett kort. Varje kort har en fråga från varje film – tryck på kortet för att vända det och se svaren.",
+    hint: "Tryck på kortleken för att dra ett kort. Varje kort har en fråga från varje film – tryck på det för att vända det och se svaren.",
     done: "Det var hela kortleken. Vem vann?", again: "Blanda en ny kortlek", dialog: "Frågekort",
     close: "Tillbaka till korten", next: "Nästa kort", questions: "Frågor", answers: "Svar",
     showAnswers: "Visa svaren", showQuestions: "Visa frågorna",
     hintAnswers: "Tryck på kortet för att se svaren", hintQuestions: "Tryck på kortet för att se frågorna igen",
-    status: n => `${n} av ${game.cards.length} spelade`, card: n => `Kort ${n}`, playedSuffix: " (spelat)", stamp: "Spelat",
+    left: n => `<strong>${n}</strong> kvar i leken`, playedPile: n => `<strong>${n}</strong> spelade`,
+    draw: "Dra ett kort", lastCard: "Visa det senaste kortet igen", noPlayed: "Spelade kort hamnar här", deckEmpty: "Leken är slut",
     confirmShuffle: "Blanda en ny kortlek? Spelade kort nollställs.",
     Easy: "Lätt", Medium: "Medel", Hard: "Svår", Expert: "Expert",
     watch: "Se scenen", watchAria: f => `Se scenen ur ${f} på YouTube`
@@ -269,6 +287,8 @@ const backTpl = $("back-tpl");
 const makeBack = () => backTpl.content.firstElementChild.cloneNode(true);
 
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+/* Resolve when an animation ends, or after its duration if the browser pauses it (e.g. background tab). */
+const settle = a => Promise.race([a.finished, new Promise(r => setTimeout(r, a.effect.getTiming().duration + 120))]);
 
 /* Every card holds one question per film; each question is used exactly once.
    Each film's questions are ordered easy→expert (shuffled within a level), and the films
@@ -306,28 +326,44 @@ $("play").onclick = () => { history.pushState({s:"deck"}, "", "#play"); show("de
 $("home-link").onclick = () => { history.pushState({s:"home"}, "", location.pathname); show("home"); };
 addEventListener("popstate", () => { closeStage(true); show(location.hash === "#play" ? "deck" : "home"); });
 
-/* ---------- Deck ---------- */
+/* ---------- Deck: a draw pile and a discard pile ---------- */
+let inHand = null;  // card currently shown on the stage; kept off the discard pile until it is put back
+const nextUndrawn = () => game.cards.findIndex((_, i) => !game.played.includes(i));
+const pose = i => ({x: (i * 13) % 11 - 5, y: (i * 7) % 9 - 4, r: (i * 47) % 19 - 9});
 function renderDeck(){
-  const deck = $("deck");
-  deck.replaceChildren();
-  game.cards.forEach((_, i) => {
-    const b = document.createElement("button");
-    b.className = "card-btn" + (game.played.includes(i) ? " played" : "");
-    b.style.setProperty("--i", i);
-    b.style.setProperty("--r", (i % 2 ? 4 : -4) + "deg");
-    b.append(makeBack());
-    const n = document.createElement("span"); n.className = "num"; n.textContent = i+1; b.append(n);
-    b.onclick = () => openCard(i, b);
-    deck.append(b);
-  });
+  const left = game.cards.length - game.played.length;
+  const stack = $("stack"), discard = $("discard");
+  stack.replaceChildren(); discard.replaceChildren();
+  const layers = left ? Math.min(12, Math.ceil(left / 8)) : 0;
+  for(let k = layers - 1; k >= 0; k--){
+    const b = makeBack();
+    b.style.setProperty("--k", k);
+    if(k === layers - 1) b.classList.add("bottom");
+    if(k === 0) b.classList.add("top");
+    stack.append(b);
+  }
+  if(!left) stack.insertAdjacentHTML("beforeend", `<span class="empty-slot">${t("deckEmpty")}</span>`);
+  stack.disabled = !left;
+  const shown = game.played.filter(i => i !== inHand).slice(-5);
+  for(const i of shown){
+    const b = makeBack(), p = pose(i);
+    b.style.setProperty("--x", p.x + "px"); b.style.setProperty("--y", p.y + "px"); b.style.setProperty("--rot", p.r + "deg");
+    discard.append(b);
+  }
+  if(!shown.length) discard.insertAdjacentHTML("beforeend", `<span class="empty-slot">${t("noPlayed")}</span>`);
+  discard.disabled = !shown.length;
   updateStatus();
 }
 function updateStatus(){
-  const n = game.played.length;
-  $("status").textContent = t("status")(n);
-  $("done").hidden = n < game.cards.length;
-  [...$("deck").children].forEach((b, i) => b.setAttribute("aria-label", t("card")(i+1) + (game.played.includes(i) ? t("playedSuffix") : "")));
+  const n = game.played.length, left = game.cards.length - n;
+  $("left-label").innerHTML = t("left")(left);
+  $("played-label").innerHTML = t("playedPile")(n);
+  $("stack").setAttribute("aria-label", t("draw"));
+  $("discard").setAttribute("aria-label", t("lastCard"));
+  $("done").hidden = left > 0;
 }
+$("stack").onclick = () => { const i = nextUndrawn(); if(i >= 0) openCard(i, $("stack").querySelector(".top")); };
+$("discard").onclick = () => { const i = game.played.at(-1); if(i != null) openCard(i, $("discard").lastElementChild); };
 function reshuffle(){
   if(game.played.length && game.played.length < game.cards.length && !confirm(t("confirmShuffle"))) return;
   game = newGame(); save(); renderDeck();
@@ -364,6 +400,7 @@ async function openCard(i, fromEl){
   current = i;
   const flip = $("flip"), stage = $("stage");
   flip.innerHTML = `<div class="flip-inner">${face(i,"q")}${face(i,"a")}</div>`;
+  inHand = i;
   setFlipped(false);
   stage.classList.remove("closing");
   stage.hidden = false;
@@ -378,24 +415,23 @@ async function openCard(i, fromEl){
     const ghost = makeBack(); ghost.classList.add("ghost-card");
     Object.assign(ghost.style, {left: from.left+"px", top: from.top+"px", width: from.width+"px", height: from.height+"px"});
     document.body.append(ghost);
-    fromEl.classList.add("hidden-for-deal");
+    fromEl.classList.add("lifting");
     flip.style.visibility = "hidden";
     const dx = to.left + to.width/2 - (from.left + from.width/2);
     const dy = to.top + Math.min(to.height, innerHeight - to.top)/2 - (from.top + from.height/2);
     const s = Math.min(to.height, innerHeight*.8) / from.height;
-    await ghost.animate([
+    await settle(ghost.animate([
       {transform:"perspective(1400px) translate(0,0) scale(1) rotateY(0deg)"},
       {transform:`perspective(1400px) translate(${dx}px,${dy}px) scale(${s}) rotateY(90deg)`}
-    ], {duration:520, easing:"cubic-bezier(.3,.6,.4,1)", fill:"forwards"}).finished;
+    ], {duration:520, easing:"cubic-bezier(.3,.6,.4,1)", fill:"forwards"}));
     ghost.remove();
-    fromEl.classList.remove("hidden-for-deal");
-    fromEl.classList.add("played");
+    renderDeck();
     flip.style.visibility = "";
-    await flip.animate([
+    await settle(flip.animate([
       {transform:"perspective(1800px) rotateY(-90deg)"},
       {transform:"perspective(1800px) rotateY(0)"}
-    ], {duration:380, easing:"cubic-bezier(.2,.8,.3,1)"}).finished;
-  }
+    ], {duration:380, easing:"cubic-bezier(.2,.8,.3,1)"}));
+  } else renderDeck();
   flip.focus({preventScroll:true});
   updateStatus();
 }
@@ -404,20 +440,31 @@ function closeStage(instant){
   if(stage.hidden || (stage.classList.contains("closing") && !instant)) return;
   const done = () => {
     stage.hidden = true; stage.classList.remove("closing"); document.body.style.overflow = "";
+    inHand = null;
     renderDeck();
-    const btn = $("deck").children[current]; if(btn) btn.focus({preventScroll:true});
+    $(nextUndrawn() >= 0 ? "stack" : "discard").focus({preventScroll:true});
   };
   if(instant || reduceMotion.matches) return done();
   stage.classList.add("closing");
-  setTimeout(done, 250);
+  // put the card back face down onto the discard pile
+  const from = $("flip").getBoundingClientRect(), to = $("discard").getBoundingClientRect(), p = pose(current);
+  const ghost = makeBack(); ghost.classList.add("ghost-card");
+  Object.assign(ghost.style, {left: to.left+"px", top: to.top+"px", width: to.width+"px", height: to.height+"px"});
+  document.body.append(ghost);
+  const dx = from.left + from.width/2 - (to.left + to.width/2);
+  const dy = from.top + Math.min(from.height, innerHeight - from.top)/2 - (to.top + to.height/2);
+  settle(ghost.animate([
+    {transform:`translate(${dx}px,${dy}px) scale(1.15)`, opacity:0},
+    {transform:`translate(${dx*.85}px,${dy*.85}px) scale(1.12)`, opacity:1, offset:.2},
+    {transform:`translate(${p.x}px,${p.y}px) rotate(${p.r}deg)`, opacity:1}
+  ], {duration:480, easing:"cubic-bezier(.4,.1,.3,1)", fill:"forwards"})).then(() => { done(); ghost.remove(); });
 }
 function nextCard(){
-  const remaining = game.cards.map((_, i) => i).filter(i => !game.played.includes(i));
-  if(!remaining.length) return closeStage();
-  const i = remaining[Math.floor(Math.random()*remaining.length)];
+  const i = nextUndrawn();
+  if(i < 0) return closeStage();
   const flip = $("flip");
-  flip.animate([{transform:"translateX(0)",opacity:1},{transform:"translateX(-60px)",opacity:0}], {duration:reduceMotion.matches?1:220, easing:"ease-in"})
-    .finished.then(() => { openCard(i, null); flip.animate([{transform:"translateX(60px)",opacity:0},{transform:"none",opacity:1}], {duration:reduceMotion.matches?1:260, easing:"ease-out"}); });
+  settle(flip.animate([{transform:"translateX(0)",opacity:1},{transform:"translateX(-60px)",opacity:0}], {duration:reduceMotion.matches?1:220, easing:"ease-in"}))
+    .then(() => { openCard(i, null); flip.animate([{transform:"translateX(60px)",opacity:0},{transform:"none",opacity:1}], {duration:reduceMotion.matches?1:260, easing:"ease-out"}); });
 }
 const toggleFlip = () => setFlipped(!$("flip").classList.contains("flipped"));
 $("flip").addEventListener("click", e => { if(!e.target.closest("a")) toggleFlip(); });
@@ -434,11 +481,10 @@ addEventListener("keydown", e => { if(e.key === "Escape") closeStage(); });
 function applyLang(){
   document.documentElement.lang = lang;
   document.title = t("title");
-  document.documentElement.style.setProperty("--stamp", JSON.stringify(t("stamp")));
   document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
   document.querySelectorAll("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
   document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
-  updateStatus();
+  renderDeck();
   if(!$("stage").hidden && current >= 0){
     const flipped = $("flip").classList.contains("flipped");
     $("flip").querySelector(".flip-inner").innerHTML = face(current,"q") + face(current,"a");
