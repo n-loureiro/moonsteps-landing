@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dimming satellites in very low Earth orbit: a problem formulation</title>
+<style>
+:root{--ink:#282828;--grey:#6b6866;--soft:#504945;--rule:#d9d9d9;--panel:#f3f3f2;--accent:#e3f4ef;
+--serif:"Iowan Old Style BT","Iowan Old Style",Georgia,serif;
+--sans:"GT America",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+--mono:"SF Mono",Monaco,Inconsolata,"Fira Code",monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:#fff;color:var(--ink);font:17px/1.6 var(--serif);-webkit-font-smoothing:antialiased}
+a{color:#676767;text-decoration:underline;text-decoration-color:rgba(103,103,103,.3);text-underline-offset:2px}
+a:hover{text-decoration-color:currentColor}
+header.site{position:sticky;top:0;z-index:20;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
+.wordmark{font:500 15px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.site nav{display:flex;gap:22px;font:400 14px var(--sans)}
+.site nav a{color:var(--ink);text-decoration:none}
+.site nav a:hover{text-decoration:underline}
+.heading{max-width:600px;margin:48px auto 0;text-align:center}
+h1{font:600 30px/1.4 var(--serif);margin:0}
+.meta{font:400 14px/1.6 var(--sans);color:var(--ink);margin-top:22px}
+.meta .date{color:var(--grey);display:block;margin-top:4px}
+.hero{max-width:880px;margin:36px auto 8px;padding:0 16px}
+.layout{display:grid;grid-template-columns:1fr 660px 1fr;column-gap:40px;margin-top:40px}
+.toc{grid-column:1;justify-self:end;width:210px;position:sticky;top:90px;align-self:start;font:400 13px/1.4 var(--sans)}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc li{margin:0 0 11px;position:relative}
+.toc a{color:var(--soft);text-decoration:none}
+.toc li.on a{color:var(--ink)}
+.toc li.on::before{content:"";position:absolute;left:-12px;top:6px;width:4px;height:4px;border-radius:50%;background:var(--ink)}
+article{grid-column:2;min-width:0}
+article p{margin:0 0 23px}
+h2{font:600 23px/1.4 var(--serif);margin:50px 0 19px}
+h3{font:400 21.5px/1.4 var(--serif);margin:40px 0 16px}
+article ul,article ol{padding-left:1.3em;margin:0 0 23px}
+article li{margin:0 0 8px}
+code{font:13.5px var(--mono);color:var(--soft);background:var(--panel);padding:1px 5px;border-radius:4px}
+figure{margin:30px 0}
+:root{--side:min(220px,calc(50vw - 400px),calc(100vw - 990px))}
+figure.wide{margin-right:calc(-1 * (var(--side) + 40px))}
+figure svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--sans)}
+svg .t{fill:var(--ink);font-size:16px;font-weight:400;text-anchor:middle}
+svg .s{fill:var(--grey);font-size:13px;text-anchor:middle}
+svg .l{fill:var(--grey);font-size:13px}
+svg .n{fill:var(--grey)}
+svg .cap{fill:var(--grey);font-size:12px;letter-spacing:.12em;text-anchor:middle}
+svg .e{fill:none;stroke:#1e2a38;stroke-width:2}
+svg .e.d{stroke-dasharray:8 6}
+svg .e.f{stroke-opacity:.45}
+figcaption{font:400 13px/1.4 var(--sans);color:var(--grey);margin-top:13px;max-width:660px}
+figcaption b{color:var(--ink);font-weight:500}
+.tablewrap{margin:36px 0}
+table{width:100%;border-collapse:collapse;font:400 13px/1.5 var(--sans)}
+th{color:var(--grey);font-weight:400;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule)}
+td code{white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top}
+.tablewrap figcaption{margin-top:14px}
+blockquote{margin:0 0 23px;padding:0 0 0 18px;border-left:2px solid var(--rule);color:var(--soft);font-style:italic}
+.side{float:right;clear:right;width:var(--side);margin:4px calc(-1 * (var(--side) + 40px)) 16px 0;font:400 13.5px/1.45 var(--serif);color:var(--soft)}
+.side sup,sup.ref{font:400 11px var(--sans);color:var(--grey)}
+.status{font:400 13px var(--sans);padding:1px 8px;border-radius:10px;white-space:nowrap}
+.st-ok{background:#e3f4ef}.st-warn{background:#f6efdc}.st-bad{background:#f8e5e1}.st-human{background:#eceef6}
+footer{grid-column:2;font:400 13px/1.5 var(--sans);color:var(--grey);border-top:1px solid var(--rule);margin:60px 0 80px;padding-top:16px}
+@media (max-width:1120px){figure.wide{margin-right:0}.side{display:block;float:none;width:auto;margin:4px 0 16px;padding-left:18px;border-left:2px solid var(--rule)}}
+@media (max-width:1000px){.layout{grid-template-columns:1fr;padding:0 20px}.toc{display:none}article,footer{grid-column:1;max-width:660px;margin-left:auto;margin-right:auto;width:100%}.site nav{display:none}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:0 0 30px;font-family:var(--sans)}
+.stats div{border-top:1px solid var(--rule);padding-top:10px}
+.stats b{display:block;font:400 28px/1.2 var(--serif)}
+.stats span{display:block;font-size:13px;line-height:1.4;color:var(--grey);margin-top:4px}
+pre{font:13px/1.6 var(--mono);color:var(--soft);background:var(--panel);padding:14px 16px;border-radius:8px;overflow-x:auto;margin:0 0 23px}
+.quote{font:400 17px/1.6 var(--serif);background:var(--panel);border-radius:8px;padding:14px 18px;margin:0 0 23px}
+mark{background:var(--accent);color:inherit;padding:1px 3px;border-radius:3px}
+mark.c{background:#f6efdc}
+mark sup{font:400 10px var(--sans);color:var(--grey);margin-left:2px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:0 0 23px;font:400 14px/1.5 var(--sans)}
+.cols h4{font:500 13px var(--sans);color:var(--grey);margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em}
+.cols ul{padding-left:1.1em;margin:0}
+.cols li{margin:0 0 9px}
+.cols small{display:block;color:var(--grey);font-size:12px}
+@media (max-width:1000px){.stats,.cols{grid-template-columns:1fr 1fr}}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0 0;font:400 13px var(--sans)}
+.btn{font:400 13px var(--sans);color:var(--ink);background:var(--panel);border:0;border-radius:14px;padding:5px 12px;cursor:pointer}
+.btn:hover{background:#e8e8e6}
+.btn.on{background:var(--ink);color:#fff}
+.btn:focus-visible,figure:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.controls .pos{color:var(--grey);margin-left:6px}
+.panel{margin-top:12px;padding:14px 18px;background:#fafaf9;border-left:2px solid var(--rule);font:400 15px/1.55 var(--sans);color:var(--soft);min-height:92px}
+.panel h4{font:600 17px/1.3 var(--serif);color:var(--ink);margin:0 0 6px}
+.panel p{margin:0 0 6px}
+.panel code{font-size:12.5px}
+svg [data-step],svg [data-id]{transition:opacity .35s}
+svg .dim{opacity:.3}
+svg g.hl rect{stroke:#1e2a38;stroke-width:2}
+svg path.hl{stroke-opacity:1;stroke-width:3}
+html.js .grow{transform-box:fill-box;transform-origin:left center;transform:scaleX(0);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+html.js .in .grow{transform:none}
+html.js [data-reveal] .seq{opacity:.12;transition:opacity .6s}
+html.js [data-reveal].in .seq{opacity:1}
+.check{display:flex;gap:10px;align-items:flex-start;margin:0 0 8px;font:400 14px/1.4 var(--sans);cursor:pointer}
+.check input{margin-top:3px;accent-color:#1e2a38}
+.range{display:flex;gap:14px;align-items:center;margin:0 0 18px;font:400 14px var(--sans)}
+.range input{flex:1;accent-color:#1e2a38}
+.range output{font:400 22px/1 var(--serif);min-width:90px;text-align:right}
+math{font-size:1.08em}
+math[display=block]{display:block math;margin:0 0 23px;padding:6px 0;overflow-x:auto;overflow-y:hidden}
+.panel math[display=block]{margin:4px 0 10px}
+mtd{padding:2px .6em 2px 0;text-align:left}
+td math{font-size:1.15em}
+@media (prefers-reduced-motion:reduce){svg [data-step],svg [data-id],.grow,.seq{transition:none!important}}
+h4{font:600 17.5px/1.4 var(--serif);margin:32px 0 12px}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.zoom{overflow:auto;-webkit-overflow-scrolling:touch;max-height:82vh;border:1px solid var(--rule);border-radius:8px;background:#fff;cursor:grab;touch-action:pan-x pan-y pinch-zoom}
+.zoom.drag{cursor:grabbing;user-select:none}
+.zoom img{display:block;width:100%;height:auto;max-width:none;-webkit-user-drag:none}
+figure.plan .controls{margin:0 0 10px}
+@media (max-width:600px){body{font-size:16px}th,td{padding:8px 10px}.tscroll table{min-width:520px}h1{font-size:25px}}
+
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<header class="site"><a class="wordmark" href="#">Dark sky notes</a>
+<nav><a href="#problem">Formulation</a><a href="#sources">Sources</a></nav></header>
+<div class="heading">
+<h1>Dimming satellites in very low Earth orbit: a problem formulation</h1>
+<div class="meta">Problem formulation for satellites at 250–450 km<span class="date">7 November 2026</span></div>
+</div>
+<div class="hero"><figure data-anim style="margin:0">
+<svg viewBox="0 0 880 360" role="img" aria-label="Night sky seen from the ground. As the Sun sinks the sky darkens and stars appear; a train of satellites crosses overhead, getting brighter through twilight and then vanishing when they enter Earth's shadow."><rect id="skyBg" x="0" y="0" width="880" height="360" rx="8" fill="rgb(28,35,49)"/><circle class="star" data-m="5.06" cx="287.8" cy="87.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.33" cx="70.6" cy="191.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="58.1" cy="184.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="382.7" cy="65.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.59" cx="374.8" cy="270.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="1.83" cx="200.9" cy="216.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="1.39" cx="506.6" cy="153.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.46" cx="48.2" cy="279.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.44" cx="132.6" cy="78.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.50" cx="713.1" cy="95.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.68" cx="560.0" cy="147.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.55" cx="62.2" cy="62.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.43" cx="595.9" cy="162.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.45" cx="513.9" cy="169.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.52" cx="694.3" cy="236.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="2.85" cx="504.3" cy="188.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="1.33" cx="638.2" cy="124.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.17" cx="110.0" cy="159.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="139.3" cy="179.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.55" cx="585.3" cy="254.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.72" cx="764.4" cy="131.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.07" cx="521.5" cy="203.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.00" cx="733.7" cy="303.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.67" cx="581.8" cy="62.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.49" cx="567.1" cy="316.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.93" cx="253.9" cy="150.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.57" cx="27.5" cy="171.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.06" cx="109.2" cy="62.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.27" cx="119.7" cy="113.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.09" cx="760.9" cy="67.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.52" cx="482.7" cy="286.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.20" cx="754.5" cy="121.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="1.68" cx="318.0" cy="286.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.53" cx="138.4" cy="93.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.45" cx="209.6" cy="177.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.19" cx="235.0" cy="47.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="1.75" cx="327.0" cy="200.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.28" cx="604.6" cy="186.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="2.52" cx="592.2" cy="60.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.76" cx="681.9" cy="283.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.59" cx="347.0" cy="154.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="556.0" cy="62.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.38" cx="188.4" cy="90.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.58" cx="53.4" cy="46.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="95.7" cy="144.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.58" cx="763.4" cy="213.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.33" cx="226.0" cy="140.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="1.12" cx="114.1" cy="276.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="410.6" cy="177.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.50" cx="96.3" cy="139.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="724.1" cy="89.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.58" cx="829.7" cy="189.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.78" cx="477.3" cy="53.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.71" cx="853.4" cy="280.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.57" cx="233.6" cy="145.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.95" cx="675.0" cy="190.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.61" cx="292.8" cy="106.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.67" cx="859.0" cy="277.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.53" cx="715.0" cy="247.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="455.2" cy="142.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.50" cx="32.1" cy="122.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.10" cx="606.3" cy="306.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="1.72" cx="817.6" cy="314.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.53" cx="323.0" cy="106.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.24" cx="178.0" cy="101.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.98" cx="785.9" cy="274.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="572.2" cy="263.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.92" cx="578.7" cy="293.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.57" cx="656.1" cy="176.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.72" cx="689.8" cy="136.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.24" cx="847.5" cy="153.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.57" cx="826.0" cy="243.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="2.45" cx="117.8" cy="87.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.44" cx="704.8" cy="85.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.36" cx="855.0" cy="224.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="482.0" cy="81.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.78" cx="846.8" cy="222.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="2.89" cx="814.7" cy="164.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.51" cx="721.8" cy="103.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.47" cx="261.1" cy="111.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.59" cx="232.1" cy="160.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.06" cx="794.3" cy="142.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.18" cx="512.0" cy="292.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.76" cx="800.9" cy="182.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.12" cx="460.3" cy="51.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.74" cx="166.2" cy="47.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.46" cx="156.9" cy="174.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.82" cx="488.8" cy="134.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.59" cx="487.9" cy="259.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.48" cx="492.1" cy="113.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.61" cx="675.2" cy="184.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.11" cx="664.6" cy="294.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.85" cx="537.2" cy="183.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.75" cx="606.5" cy="169.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.69" cx="421.0" cy="302.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.50" cx="765.3" cy="302.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.28" cx="491.4" cy="302.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.12" cx="126.5" cy="79.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="70.7" cy="111.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="2.56" cx="586.4" cy="259.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.99" cx="141.4" cy="240.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="1.53" cx="131.5" cy="286.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.25" cx="197.7" cy="305.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.37" cx="429.0" cy="315.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.83" cx="147.5" cy="163.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.42" cx="301.0" cy="99.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.65" cx="631.9" cy="51.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.40" cx="388.6" cy="50.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="547.1" cy="185.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="1.46" cx="859.1" cy="260.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="98.5" cy="118.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.59" cx="681.1" cy="119.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.52" cx="372.8" cy="293.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="2.25" cx="231.4" cy="86.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="501.0" cy="236.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.17" cx="57.7" cy="233.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.17" cx="70.6" cy="301.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.08" cx="700.6" cy="68.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.08" cx="65.6" cy="280.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="2.14" cx="301.0" cy="196.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.78" cx="239.4" cy="81.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.58" cx="214.0" cy="75.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.43" cx="51.5" cy="100.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.46" cx="271.5" cy="252.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.37" cx="440.1" cy="94.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="23.7" cy="114.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.56" cx="641.4" cy="195.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.59" cx="418.2" cy="300.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.92" cx="715.5" cy="163.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.87" cx="729.1" cy="152.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.37" cx="602.2" cy="313.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.16" cx="727.1" cy="238.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="357.7" cy="140.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.32" cx="120.2" cy="65.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="228.8" cy="90.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.91" cx="734.9" cy="282.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.46" cx="251.6" cy="111.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.10" cx="405.0" cy="88.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="1.45" cx="235.4" cy="307.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="1.56" cx="480.7" cy="112.5" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="275.4" cy="143.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.89" cx="337.7" cy="175.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="181.6" cy="183.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.24" cx="236.2" cy="70.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.44" cx="44.0" cy="52.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.77" cx="209.1" cy="205.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.54" cx="656.5" cy="224.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.41" cx="767.5" cy="151.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.47" cx="858.8" cy="86.7" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.34" cx="563.7" cy="57.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.39" cx="778.6" cy="216.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.80" cx="709.8" cy="83.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.68" cx="443.8" cy="273.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="2.61" cx="722.0" cy="204.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.53" cx="598.0" cy="234.6" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.34" cx="34.9" cy="82.2" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.62" cx="98.6" cy="273.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.83" cx="550.4" cy="216.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="3.76" cx="430.8" cy="46.9" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="5.74" cx="654.5" cy="182.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.36" cx="577.6" cy="64.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.50" cx="225.9" cy="66.3" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.33" cx="638.1" cy="101.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.29" cx="851.0" cy="180.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.07" cx="421.9" cy="232.0" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="541.1" cy="220.8" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.30" cx="135.4" cy="115.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.60" cx="271.0" cy="200.4" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="4.90" cx="60.4" cy="119.1" r="1" fill="#fff" opacity="0"/><circle class="star" data-m="6.46" cx="606.0" cy="229.8" r="1" fill="#fff" opacity="0"/><line class="trail" data-i="0" x1="-50" y1="0" x2="-50" y2="0" stroke="#fff" stroke-linecap="round" opacity="0"/><circle class="sathalo" data-i="0" cx="-50" cy="0" r="6" fill="#fff" opacity="0"/><circle class="sat" data-i="0" cx="-50" cy="0" r="2" fill="#fff" opacity="0"/><line class="trail" data-i="1" x1="-50" y1="0" x2="-50" y2="0" stroke="#fff" stroke-linecap="round" opacity="0"/><circle class="sathalo" data-i="1" cx="-50" cy="0" r="6" fill="#fff" opacity="0"/><circle class="sat" data-i="1" cx="-50" cy="0" r="2" fill="#fff" opacity="0"/><line class="trail" data-i="2" x1="-50" y1="0" x2="-50" y2="0" stroke="#fff" stroke-linecap="round" opacity="0"/><circle class="sathalo" data-i="2" cx="-50" cy="0" r="6" fill="#fff" opacity="0"/><circle class="sat" data-i="2" cx="-50" cy="0" r="2" fill="#fff" opacity="0"/><line class="trail" data-i="3" x1="-50" y1="0" x2="-50" y2="0" stroke="#fff" stroke-linecap="round" opacity="0"/><circle class="sathalo" data-i="3" cx="-50" cy="0" r="6" fill="#fff" opacity="0"/><circle class="sat" data-i="3" cx="-50" cy="0" r="2" fill="#fff" opacity="0"/><path d="M0,326 Q110,312 230,324 T470,318 T700,328 T880,316 L880,352 Q880,360 872,360 L8,360 Q0,360 0,352 Z" fill="#101216"/><text id="skyTop" x="20" y="30" class="l" style="font-size:14px;fill:#e8e8e6">Sun 12.0° below the horizon · astronomical twilight · evening</text><text id="skyMsg" x="860" y="30" class="l" text-anchor="end" style="font-size:14px;fill:#e8e8e6"></text><text id="skyLim" x="20" y="348" class="l" style="font-size:12px;fill:#8d8b88">faintest star visible now ≈ V 4.8</text><text x="860" y="348" class="l" text-anchor="end" style="font-size:12px;fill:#8d8b88">looking straight up · illustrative</text></svg>
+<div class="controls"><button class="btn" data-a="play">Pause</button>
+<button class="btn on" data-alt="300">300 km</button><button class="btn" data-alt="450">450 km</button><button class="btn" data-alt="550">550 km</button></div>
+<div class="range" style="margin-top:14px"><label for="anD">Sun below horizon</label><input id="anD" type="range" min="0" max="30" step="0.1" value="12"><output data-o="d">12.0°</output></div>
+<div class="range"><label for="anA">Nadir face area</label><input id="anA" type="range" min="0.5" max="20" step="0.5" value="10"><output data-o="a">10 m²</output></div>
+<div class="range"><label for="anR">Reflectance</label><input id="anR" type="range" min="2" max="40" step="1" value="10"><output data-o="r">10%</output></div>
+<div class="stats">
+<div><b data-o="phase">astronomical twilight</b><span>the observer's sky</span></div>
+<div><b data-o="lit">sunlit</b><span>satellites overhead at the chosen altitude</span></div>
+<div><b data-o="v">3.6</b><span>modelled V of the nadir face alone</span></div>
+<div><b data-o="verdict">too bright</b><span>against the IAU limit V &gt; 7</span></div>
+</div>
+<svg viewBox="0 0 990 470" role="img" aria-label="Left: the night side of Earth at true scale with the edge of its shadow and orbit shells at 300, 450 and 550 km; the observer moves into night and the satellites above move into the shadow. Right: close-up of the satellite overhead with sunlight hitting its nadir face at the Sun depression angle, and a brightness meter with the IAU limit V = 7."><defs><marker id="chev" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M2,2 L12,7 L2,12" fill="none" stroke="#1e2a38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><clipPath id="lp"><rect x="0" y="0" width="652" height="470"/></clipPath><g clip-path="url(#lp)"><rect x="90" y="170" width="570" height="300" fill="#f3f3f2"/><circle cx="90" cy="1270" r="1100" fill="#e7e5e0"/><path d="M90,170 A1100,1100 0 0 1 1190,1270 L90,1270 Z" fill="#d6d4cf"/><circle data-shell="300" cx="90" cy="1270" r="1151.8" fill="none" stroke="#6b6866" stroke-width="1.4" stroke-opacity="0.9"/><circle data-shell="450" cx="90" cy="1270" r="1177.7" fill="none" stroke="#6b6866" stroke-width="0.8" stroke-opacity="0.35"/><circle data-shell="550" cx="90" cy="1270" r="1195.0" fill="none" stroke="#6b6866" stroke-width="0.8" stroke-opacity="0.35"/></g><text data-shlab="300" x="82" y="122.2" class="t" text-anchor="end" style="font-size:13px;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round">300 km</text><text data-shlab="450" x="82" y="96.3" class="l" text-anchor="end" style="font-size:13px;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round">450 km</text><text data-shlab="550" x="82" y="79.0" class="l" text-anchor="end" style="font-size:13px;paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round">550 km</text><path class="e f" d="M14.0,30.0 L640.0,30.0" marker-end="url(#chev)"/><path class="e f" d="M14.0,50.0 L640.0,50.0" marker-end="url(#chev)"/><text x="52" y="18" class="cap" text-anchor="middle">SUNLIGHT</text><path class="e d" d="M90,170 L650,170"/><text x="646" y="162" class="l" text-anchor="end" style="paint-order:stroke;stroke:#fff;stroke-width:5px;stroke-linejoin:round">edge of Earth's shadow</text><text x="590" y="262" class="cap" style="paint-order:stroke;stroke:#f3f3f2;stroke-width:5px;stroke-linejoin:round">EARTH'S SHADOW</text><circle id="anBeta" cx="431.5" cy="170" r="3.5" fill="#282828"/><path d="M204.8,178.0 L203.7,188.0" stroke="#6b6866" stroke-width="1.2"/><text x="202.1" y="207.9" class="l" text-anchor="middle">−6°</text><path d="M318.3,196.0 L316.2,205.8" stroke="#6b6866" stroke-width="1.2"/><text x="312.9" y="225.4" class="l" text-anchor="middle">−12°</text><path d="M429.3,225.7 L426.2,235.3" stroke="#6b6866" stroke-width="1.2"/><text x="421.3" y="254.5" class="l" text-anchor="middle">−18°</text><text x="250" y="330" class="cap" text-anchor="middle">EARTH, NIGHT SIDE (TRUE SCALE)</text><text x="250" y="350" class="l" text-anchor="middle">ticks: Sun depression at the observer</text><path id="anRay" d="M318.7,194.0 L344.7,71.8" stroke="#1e2a38" stroke-opacity=".45" stroke-width="1.2"/><circle id="anObs" cx="318.7" cy="194.0" r="5" fill="#282828"/><text id="anObsLab" x="306.6" y="250.8" class="l" text-anchor="middle">observer</text><circle data-dot="300" cx="329.5" cy="143.4" r="5" fill="#282828" stroke="#282828" stroke-width="1.5"/><circle data-dot="450" cx="334.9" cy="118.0" r="3.5" fill="#282828" stroke="#282828" stroke-width="1.5"/><circle data-dot="550" cx="338.4" cy="101.2" r="3.5" fill="#282828" stroke="#282828" stroke-width="1.5"/><text x="820" y="18" class="cap" text-anchor="middle">THE SATELLITE OVERHEAD, CLOSE UP</text><g id="anSat"><rect x="786" y="168" width="68" height="40" rx="4" fill="#282828"/><rect x="724" y="182" width="58" height="12" fill="#6b6866"/><rect x="858" y="182" width="58" height="12" fill="#6b6866"/><rect x="786" y="208" width="68" height="7" fill="#e3f4ef" stroke="#1e2a38" stroke-width="1"/></g><text x="862" y="230" class="l" text-anchor="start">nadir face</text><path class="e d f" d="M670,215 L782,215"/><path id="anSun" class="e" d="M663.3,247.2 L807,216" marker-end="url(#chev)"/><path id="anArc" d="M740,216 A70,70 0 0 0 741.5,230.6" fill="none" stroke="#6b6866" stroke-width="1.5"/><text id="anArcLab" x="732" y="232" class="l" text-anchor="end">δ = 12.0°</text><text id="anShadow" x="820" y="142" class="t" style="display:none">in shadow: invisible</text><circle cx="820" cy="430" r="5" fill="#282828"/><path class="e f" d="M820.0,422.0 L820.0,222.0" marker-end="url(#chev)"/><text x="808" y="452" class="l" text-anchor="middle">observer, looking straight up</text><rect x="938" y="70" width="14" height="170.0" rx="3" fill="#f8e5e1"/><rect x="938" y="240.0" width="14" height="170.0" rx="3" fill="#e3f4ef"/><path d="M931,240.0 L959,240.0" stroke="#282828" stroke-width="1.5"/><text x="945" y="44" class="l" text-anchor="middle">brighter</text><text x="945" y="430" class="l" text-anchor="middle">fainter</text><text x="929" y="74.0" class="l" text-anchor="end">2</text><text x="929" y="142.0" class="l" text-anchor="end">4</text><text x="929" y="244.0" class="l" text-anchor="end">7</text><text x="929" y="346.0" class="l" text-anchor="end">10</text><text x="929" y="414.0" class="l" text-anchor="end">12</text><text x="945" y="62" class="t" text-anchor="middle">V</text><path id="anMark" d="M933,124.2 L957,124.2" stroke="#1e2a38" stroke-width="4" stroke-linecap="round"/></svg>
+<figcaption><b>Figure 1:</b> One night, from dusk to dawn, with the satellite directly overhead. Top: what you would see. Bottom: why. While the observer is in darkness but the satellite is still in sunlight, the Sun lights the satellite's Earth-facing side from below. The further the Sun sinks, the more directly that side is lit, so the satellites get brighter until they suddenly vanish into Earth's shadow (at 17.2° below the horizon for 300 km, 23.0° for 550 km). At dawn the same happens in reverse. Anything that meets the IAU limit (V &gt; 7) is fainter than the faintest naked-eye star, so a compliant satellite never shows up in the top panel. The default is a 10 m² nadir face reflecting 10% of the light; use the sliders to try others. Illustrative only: the sky colour and star visibility are approximate. Brightness is modelled as a flat, matte (Lambertian) nadir face seen from directly below, with a cylindrical Earth shadow and no atmospheric dimming of the grazing sunlight, so the late-twilight peak is overstated. Solar arrays and flares are not modelled.</figcaption>
+</figure></div>
+<div class="layout">
+<aside class="toc"><ol><li data-for="target"><a href="#target">Target</a></li><li data-for="observable"><a href="#observable">The observable</a></li><li data-for="geometry"><a href="#geometry">Where it binds</a></li><li data-for="problem"><a href="#problem">Coupled design problem</a></li><li data-for="questions"><a href="#questions">Open questions</a></li><li data-for="sources"><a href="#sources">Sources</a></li></ol></aside>
+<article>
+
+<div class="stats">
+<div><b>V &gt; 7</b><span>IAU limit for every altitude at or below 550 km</span></div>
+<div><b>2.9×10⁻³</b><span>m²/sr: largest allowed σ at 300 km, zenith</span></div>
+<div><b>~100×</b><span>how far a 1 m² white plate exceeds that</span></div>
+<div><b>17.2°</b><span>largest grazing angle of sunlight on the nadir face at 300 km</span></div>
+</div>
+
+<p>This note turns "make very-low-orbit satellites dimmer" into a concrete engineering problem. It covers sunlight reflected by satellites at altitudes of roughly <mark>250–450 km (VLEO)</mark>, as seen by observers on the ground. Radio interference and thermal infrared emission are out of scope, except where they act as constraints.</p>
+
+<h2 id="target">1. Target: what counts as dark enough</h2>
+<p>The IAU Centre for the Protection of the Dark and Quiet Sky (CPS) recommends that satellites in operational orbits stay invisible to the naked eye.<sup class="ref">1</sup><span class="side"><sup>1</sup> Eggl, Peel, Rawls, Walker &amp; IAU CPS, Proc. 9th ESA Space Debris Conf., 2025, §4.1. The derivation is in Boley et al. 2025, RNAAS 9, 60.</span> Above 550 km the limit gets stricter with altitude:</p>
+<math display="block"><mi>V</mi><mo>&gt;</mo><mrow><mo stretchy="true">{</mo><mtable columnalign="left left"><mtr><mtd><mn>7</mn><mo>+</mo><mn>2.5</mn><mrow><mspace width="0.17em"/><msub><mi>log</mi><mn>10</mn></msub><mspace width="0.17em"/></mrow><mfrac><mi>h</mi><mrow><mn>550</mn><mtext>&#8239;km</mtext></mrow></mfrac></mtd><mtd><mtext>for&#160;</mtext><mi>h</mi><mo>&gt;</mo><mn>550</mn><mtext>&#8239;km</mtext></mtd></mtr><mtr><mtd><mn>7</mn></mtd><mtd><mtext>for&#160;</mtext><mi>h</mi><mo>≤</mo><mn>550</mn><mtext>&#8239;km</mtext></mtd></mtr></mtable></mrow></math>
+<p>All of VLEO falls in the <mark class="c">flat V &gt; 7 regime</mark>. Separate per-band limits, derived from what the Vera C. Rubin Observatory can tolerate, apply in narrow filters:</p>
+<figure class="tablewrap"><table><thead><tr><th>Band</th><th>u (367 nm)</th><th>g (467 nm)</th><th>r (622 nm)</th><th>i (755 nm)</th><th>z (870 nm)</th><th>y (1004 nm)</th></tr></thead><tbody><tr><td>Limit (mag)</td><td>5.5</td><td>7.0</td><td>6.9</td><td>6.8</td><td>6.7</td><td>6.2</td></tr></tbody></table><figcaption><b>Table 1:</b> u and y are the most lenient bands, but every band sits near the naked-eye limit. These are the levels beyond which Rubin suffers large-scale effects that can't be corrected.</figcaption></figure>
+<p>The same recommendations also ask operators to minimise flares and glints, publish a brightness model based on how each surface reflects light (its BRDF) and check it against on-orbit observations, keep satellites dim during orbit raising and deorbit, and not hide the energy by re-emitting it in the 3–4 µm or 8–14 µm infrared windows.</p>
+
+<h2 id="observable">2. The observable</h2>
+<p>Model the satellite as flat facets <i>k</i>. Each facet has an area <math><msub><mi>A</mi><mi>k</mi></msub></math>, a normal <math><msub><mover accent="true"><mi>n</mi><mo>^</mo></mover><mi>k</mi></msub></math> in the body frame, and a reflectance <math><msub><mi>f</mi><mi>k</mi></msub></math> (its BRDF) that changes over time as atomic oxygen and UV age the materials. <math><mover accent="true"><mi>s</mi><mo>^</mo></mover></math> is the unit vector to the Sun and <math><mover accent="true"><mi>o</mi><mo>^</mo></mover></math> the unit vector to the observer, both in the body frame. <math><mi>d</mi></math> is the distance to the observer (slant range), and <math><msub><mi>vis</mi><mi>k</mi></msub></math> accounts for self-shadowing and occlusion.</p>
+<math display="block"><mi>σ</mi><mrow><mo>(</mo><mover accent="true"><mi>s</mi><mo>^</mo></mover><mo>,</mo><mover accent="true"><mi>o</mi><mo>^</mo></mover><mo>)</mo></mrow><mo>=</mo><munder><mo>∑</mo><mi>k</mi></munder><msub><mi>A</mi><mi>k</mi></msub><msub><mi>f</mi><mi>k</mi></msub><mrow><mo>(</mo><mover accent="true"><mi>s</mi><mo>^</mo></mover><mo>,</mo><mover accent="true"><mi>o</mi><mo>^</mo></mover><mo>;</mo><mi>t</mi><mo>)</mo></mrow><msub><mrow><mo>(</mo><mrow><msub><mover accent="true"><mi>n</mi><mo>^</mo></mover><mi>k</mi></msub><mo>·</mo><mover accent="true"><mi>s</mi><mo>^</mo></mover></mrow><mo>)</mo></mrow><mo>+</mo></msub><msub><mrow><mo>(</mo><mrow><msub><mover accent="true"><mi>n</mi><mo>^</mo></mover><mi>k</mi></msub><mo>·</mo><mover accent="true"><mi>o</mi><mo>^</mo></mover></mrow><mo>)</mo></mrow><mo>+</mo></msub><msub><mi>vis</mi><mi>k</mi></msub><mtext>&#8195;[m²/sr]</mtext></math>
+<math display="block"><mi>V</mi><mo>=</mo><msub><mi>V</mi><mtext>sun</mtext></msub><mo>−</mo><mn>2.5</mn><mrow><mspace width="0.17em"/><msub><mi>log</mi><mn>10</mn></msub><mspace width="0.17em"/></mrow><mrow><mo>(</mo><mfrac><mi>σ</mi><msup><mi>d</mi><mn>2</mn></msup></mfrac><mo>)</mo></mrow><mtext>,&#8195;</mtext><msub><mi>V</mi><mtext>sun</mtext></msub><mo>=</mo><mn>−26.74</mn></math>
+<p>The requirement V &gt; 7 is therefore an upper limit on σ, which shrinks as the satellite gets closer:</p>
+<figure class="tablewrap"><table><thead><tr><th>h (km), zenith</th><th><i>σ</i><sub>max</sub> (m²/sr)</th></tr></thead><tbody><tr><td>300</td><td>2.9×10⁻³</td></tr><tr><td>350</td><td>3.9×10⁻³</td></tr><tr><td>450</td><td>6.5×10⁻³</td></tr><tr><td>550</td><td>9.7×10⁻³</td></tr></tbody></table><figcaption><b>Table 2:</b> The budget shrinks as altitude drops because the IAU limit stays at V = 7 below 550 km while the satellite gets closer. Zenith geometry, V<sub>sun</sub> = −26.74.</figcaption></figure>
+<p>For comparison, a single 1 m² white plate that scatters light evenly in all directions (Lambertian, ρ ≈ 0.9) gives σ ≈ 0.3 m²/sr at favourable geometry, <mark class="c">about 100× over budget at 300 km</mark>. The magnitude limit is flat below 550 km, but a closer satellite looks brighter by <math><mn>5</mn><mrow><mspace width="0.17em"/><msub><mi>log</mi><mn>10</mn></msub><mspace width="0.17em"/></mrow><mrow><mo>(</mo><mi>h</mi><mo>/</mo><mn>550</mn><mo>)</mo></mrow></math> mag (−1.3 mag at 300 km). So a VLEO satellite needs about 3.4× less σ than the same satellite would need at 550 km.</p>
+
+<h2 id="geometry">3. Where the constraint actually binds</h2>
+<p>A satellite is sunlit only if <math><mrow><mo>|</mo><mover accent="true"><mi>r</mi><mo>^</mo></mover><mo>·</mo><mover accent="true"><mi>s</mi><mo>^</mo></mover><mo>|</mo></mrow><mo>&lt;</mo><mrow><mspace width="0.17em"/><mi>sin</mi><mspace width="0.17em"/></mrow><mi>β</mi></math>, with</p>
+<math display="block"><mi>β</mi><mrow><mo>(</mo><mi>h</mi><mo>)</mo></mrow><mo>=</mo><mrow><mspace width="0.17em"/><mi>arccos</mi><mspace width="0.17em"/></mrow><mrow><mo>(</mo><mfrac><msub><mi>R</mi><mo>⊕</mo></msub><mrow><msub><mi>R</mi><mo>⊕</mo></msub><mo>+</mo><mi>h</mi></mrow></mfrac><mo>)</mo></mrow></math>
+<p>This assumes a cylindrical Earth shadow and ignores the atmosphere, which in reality makes the shadow somewhat wider.</p>
+<figure class="tablewrap"><table><thead><tr><th>h (km)</th><th>β (deg)</th><th>zenith angular rate (deg/s)</th><th>Rubin defocus blur D/d (arcsec)</th></tr></thead><tbody><tr><td>250</td><td>15.8</td><td>1.78</td><td>6.9</td></tr><tr><td>300</td><td>17.2</td><td>1.48</td><td>5.8</td></tr><tr><td>350</td><td>18.6</td><td>1.26</td><td>5.0</td></tr><tr><td>450</td><td>20.9</td><td>0.97</td><td>3.9</td></tr><tr><td>550</td><td>23.0</td><td>0.79</td><td>3.2</td></tr></tbody></table><figcaption><b>Table 3:</b> Lower altitudes shrink β, so the satellite enters Earth's shadow sooner after sunset. Trails also get faster and more out of focus. Cylindrical shadow, no atmospheric extinction (the real shadow is somewhat wider).</figcaption></figure>
+<p>Three things follow from this geometry.</p>
+<p><b>Visibility shrinks to twilight and low elevations.</b> A satellite directly overhead is sunlit only while the Sun is less than β below the observer's horizon. Below about 328 km, β is under 18°, so <mark>satellites overhead are in Earth's shadow throughout astronomical night</mark>. The cases that matter are twilight, low passes toward the Sun's direction (where the larger distance helps), and high-latitude summer nights.</p>
+<p><b>The Earth-facing side is always lit in exactly the case that matters, at grazing incidence.</b> If an observer near the point directly below the satellite is in darkness, then <math><mover accent="true"><mi>r</mi><mo>^</mo></mover><mo>·</mo><mover accent="true"><mi>s</mi><mo>^</mo></mover><mo>&lt;</mo><mn>0</mn></math>. That means sunlight hits the nadir face (normal <math><mo>−</mo><mover accent="true"><mi>r</mi><mo>^</mo></mover></math>) at a grazing angle between 0 and β(h), at most 17° at 300 km. The antenna must face the Earth, so this side can't be turned away from observers. The only levers left are how the surface reflects at grazing angles and whether other parts of the satellite can shade it. At grazing angles, coatings tend to become mirror-like (Fresnel reflection) and reflectance data is weakest.</p>
+<figure class="wide"><svg viewBox="0 125 900 285" role="img" aria-label="Cross-section: a satellite above a night-side observer is lit by sunlight arriving from below its local horizontal, at most beta degrees, so its Earth-facing nadir face is illuminated at grazing incidence; a dashed tangent line marks Earth&#x27;s shadow edge."><defs><marker id="chev" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M2,2 L12,7 L2,12" fill="none" stroke="#1e2a38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><circle cx="450" cy="1400" r="1100" fill="#f3f3f2"/><path class="e d f" d="M40,368.5 L860,164.1"/><text x="880" y="252.95268717490774" class="l" text-anchor="end">shadow edge: below this line the satellite is eclipsed</text><rect x="432" y="156" width="36" height="24" rx="3" fill="#282828"/><rect x="376" y="164" width="50" height="8" fill="#6b6866"/><rect x="474" y="164" width="50" height="8" fill="#6b6866"/><rect x="432" y="180" width="36" height="5" fill="#e3f4ef" stroke="#1e2a38" stroke-width="1"/><text x="476" y="200" class="l" text-anchor="start">nadir face (antenna)</text><path class="e" d="M70,278.2 L440,186.0" marker-end="url(#chev)"/><text x="70" y="150" class="l" text-anchor="start">sunlight arrives from below the satellite&#x27;s local horizontal</text><path class="e d f" d="M260,185 L430,185"/><text x="252" y="189" class="l" text-anchor="end">local horizontal</text><path d="M349.0,185.0 A95,95 0 0 0 351.8,208.0" fill="none" stroke="#6b6866" stroke-width="1.5"/><text x="341" y="202" class="l" text-anchor="end">≤ β(h)</text><circle cx="450" cy="300" r="5" fill="#282828"/><path class="e f" d="M450.0,292.0 L450.0,192.0" marker-end="url(#chev)"/><text x="462" y="322" class="l" text-anchor="start">observer in darkness (Sun below horizon)</text><text x="450" y="395" class="cap" text-anchor="middle">EARTH  (NOT TO SCALE)</text></svg><figcaption><b>Figure 2:</b> Whenever an observer under the satellite is in darkness and the satellite is still sunlit, sunlight reaches it from below its local horizontal. The Earth-facing side, which carries the antenna, is therefore always lit, at a grazing angle no larger than β(h) (17.2° at 300 km). Altitude is exaggerated.</figcaption></figure>
+<p><b>Trails are fast and out of focus for large telescopes.</b> Both effects lower the peak brightness per pixel. They partly offset the extra brightness from being closer, but only for survey telescopes, not for naked-eye viewing or the cultural value of the night sky.</p>
+<figure data-calc>
+<div class="range"><label for="alt">Altitude</label><input id="alt" type="range" min="250" max="550" step="5" value="300"><output data-o="h">300 km</output></div>
+<div class="stats">
+<div><b data-o="beta">17.2°</b><span>β: the Sun may be at most this far below the horizon for a zenith pass to be sunlit</span></div>
+<div><b data-o="sig">2.9×10⁻³</b><span><i>σ</i><sub>max</sub> at zenith for V = 7, in m²/sr</span></div>
+<div><b data-o="dm">−1.32 mag</b><span>extra brightness vs the same satellite at 550 km</span></div>
+<div><b data-o="dark">in shadow</b><span>zenith passes during astronomical night (Sun below −18°)</span></div>
+</div>
+<div class="stats">
+<div><b data-o="rate">1.48°/s</b><span>angular rate at zenith</span></div>
+<div><b data-o="blur">5.8″</b><span>Rubin defocus blur D/d</span></div>
+<div><b data-o="plate">104× over</b><span>a 1 m² white plate (σ ≈ 0.3) compared with <i>σ</i><sub>max</sub></span></div>
+</div>
+<figcaption><b>Figure 3:</b> Drag the slider and watch the budget tighten. Uses the same assumptions as Tables 2 and 3: R⊕ = 6371 km, circular orbit, cylindrical shadow, V<sub>sun</sub> = −26.74, Rubin D = 8.4 m.</figcaption>
+</figure>
+
+<h2 id="problem">4. The coupled design problem</h2>
+<p>The design choices are the facet layout (<math><msub><mi>A</mi><mi>k</mi></msub></math>, <math><msub><mover accent="true"><mi>n</mi><mo>^</mo></mover><mi>k</mi></msub></math>), the materials (their reflectance <math><msub><mi>f</mi><mi>k</mi></msub></math> and how it degrades under atomic oxygen and UV), an attitude law <math><mi>q</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></math> expressed in terms of <math><mover accent="true"><mi>s</mi><mo>^</mo></mover></math>, <math><mover accent="true"><mi>v</mi><mo>^</mo></mover></math> and <math><mover accent="true"><mi>r</mi><mo>^</mo></mover></math>, and the altitude h. The objective is to maximise mission utility (for example payload aperture or capacity), or to minimise mass and cost, subject to:</p>
+<figure class="tablewrap"><table><thead><tr><th></th><th>Constraint</th><th>Condition</th></tr></thead><tbody><tr><td>B</td><td>Brightness</td><td><math><mi>V</mi><mrow><mo>(</mo><mi>o</mi><mo>,</mo><mi>t</mi><mo>)</mo></mrow><mo>≥</mo><mn>7</mn><mtext>&#8195;for all&#8194;</mtext><mrow><mo>(</mo><mi>o</mi><mo>,</mo><mi>t</mi><mo>)</mo></mrow><mo>∈</mo><msub><mi>G</mi><mi>h</mi></msub></math> (and band limits), where <math><msub><mi>G</mi><mi>h</mi></msub></math> = observer's Sun altitude below −τ, satellite elevation ≥ <math><msub><mi>e</mi><mtext>min</mtext></msub></math>, satellite sunlit</td></tr><tr><td>D</td><td>Drag makeup</td><td><math><mover accent="true"><mi>T</mi><mo>‾</mo></mover><mo>≥</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>ρ</mi><mrow><mo>(</mo><mi>h</mi><mo>,</mo><mi>F10.7</mi><mo>,</mo><mi>Ap</mi><mo>)</mo></mrow><msup><mi>v</mi><mn>2</mn></msup><msub><mi>C</mi><mi>D</mi></msub><msub><mi>A</mi><mo>⊥</mo></msub><mrow><mo>(</mo><mi>q</mi><mo>)</mo></mrow></math></td></tr><tr><td>P</td><td>Power</td><td><math><msub><mi>S</mi><mn>0</mn></msub><mi>η</mi><munder><mo>∑</mo><mi>a</mi></munder><msub><mi>A</mi><mi>a</mi></msub><msub><mrow><mo>(</mo><mrow><msub><mover accent="true"><mi>n</mi><mo>^</mo></mover><mi>a</mi></msub><mo>·</mo><mover accent="true"><mi>s</mi><mo>^</mo></mover></mrow><mo>)</mo></mrow><mo>+</mo></msub><mo>≥</mo><msub><mi>P</mi><mtext>payload</mtext></msub><mo>+</mo><mfrac><mrow><mover accent="true"><mi>T</mi><mo>‾</mo></mover><msub><mi>v</mi><mtext>ex</mtext></msub></mrow><mrow><mn>2</mn><msub><mi>η</mi><mtext>thr</mtext></msub></mrow></mfrac></math> orbit-averaged, including eclipse</td></tr><tr><td>A</td><td>Pointing</td><td>payload boresight within a cone around <math><mo>−</mo><mover accent="true"><mi>r</mi><mo>^</mo></mover></math>; arrays track <math><mover accent="true"><mi>s</mi><mo>^</mo></mover></math></td></tr><tr><td>T</td><td>Thermal</td><td>α/ε balance; no dumping heat into the 3–4 µm or 8–14 µm windows</td></tr><tr><td>L</td><td>Lifetime</td><td><math><msub><mi>f</mi><mi>k</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></math> satisfies (B) through end of life; atomic-oxygen fluence rises steeply as h drops</td></tr><tr><td>F</td><td>Flares</td><td><math><mfrac><mrow><mo>∂</mo><mi>V</mi></mrow><mrow><mo>∂</mo><mtext>(geometry)</mtext></mrow></mfrac><mtext>&#8194;bounded</mtext></math>; no specular lobe intersects <math><msub><mi>G</mi><mi>h</mi></msub></math></td></tr></tbody></table><figcaption><b>Table 4:</b> Brightness (B) is the requirement; the other rows decide how much room is left to meet it. <i>G</i><sub>h</sub> is the set of observer–time pairs where the satellite can be seen.</figcaption></figure>
+<figure class="wide" data-stepper><svg viewBox="0 0 960 400" role="img" aria-label="Coupling diagram: altitude sets air density, which sets drag; drag needs thrust, thrust needs power, power needs array area; array area feeds back into drag through frontal area and into brightness. Attitude affects drag, power and brightness; materials affect brightness."><defs><marker id="chev" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M2,2 L12,7 L2,12" fill="none" stroke="#1e2a38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><g data-step="h"><rect x="30.0" y="64.0" width="140" height="52" rx="8" fill="#e3f4ef"/><text x="100.0" y="95.0" class="t" style="font-size:16px">Altitude h</text></g><g data-step="rho"><rect x="195.0" y="60.0" width="150" height="60" rx="8" fill="#f3f3f2"/><text x="270.0" y="86.0" class="t" style="font-size:16px">Air density ρ</text><text x="270.0" y="105.0" class="s">×10 over solar cycle</text></g><g data-step="drag"><rect x="370.0" y="60.0" width="160" height="60" rx="8" fill="#f3f3f2"/><text x="450.0" y="86.0" class="t" style="font-size:16px">Drag</text><text x="450.0" y="105.0" class="s">∝ ρ v² × frontal area</text></g><g data-step="thrust"><rect x="560.0" y="64.0" width="140" height="52" rx="8" fill="#f3f3f2"/><text x="630.0" y="95.0" class="t" style="font-size:16px">Thrust</text></g><g data-step="power"><rect x="735.0" y="60.0" width="150" height="60" rx="8" fill="#f3f3f2"/><text x="810.0" y="86.0" class="t" style="font-size:16px">Power</text><text x="810.0" y="105.0" class="s">payload + thruster</text></g><g data-step="array"><rect x="735.0" y="204.0" width="150" height="52" rx="8" fill="#e3f4ef"/><text x="810.0" y="235.0" class="t" style="font-size:16px">Solar array area</text></g><g data-step="att"><rect x="545.0" y="200.0" width="170" height="60" rx="8" fill="#e3f4ef"/><text x="630.0" y="226.0" class="t" style="font-size:16px">Attitude q(t)</text><text x="630.0" y="245.0" class="s">pointing, hiding</text></g><g data-step="sigma"><rect x="360.0" y="320.0" width="180" height="60" rx="8" fill="#f6efdc"/><text x="450.0" y="346.0" class="t" style="font-size:16px">Brightness σ</text><text x="450.0" y="365.0" class="s">must stay under budget</text></g><g data-step="mat"><rect x="75.0" y="320.0" width="190" height="60" rx="8" fill="#e3f4ef"/><text x="170.0" y="346.0" class="t" style="font-size:16px">Surface materials</text><text x="170.0" y="365.0" class="s">aged by atomic oxygen</text></g><path class="e" d="M170.0,90.0 L193.0,90.0" marker-end="url(#chev)"/><path class="e" d="M345.0,90.0 L368.0,90.0" marker-end="url(#chev)"/><path class="e" d="M530.0,90.0 L558.0,90.0" marker-end="url(#chev)"/><path class="e" d="M700.0,90.0 L733.0,90.0" marker-end="url(#chev)"/><path class="e" d="M810.0,120.0 L810.0,202.0" marker-end="url(#chev)"/><path class="e d" d="M885,230 C960,230 960,26 810,26 L450,26 L450,58" marker-end="url(#chev)"/><path class="e" d="M810,256 L810,350 L542,350" marker-end="url(#chev)"/><path class="e" d="M565.0,200.0 L488.0,122.0" marker-end="url(#chev)"/><path class="e" d="M695.0,200.0 L775.0,122.0" marker-end="url(#chev)"/><path class="e" d="M600.0,260.0 L522.0,318.0" marker-end="url(#chev)"/><path class="e" d="M265.0,350.0 L358.0,350.0" marker-end="url(#chev)"/><text x="620" y="18" class="l" text-anchor="middle">larger arrays add frontal area, so more drag</text><text x="822" y="342" class="l" text-anchor="start">bigger reflector</text></svg><div class="controls"><button class="btn" data-act="prev">Previous</button><button class="btn" data-act="next">Next</button><span class="pos" data-role="pos"></span></div><div class="panel" aria-live="polite"><div data-step="h"><h4>Altitude h</h4><p>Lower altitude shrinks the window in which the satellite is visible (Figure 2, Table 3) but brings it closer to the observer: extra brightness of <math><mn>5</mn><mrow><mspace width="0.17em"/><msub><mi>log</mi><mn>10</mn></msub><mspace width="0.17em"/></mrow><mrow><mo>(</mo><mi>h</mi><mo>/</mo><mn>550</mn><mo>)</mo></mrow></math> mag, −1.3 mag at 300 km. It also raises air density steeply.</p></div><div data-step="rho"><h4>Air density</h4><p><math><mi>ρ</mi><mrow><mo>(</mo><mi>h</mi><mo>,</mo><mi>F10.7</mi><mo>,</mo><mi>Ap</mi><mo>)</mo></mrow></math> varies by about an order of magnitude over the solar cycle, so the drag–power loop has to close at solar maximum.</p></div><div data-step="drag"><h4>Drag makeup (D)</h4><math display="block"><mover accent="true"><mi>T</mi><mo>‾</mo></mover><mo>≥</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mi>ρ</mi><mrow><mo>(</mo><mi>h</mi><mo>,</mo><mi>F10.7</mi><mo>,</mo><mi>Ap</mi><mo>)</mo></mrow><msup><mi>v</mi><mn>2</mn></msup><msub><mi>C</mi><mi>D</mi></msub><msub><mi>A</mi><mo>⊥</mo></msub><mrow><mo>(</mo><mi>q</mi><mo>)</mo></mrow></math><p><math><msub><mi>A</mi><mo>⊥</mo></msub></math> is the frontal area. It depends on the attitude, so pointing choices feed straight into drag.</p></div><div data-step="thrust"><h4>Thrust</h4><p>Orbit-averaged thrust <math><mover accent="true"><mi>T</mi><mo>‾</mo></mover></math> must at least cancel drag. Electric propulsion costs power in proportion to thrust and exhaust velocity.</p></div><div data-step="power"><h4>Power (P)</h4><math display="block"><msub><mi>S</mi><mn>0</mn></msub><mi>η</mi><munder><mo>∑</mo><mi>a</mi></munder><msub><mi>A</mi><mi>a</mi></msub><msub><mrow><mo>(</mo><mrow><msub><mover accent="true"><mi>n</mi><mo>^</mo></mover><mi>a</mi></msub><mo>·</mo><mover accent="true"><mi>s</mi><mo>^</mo></mover></mrow><mo>)</mo></mrow><mo>+</mo></msub><mo>≥</mo><msub><mi>P</mi><mtext>payload</mtext></msub><mo>+</mo><mfrac><mrow><mover accent="true"><mi>T</mi><mo>‾</mo></mover><msub><mi>v</mi><mtext>ex</mtext></msub></mrow><mrow><mn>2</mn><msub><mi>η</mi><mtext>thr</mtext></msub></mrow></mfrac></math><p>Orbit-averaged, including eclipse.</p></div><div data-step="array"><h4>Solar array area</h4><p>More array area increases both σ (B) and frontal area (D). This feedback loop is the core tension in VLEO.</p></div><div data-step="att"><h4>Attitude (A)</h4><p>The payload boresight must stay within a cone around nadir (<math><mo>−</mo><mover accent="true"><mi>r</mi><mo>^</mo></mover></math>), and the arrays must track the Sun. The manoeuvres used at higher altitudes to hide arrays, such as turning them edge-on to observers or Starlink's "brightness mitigation mode", must here also keep frontal area small and keep power up. That leaves far less freedom than at 550 km.</p></div><div data-step="sigma"><h4>Brightness (B) and flares (F)</h4><math display="block"><mi>V</mi><mrow><mo>(</mo><mi>o</mi><mo>,</mo><mi>t</mi><mo>)</mo></mrow><mo>≥</mo><mn>7</mn><mtext>&#8195;for all&#8194;</mtext><mrow><mo>(</mo><mi>o</mi><mo>,</mo><mi>t</mi><mo>)</mo></mrow><mo>∈</mo><msub><mi>G</mi><mi>h</mi></msub></math><p>The band limits apply too. For flares: <math><mfrac><mrow><mo>∂</mo><mi>V</mi></mrow><mrow><mo>∂</mo><mtext>(geometry)</mtext></mrow></mfrac><mtext>&#8194;bounded</mtext></math>, and no specular (mirror-like) reflection may land inside <math><msub><mi>G</mi><mi>h</mi></msub></math>.</p></div><div data-step="mat"><h4>Materials (T) and lifetime (L)</h4><p>Each surface's reflectance <math><msub><mi>f</mi><mi>k</mi></msub><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></math> must keep satisfying (B) until end of life, while atomic-oxygen exposure rises steeply as h drops. The heat balance (α/ε) must not be achieved by re-emitting energy in the 3–4 µm or 8–14 µm infrared windows.</p></div></div><figcaption><b>Figure 4:</b> Drag, power and brightness pull on the same parts. Green boxes are design choices, the yellow box is the constrained quantity, and the dashed line is the feedback loop: more power needs more array area, which raises drag and needs still more power. Click a box or use Next for its constraint.</figcaption></figure>
+<p>Drag needs thrust (D), thrust needs power (P), and power needs solar-array area. More array area raises both brightness σ (B) and frontal area <math><msub><mi>A</mi><mo>⊥</mo></msub></math> (D). Air density varies by about an order of magnitude over the solar cycle, so this loop has to close at solar maximum. At higher altitudes, satellites dim themselves by turning their arrays edge-on to observers. In VLEO the same manoeuvre must also keep frontal area small and keep power up, which leaves <mark class="c">far less freedom to point than at 550 km</mark>.</p>
+
+<h2 id="questions">5. Open research questions</h2>
+<ol>
+<li><b>Grazing-angle reflectance (0–20°)</b> of candidate nadir-face materials (dark paints, dielectric mirror films, textured or baffled surfaces), and how it changes under VLEO atomic-oxygen exposure.</li>
+<li><b>Attitude-law optimisation:</b> minimise the maximum σ over <math><msub><mi>G</mi><mi>h</mi></msub></math> subject to (D), (P) and (A), as an optimal-control or robust-optimisation problem across Sun–orbit geometry (orbit β-angle, season, latitude).</li>
+<li><b>Geometry:</b> can other structure (skirts, a recess, array placement) shade the nadir face at grazing sunlight without increasing frontal area?</li>
+<li><b>Constellation-level metric:</b> the fraction of time in <math><msub><mi>G</mi><mi>h</mi></msub></math> during which satellites exceed the limit, rather than a single satellite's worst case. Mallama et al. report that current constellations already exceed the IAU limits.<sup class="ref">2</sup><span class="side"><sup>2</sup> MNRAS Letters 544, L15 (2025). Cited from the title and abstract; the full text returned HTTP 403.</span></li>
+</ol>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>Eggl, Peel, Rawls, Walker &amp; IAU CPS, <a href="https://conference.sdo.esoc.esa.int/proceedings/sdc9/paper/374/SDC9-paper374.pdf">"Mitigating satellite constellation impacts on astronomy"</a>, Proc. 9th European Conference on Space Debris, 2025.</li>
+<li>Boley et al., <a href="https://iopscience.iop.org/article/10.3847/2515-5172/adc12f">"IAU CPS Satellite Optical Brightness Recommendation: Rationale"</a>, RNAAS 9, 60 (2025). The site blocked automated access, so the formula is taken from Eggl et al. <span class="status st-warn">not read directly</span></li>
+<li>Mallama et al., <a href="https://academic.oup.com/mnrasl/article/544/1/L15/8251664">MNRAS Letters 544, L15</a> (2025). Title and abstract only. <span class="status st-warn">full text 403</span></li>
+<li>Numbers in Tables 2 and 3 and Figure 3, and the brightness model in Figure 1, are computed for this note with R⊕ = 6371 km, circular orbits, a cylindrical shadow and Rubin D = 8.4 m.</li>
+</ul>
+
+</article>
+<footer>Generated on 7 November 2026 from vleo_brightness_problem.md by vleo_brightness_build.py. Brightness limits come from the IAU CPS recommendations (Eggl et al. 2025); the geometry, budget and animation numbers were computed for this note.</footer>
+</div>
+<script>
+(() => {
+  const items = [...document.querySelectorAll('.toc li')];
+  const targets = items.map(li => document.getElementById(li.dataset.for)).filter(Boolean);
+  if (!targets.length) return;
+  const set = () => {
+    let cur = targets[0];
+    for (const t of targets) if (t.getBoundingClientRect().top < 140) cur = t;
+    items.forEach(li => li.classList.toggle('on', li.dataset.for === cur.id));
+  };
+  addEventListener('scroll', set, {passive: true}); set();
+})();
+</script>
+<script>
+// editorial-html interactions. Inline this file once per page, after the article.
+// Every behaviour is declared in markup; pages add no per-figure code for these patterns.
+//
+//   <figure data-stepper [data-interval="3500"]>      walk through SVG parts one at a time
+//     svg groups/paths with data-step="k"             clickable; the active one is outlined, others dimmed
+//     .controls with [data-act=prev|play|next], [data-role=pos]
+//     .panel with <div data-step="k">…</div>          one note per step, in order
+//
+//   <figure data-scenarios>                            pick a case, light up its path
+//     buttons [data-scn="key"][data-path="id id …"]   ids refer to svg elements with data-id
+//     .panel with <div data-scn-note="key">…</div>
+//
+//   <div data-toggle>                                  segmented switch
+//     buttons [data-val="v"]; descendants [data-when="v"] show only for the chosen value
+//
+//   <figure data-reveal> / any [data-reveal]           adds .in when scrolled into view
+//     (.grow bars grow in; .seq elements fade in, staggered with style="transition-delay:…")
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const by = (root, sel) => [...root.querySelectorAll(sel)];
+
+  by(document, '[data-stepper]').forEach(fig => {
+    const parts = by(fig, 'svg [data-step]');
+    const notes = by(fig, '.panel [data-step]');
+    const pos = fig.querySelector('[data-role=pos]');
+    const play = fig.querySelector('[data-act=play]');
+    const n = notes.length;
+    let cur = 0, timer = null;
+    const show = i => {
+      cur = (i + n) % n;
+      const key = notes[cur].dataset.step;
+      parts.forEach(p => { const on = p.dataset.step === key; p.classList.toggle('hl', on); p.classList.toggle('dim', !on); });
+      notes.forEach((d, j) => { d.hidden = j !== cur; });
+      if (pos) pos.textContent = `${cur + 1} / ${n}`;
+    };
+    const stop = () => { clearInterval(timer); timer = null; if (play) { play.textContent = 'Play'; play.classList.remove('on'); } };
+    const start = () => {
+      if (reduce) return;
+      timer = setInterval(() => show(cur + 1), +(fig.dataset.interval || 3500));
+      play.textContent = 'Pause'; play.classList.add('on');
+    };
+    fig.querySelector('[data-act=prev]')?.addEventListener('click', () => { stop(); show(cur - 1); });
+    fig.querySelector('[data-act=next]')?.addEventListener('click', () => { stop(); show(cur + 1); });
+    play?.addEventListener('click', () => (timer ? stop() : start()));
+    parts.forEach(p => {
+      p.style.cursor = 'pointer';
+      p.addEventListener('click', () => { stop(); show(notes.findIndex(d => d.dataset.step === p.dataset.step)); });
+    });
+    fig.tabIndex = 0;
+    fig.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { stop(); show(cur + 1); }
+      if (e.key === 'ArrowLeft') { stop(); show(cur - 1); }
+    });
+    show(0);
+  });
+
+  by(document, '[data-scenarios]').forEach(fig => {
+    const btns = by(fig, '[data-scn]');
+    const notes = by(fig, '.panel [data-scn-note]');
+    const els = by(fig, 'svg [data-id]');
+    const pick = btn => {
+      const path = (btn.dataset.path || '').split(/\s+/);
+      btns.forEach(b => b.classList.toggle('on', b === btn));
+      els.forEach(el => {
+        const i = path.indexOf(el.dataset.id);
+        el.classList.toggle('hl', i >= 0);
+        el.classList.toggle('dim', i < 0);
+        el.style.transitionDelay = reduce || i < 0 ? '0s' : `${i * 0.15}s`;
+      });
+      notes.forEach(d => { d.hidden = d.dataset.scnNote !== btn.dataset.scn; });
+    };
+    btns.forEach(b => b.addEventListener('click', () => pick(b)));
+    if (btns.length) pick(btns[0]);
+  });
+
+  by(document, '[data-toggle]').forEach(box => {
+    const btns = by(box, '[data-val]');
+    const set = v => {
+      btns.forEach(b => b.classList.toggle('on', b.dataset.val === v));
+      by(box, '[data-when]').forEach(el => { el.hidden = el.dataset.when !== v; });
+    };
+    btns.forEach(b => b.addEventListener('click', () => set(b.dataset.val)));
+    if (btns.length) set(btns[0].dataset.val);
+  });
+
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.25 });
+  by(document, '[data-reveal]').forEach(el => (reduce ? el.classList.add('in') : io.observe(el)));
+})();
+
+</script>
+<script>
+(() => {
+  const f = document.querySelector('[data-anim]'); if (!f) return;
+  const R = 6371, CX = 90, CY = 1270, RP = 1100, K = RP / R, ALTS = [300, 450, 550];
+  const SX = 820, SY = 190, HX = SX - 10, HY = SY + 26, L0 = 150, AR = 70, MX = 945, MT = 70, MB = 410;
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const vy = v => MT + (clamp(v, 2, 12) - 2) / 10 * (MB - MT);
+  const $ = s => f.querySelector(s), $$ = s => [...f.querySelectorAll(s)], o = k => f.querySelector(`[data-o="${k}"]`);
+  const rad = h => RP + h * K, pol = (r, t) => [CX + r * Math.sin(t), CY - r * Math.cos(t)];
+  const interp = (stops, x) => {
+    if (x <= stops[0][0]) return stops[0][1];
+    for (let i = 1; i < stops.length; i++) if (x <= stops[i][0]) {
+      const [x0, a] = stops[i - 1], [x1, b] = stops[i], u = (x - x0) / (x1 - x0);
+      return Array.isArray(a) ? a.map((c, j) => c + (b[j] - c) * u) : a + (b - a) * u;
+    }
+    return stops[stops.length - 1][1];
+  };
+  const SKY = [[0, [201, 211, 221]], [3, [142, 157, 176]], [6, [86, 100, 122]], [9, [50, 60, 78]], [12, [28, 35, 49]], [15, [18, 23, 34]], [18, [12, 16, 24]]];
+  const LIM = [[0, -2], [4, 0.5], [6, 2], [9, 3.5], [12, 4.8], [15, 5.8], [18, 6.5]];
+  const size = m => clamp(3.8 - 0.45 * m, 0.7, 4.2);
+  const stars = $$('.star').map(e => [e, +e.dataset.m]);
+  const sats = $$('.sat'), halos = $$('.sathalo'), trails = $$('.trail');
+  const dIn = $('#anD'), aIn = $('#anA'), rIn = $('#anR'), playBtn = $('[data-a="play"]');
+  const phaseName = d => d < 0.05 ? 'sunset' : d < 6 ? 'civil twilight' : d < 12 ? 'nautical twilight' : d < 18 ? 'astronomical twilight' : 'full night';
+  let p = Math.asin(12 / 30) / Math.PI, alt = 300, tsat = 0, last = null;
+  let playing = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const draw = () => {
+    const d = 30 * Math.sin(Math.PI * p), t = d * Math.PI / 180, morning = p > 0.5;
+    const beta = Math.acos(R / (R + alt)) * 180 / Math.PI, lit = d < beta;
+    const A = +aIn.value, rho = +rIn.value / 100, sig = A * rho / Math.PI * Math.sin(t);
+    const V = sig > 0 ? -26.74 - 2.5 * Math.log10(sig / (alt * 1e3) ** 2) : Infinity;
+    const lim = interp(LIM, d), show = lit && isFinite(V);
+    // sky
+    const c = interp(SKY, d).map(Math.round);
+    $('#skyBg').setAttribute('fill', `rgb(${c})`);
+    for (const [e, m] of stars) { e.setAttribute('opacity', clamp((lim - m) / 1.2, 0, 1).toFixed(2)); e.setAttribute('r', size(m) * 0.55); }
+    const so = show ? clamp((lim - V) / 1.2, 0, 1) : 0, sr = isFinite(V) ? size(V) * 0.6 : 1;
+    sats.forEach((e, i) => {
+      const x = ((i * 260 + tsat * 55) % 1040) - 80, y = 300 - 0.26 * x;
+      e.setAttribute('cx', x); e.setAttribute('cy', y); e.setAttribute('r', sr); e.setAttribute('opacity', so.toFixed(2));
+      halos[i].setAttribute('cx', x); halos[i].setAttribute('cy', y); halos[i].setAttribute('r', sr * 3.2);
+      halos[i].setAttribute('opacity', (so * clamp((5 - V) / 6, 0, 0.25)).toFixed(3));
+      const tr = trails[i]; tr.setAttribute('x1', x - 70); tr.setAttribute('y1', y + 18.2); tr.setAttribute('x2', x); tr.setAttribute('y2', y);
+      tr.setAttribute('stroke-width', sr * 0.9); tr.setAttribute('opacity', (so * 0.3).toFixed(2));
+    });
+    const ink = d < 5 ? '#282828' : '#e8e8e6';
+    $('#skyTop').style.fill = ink; $('#skyMsg').style.fill = ink;
+    $('#skyTop').textContent = `Sun ${d.toFixed(1)}° below the horizon · ${phaseName(d)} · ${morning ? 'morning' : 'evening'}`;
+    $('#skyMsg').textContent = !lit ? "satellites overhead: in Earth's shadow"
+      : !show ? '' : V <= lim ? `satellites: V ${V.toFixed(1)}, visible to the naked eye`
+      : V < 7 ? `satellites: V ${V.toFixed(1)}, too faint for the eye but over the IAU limit` : `satellites: V ${V.toFixed(1)}, within the IAU limit`;
+    $('#skyLim').textContent = lim < 0 ? 'sky too bright for stars' : `faintest star visible now ≈ V ${lim.toFixed(1)}`;
+    // mechanism
+    const [ox, oy] = pol(RP, t), [ex, ey] = pol(rad(550) + 30, t), [lx, ly] = pol(RP - 58, t);
+    $('#anRay').setAttribute('d', `M${ox},${oy} L${ex},${ey}`);
+    $('#anObs').setAttribute('cx', ox); $('#anObs').setAttribute('cy', oy);
+    $('#anObsLab').setAttribute('x', lx); $('#anObsLab').setAttribute('y', ly);
+    for (const h of ALTS) {
+      const e = f.querySelector(`[data-dot="${h}"]`), [x, y] = pol(rad(h), t);
+      e.setAttribute('cx', x); e.setAttribute('cy', y); e.setAttribute('r', h === alt ? 5 : 3.5);
+      e.setAttribute('fill', Math.cos(t) > R / (R + h) ? '#282828' : '#fff');
+      const sh = f.querySelector(`[data-shell="${h}"]`);
+      sh.setAttribute('stroke-width', h === alt ? 1.4 : 0.8); sh.setAttribute('stroke-opacity', h === alt ? 0.9 : 0.35);
+      f.querySelector(`[data-shlab="${h}"]`).setAttribute('class', h === alt ? 't' : 'l');
+    }
+    $('#anBeta').setAttribute('cx', CX + Math.sqrt(rad(alt) ** 2 - RP ** 2));
+    $('#anSun').setAttribute('d', `M${HX - L0 * Math.cos(t)},${HY + L0 * Math.sin(t)} L${HX - 3},${HY}`);
+    $('#anArc').setAttribute('d', `M${HX - AR},${HY} A${AR},${AR} 0 0 0 ${HX - AR * Math.cos(t)},${HY + AR * Math.sin(t)}`);
+    $('#anArcLab').textContent = `δ = ${d.toFixed(1)}°`;
+    for (const id of ['#anSun', '#anArc', '#anArcLab']) $(id).style.display = lit && d > 0.05 ? '' : 'none';
+    $('#anSat').style.opacity = lit ? 1 : 0.25; $('#anShadow').style.display = lit ? 'none' : '';
+    $('#anMark').style.display = show ? '' : 'none';
+    if (show) $('#anMark').setAttribute('d', `M${MX - 12},${vy(V)} L${MX + 12},${vy(V)}`);
+    // readouts
+    dIn.value = d.toFixed(1);
+    o('d').textContent = d.toFixed(1) + '°'; o('a').textContent = A + ' m²'; o('r').textContent = rIn.value + '%';
+    o('phase').textContent = phaseName(d);
+    o('lit').textContent = lit ? 'sunlit' : 'in shadow';
+    o('v').textContent = show ? V.toFixed(1) : '–';
+    o('verdict').textContent = !show ? 'not visible' : V > 7 ? 'within limit' : 'too bright';
+  };
+  const tick = ts => {
+    if (playing && last !== null) { const dt = (ts - last) / 1000; p = (p + dt / 28) % 1; tsat += dt; draw(); }
+    last = playing ? ts : null;
+    requestAnimationFrame(tick);
+  };
+  const setPlay = on => { playing = on; playBtn.textContent = on ? 'Pause' : 'Play'; };
+  playBtn.addEventListener('click', () => setPlay(!playing));
+  dIn.addEventListener('input', () => { setPlay(false); const d = +dIn.value; p = (p > 0.5 ? 1 - Math.asin(d / 30) / Math.PI : Math.asin(d / 30) / Math.PI); draw(); });
+  aIn.addEventListener('input', draw); rIn.addEventListener('input', draw);
+  $$('[data-alt]').forEach(b => b.addEventListener('click', () => {
+    alt = +b.dataset.alt; $$('[data-alt]').forEach(x => x.classList.toggle('on', x === b)); draw();
+  }));
+  setPlay(playing); draw(); requestAnimationFrame(tick);
+})();
+</script><script>
+(() => {
+  const f = document.querySelector('[data-calc]'); if (!f) return;
+  const R = 6371, MU = 398600, VSUN = -26.74, inp = f.querySelector('input');
+  const o = k => f.querySelector(`[data-o="${k}"]`);
+  const upd = () => {
+    const h = +inp.value, beta = Math.acos(R / (R + h)) * 180 / Math.PI;
+    const sig = (h * 1e3) ** 2 * 10 ** (-0.4 * (7 - VSUN)), dm = 5 * Math.log10(h / 550);
+    o('h').textContent = h + ' km';
+    o('beta').textContent = beta.toFixed(1) + '°';
+    o('sig').textContent = (sig * 1e3).toFixed(1) + '×10⁻³';
+    o('dm').textContent = (dm <= 0 ? '−' : '+') + Math.abs(dm).toFixed(2) + ' mag';
+    o('dark').textContent = beta < 18 ? 'in shadow' : 'can be sunlit';
+    o('rate').textContent = (Math.sqrt(MU / (R + h)) / h * 180 / Math.PI).toFixed(2) + '°/s';
+    o('blur').textContent = (8.4 / (h * 1e3) * 206265).toFixed(1) + '″';
+    o('plate').textContent = Math.round(0.3 / sig) + '× over';
+  };
+  inp.addEventListener('input', upd); upd();
+})();
+</script>
+</body>
+</html>
