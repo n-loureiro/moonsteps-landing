@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measuring thermal emissivity from 30 K to 370 K: a problem formulation</title>
+<style>
+:root{--ink:#282828;--grey:#6b6866;--soft:#504945;--rule:#d9d9d9;--panel:#f3f3f2;--accent:#e3f4ef;
+--serif:"Iowan Old Style BT","Iowan Old Style",Georgia,serif;
+--sans:"GT America",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+--mono:"SF Mono",Monaco,Inconsolata,"Fira Code",monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:#fff;color:var(--ink);font:17px/1.6 var(--serif);-webkit-font-smoothing:antialiased}
+a{color:#676767;text-decoration:underline;text-decoration-color:rgba(103,103,103,.3);text-underline-offset:2px}
+a:hover{text-decoration-color:currentColor}
+header.site{position:sticky;top:0;z-index:20;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
+.wordmark{font:500 15px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.site nav{display:flex;gap:22px;font:400 14px var(--sans)}
+.site nav a{color:var(--ink);text-decoration:none}
+.site nav a:hover{text-decoration:underline}
+.heading{max-width:600px;margin:48px auto 0;text-align:center}
+h1{font:600 30px/1.4 var(--serif);margin:0}
+.meta{font:400 14px/1.6 var(--sans);color:var(--ink);margin-top:22px}
+.meta .date{color:var(--grey);display:block;margin-top:4px}
+.hero{max-width:880px;margin:36px auto 8px;padding:0 16px}
+.layout{display:grid;grid-template-columns:1fr 660px 1fr;column-gap:40px;margin-top:40px}
+.toc{grid-column:1;justify-self:end;width:210px;position:sticky;top:90px;align-self:start;font:400 13px/1.4 var(--sans)}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc li{margin:0 0 11px;position:relative}
+.toc a{color:var(--soft);text-decoration:none}
+.toc li.on a{color:var(--ink)}
+.toc li.on::before{content:"";position:absolute;left:-12px;top:6px;width:4px;height:4px;border-radius:50%;background:var(--ink)}
+article{grid-column:2;min-width:0}
+article p{margin:0 0 23px}
+h2{font:600 23px/1.4 var(--serif);margin:50px 0 19px}
+h3{font:400 21.5px/1.4 var(--serif);margin:40px 0 16px}
+article ul,article ol{padding-left:1.3em;margin:0 0 23px}
+article li{margin:0 0 8px}
+code{font:13.5px var(--mono);color:var(--soft);background:var(--panel);padding:1px 5px;border-radius:4px}
+figure{margin:30px 0}
+:root{--side:min(220px,calc(50vw - 400px),calc(100vw - 990px))}
+figure.wide{margin-right:calc(-1 * (var(--side) + 40px))}
+figure svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--sans)}
+svg .t{fill:var(--ink);font-size:16px;font-weight:400;text-anchor:middle}
+svg .s{fill:var(--grey);font-size:13px;text-anchor:middle}
+svg .l{fill:var(--grey);font-size:13px}
+svg .n{fill:var(--grey)}
+svg .cap{fill:var(--grey);font-size:12px;letter-spacing:.12em;text-anchor:middle}
+svg .e{fill:none;stroke:#1e2a38;stroke-width:2}
+svg .e.d{stroke-dasharray:8 6}
+svg .e.f{stroke-opacity:.45}
+figcaption{font:400 13px/1.4 var(--sans);color:var(--grey);margin-top:13px;max-width:660px}
+figcaption b{color:var(--ink);font-weight:500}
+.tablewrap{margin:36px 0}
+table{width:100%;border-collapse:collapse;font:400 13px/1.5 var(--sans)}
+th{color:var(--grey);font-weight:400;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule)}
+td code{white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top}
+.tablewrap figcaption{margin-top:14px}
+blockquote{margin:0 0 23px;padding:0 0 0 18px;border-left:2px solid var(--rule);color:var(--soft);font-style:italic}
+.side{float:right;clear:right;width:var(--side);margin:4px calc(-1 * (var(--side) + 40px)) 16px 0;font:400 13.5px/1.45 var(--serif);color:var(--soft)}
+.side sup,sup.ref{font:400 11px var(--sans);color:var(--grey)}
+.status{font:400 13px var(--sans);padding:1px 8px;border-radius:10px;white-space:nowrap}
+.st-ok{background:#e3f4ef}.st-warn{background:#f6efdc}.st-bad{background:#f8e5e1}.st-human{background:#eceef6}
+footer{grid-column:2;font:400 13px/1.5 var(--sans);color:var(--grey);border-top:1px solid var(--rule);margin:60px 0 80px;padding-top:16px}
+@media (max-width:1120px){figure.wide{margin-right:0}.side{display:block;float:none;width:auto;margin:4px 0 16px;padding-left:18px;border-left:2px solid var(--rule)}}
+@media (max-width:1000px){.layout{grid-template-columns:1fr;padding:0 20px}.toc{display:none}article,footer{grid-column:1;max-width:660px;margin-left:auto;margin-right:auto;width:100%}.site nav{display:none}}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:0 0 30px;font-family:var(--sans)}
+.stats div{border-top:1px solid var(--rule);padding-top:10px}
+.stats b{display:block;font:400 28px/1.2 var(--serif)}
+.stats span{display:block;font-size:13px;line-height:1.4;color:var(--grey);margin-top:4px}
+pre{font:13px/1.6 var(--mono);color:var(--soft);background:var(--panel);padding:14px 16px;border-radius:8px;overflow-x:auto;margin:0 0 23px}
+.quote{font:400 17px/1.6 var(--serif);background:var(--panel);border-radius:8px;padding:14px 18px;margin:0 0 23px}
+mark{background:var(--accent);color:inherit;padding:1px 3px;border-radius:3px}
+mark.c{background:#f6efdc}
+mark sup{font:400 10px var(--sans);color:var(--grey);margin-left:2px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:0 0 23px;font:400 14px/1.5 var(--sans)}
+.cols h4{font:500 13px var(--sans);color:var(--grey);margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em}
+.cols ul{padding-left:1.1em;margin:0}
+.cols li{margin:0 0 9px}
+.cols small{display:block;color:var(--grey);font-size:12px}
+@media (max-width:1000px){.stats,.cols{grid-template-columns:1fr 1fr}}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:14px 0 0;font:400 13px var(--sans)}
+.btn{font:400 13px var(--sans);color:var(--ink);background:var(--panel);border:0;border-radius:14px;padding:5px 12px;cursor:pointer}
+.btn:hover{background:#e8e8e6}
+.btn.on{background:var(--ink);color:#fff}
+.btn:focus-visible,figure:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.controls .pos{color:var(--grey);margin-left:6px}
+.panel{margin-top:12px;padding:14px 18px;background:#fafaf9;border-left:2px solid var(--rule);font:400 15px/1.55 var(--sans);color:var(--soft);min-height:92px}
+.panel h4{font:600 17px/1.3 var(--serif);color:var(--ink);margin:0 0 6px}
+.panel p{margin:0 0 6px}
+.panel code{font-size:12.5px}
+svg [data-step],svg [data-id]{transition:opacity .35s}
+svg .dim{opacity:.3}
+svg g.hl rect{stroke:#1e2a38;stroke-width:2}
+svg path.hl{stroke-opacity:1;stroke-width:3}
+html.js .grow{transform-box:fill-box;transform-origin:left center;transform:scaleX(0);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+html.js .in .grow{transform:none}
+html.js [data-reveal] .seq{opacity:.12;transition:opacity .6s}
+html.js [data-reveal].in .seq{opacity:1}
+.check{display:flex;gap:10px;align-items:flex-start;margin:0 0 8px;font:400 14px/1.4 var(--sans);cursor:pointer}
+.check input{margin-top:3px;accent-color:#1e2a38}
+@media (prefers-reduced-motion:reduce){svg [data-step],svg [data-id],.grow,.seq{transition:none!important}}
+
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<header class="site"><a class="wordmark" href="/">Moonsteps</a>
+<nav><a href="#brief">Brief</a><a href="#uncertainty">Uncertainty</a><a href="#cad">CAD</a></nav></header>
+<div class="heading">
+<h1>Measuring thermal emissivity from 30 K to 370 K: a problem formulation</h1>
+<div class="meta">Design brief for a cryogenic calorimetric emissometer<span class="date">9 November 2026</span></div>
+</div>
+<div class="hero"><svg viewBox="0 0 880 260" role="img" aria-label="A sample on a heated carrier radiating to a cold black enclosure, the measured heater power giving emissivity"><defs><marker id="chev" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M2,2 L12,7 L2,12" fill="none" stroke="#1e2a38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><circle cx="10" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="10" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="10" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="10" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="10" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="10" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="10" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="10" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="10" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="10" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="10" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="10" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="32" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="54" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="76" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="98" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="120" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="142" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="164" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="186" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="208" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="230" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="252" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="274" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="296" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="318" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="340" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="340" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="340" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="340" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="340" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="340" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="340" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="340" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="362" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="362" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="362" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="362" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="384" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="384" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="384" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="384" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="406" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="406" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="428" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="428" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="450" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="450" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="472" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="472" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="494" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="494" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="494" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="516" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="516" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="516" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="516" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="538" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="538" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="538" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="538" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="538" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="538" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="538" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="560" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="582" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="604" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="626" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="648" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="670" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="692" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="714" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="736" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="758" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="780" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="802" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="824" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="846" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="10" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="32" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="54" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="76" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="98" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="120" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="142" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="164" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="186" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="208" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="230" r="1.6" fill="#d6d4d1"/><circle cx="868" cy="252" r="1.6" fill="#d6d4d1"/><circle cx="440" cy="130" r="104" fill="#ffffff"/><rect x="395" y="150" width="90" height="16" rx="3" fill="#e3f4ef"/><rect x="380" y="166" width="120" height="22" rx="4" fill="#f3f3f2"/><path class="e" d="M420.0,146.0 L395.0,98.0" marker-end="url(#chev)"/><path class="e" d="M440.0,146.0 L440.0,92.0" marker-end="url(#chev)"/><path class="e" d="M460.0,146.0 L485.0,98.0" marker-end="url(#chev)"/><text x="440" y="78" class="s" text-anchor="middle">εσT⁴</text><text x="440" y="206" class="s" text-anchor="middle">P = εσA(T⁴ − T_w⁴)</text></svg></div>
+<div class="layout">
+<aside class="toc"><ol><li data-for="brief"><a href="#brief">Brief for the agent</a></li><li data-for="requirements"><a href="#requirements">Requirements</a></li><li data-for="method"><a href="#method">Choice of method</a></li><li data-for="consequences"><a href="#consequences">Design consequences</a></li><li data-for="architecture"><a href="#architecture">Architecture</a></li><li data-for="hardware"><a href="#hardware">Hardware</a></li><li data-for="uncertainty"><a href="#uncertainty">Uncertainty budget</a></li><li data-for="operations"><a href="#operations">Measurement cycle and running cost</a></li><li data-for="cad"><a href="#cad">CAD package</a></li><li data-for="plan"><a href="#plan">Plan and risks</a></li></ol></aside>
+<article>
+<h2 id="brief">Brief for the agent</h2>
+
+<p>This page is a self-contained problem formulation. The task is to turn it into a buildable design: a
+set-up that measures the total hemispherical, blackbody-weighted emissivity of spacecraft thermal-control
+materials from below 30 K to 370 K, in the sense of ECSS-Q-ST-70-09C. The method choice, the architecture and
+a first uncertainty budget are already made below. What remains is detailed design, CAD, analysis and
+documentation, held to the acceptance criteria in this section.</p>
+<p>Deliver, as one package:</p>
+<ol>
+<li>A thermal model of the cryostat and sample stations that reproduces the signal levels in Table 3 and
+shows that the 2nd stage holds its set-point at the 2.5 W worst case.</li>
+<li>The CAD package of Table 6: native files plus STEP AP242 with PMI, PDF drawings with GD&amp;T,
+materials, finishes and coatings, and a BOM with part numbers and suppliers.</li>
+<li>A complete uncertainty budget workbook (GUM plus Monte Carlo) that extends Table 5 to every material
+class in Table 1, including foils.</li>
+<li>Electrical wiring, vacuum P&amp;ID, interface control document (sample envelope, mounting and foil
+bonding procedure), software specification, calibration and validation plan.</li>
+</ol>
+<p>Acceptance: every requirement row of Table 1 is traced to a design feature or an analysis; U (k = 2)
+&lt; 0.04 is shown for each material class, or the class is explicitly restricted (for example thick
+insulators without a front thermometer); drawings carry every tolerance named on this page. Keep the facts
+and numbers here unless an analysis shows them wrong, and say so when it does.</p>
+<p>Open decisions to put to the customer before detailed design: the 30 K versus 40 K floor
+<span class="status st-human">open</span>, whether thick non-metallic substrates are in scope <span class="status st-human">open</span>, and
+whether the optional room-temperature module M2 is wanted <span class="status st-human">open</span>.</p>
+
+
+<h2 id="requirements">Requirements</h2>
+
+<p>The set-up will be used to characterise materials used across spacecraft: radiators, telescope baffles,
+MLI and similar. The specification asks the supplier to pick the method (calorimetric, radiative or
+spectral), allows several modules for different samples or temperature ranges, and weighs performance,
+uncertainty, measurement time, installation, maintenance, handling and running cost.</p>
+<figure class="tablewrap"><table><thead><tr><th>Item</th><th>Requirement</th></tr></thead><tbody><tr><td>Quantity</td><td>Thermal emissivity weighted over the blackbody (ECSS-Q-ST-70-09C)</td></tr><tr><td>Uncertainty</td><td>Expanded U (k = 2) &lt; 0.04 in ε for any material; per-material budget if it varies</td></tr><tr><td>Temperature</td><td>&lt;30 K to 370 K; monitored and controlled to ±1 K. Negotiable to 40–350 K <span class="status st-warn">negotiable</span></td></tr><tr><td>Materials</td><td>Polished mirrors, ε &gt; 0.95 diffuse coatings, ε &lt; 0.05 low-ε black coatings, 0.20–0.60 multilayers, MLI foils</td></tr><tr><td>Geometry</td><td>Rigid flat 19×19 to 50×50 mm, 0.5–10 mm thick, one side of interest; foils &lt;0.5 mm on a backing. Fixed geometry only if agreed up front <span class="status st-warn">negotiable</span></td></tr><tr><td>Deliverables</td><td>Method trade-off, uncertainty budget, full design and CAD, hardware, sensors, electronics, software, sample stage, calibration records; vacuum chamber design included</td></tr><tr><td>Trade criteria</td><td>Performance, uncertainty, measurement time, ease of installation, maintenance, handling, running cost</td></tr></tbody></table><figcaption><b>Table 1:</b> the customer specification, condensed. Rows marked negotiable carry an explicit relaxation in the source text.</figcaption></figure>
+
+
+<h2 id="method">Choice of method</h2>
+
+<p><mark class="c">The primary method is steady-state, guarded calorimetry in a cryocooler-cooled black
+enclosure.</mark> This is the hemispherical emittance approach of ECSS-Q-ST-70-09C, and of ASTM C835
+extended to cryogenic temperatures. Spectral and radiative methods serve only as a room-temperature
+cross-check.<sup class="ref">1</sup><span class="side"><sup>1</sup> ECSS-Q-ST-70-09C defines normal emittance by IR reflectometer and hemispherical emittance calorimetrically; the requirement here is the blackbody-weighted hemispherical value.</span></p>
+<p>Spectral methods fail on two counts. At 30 K the energy sits in the far IR and sub-millimetre range
+(Table 2), where FTIR measurements have almost no signal and no integrating spheres or standards exist.
+And an FTIR gives directional reflectance, which then has to be integrated over angle to reach a
+hemispherical value; that integration adds its own uncertainty and is worst for specular mirrors. A
+calorimetric measurement delivers the total hemispherical, blackbody-weighted value directly, because the
+sample emits into a cold black enclosure. It treats diffuse, specular and multilayer samples alike.</p>
+<figure class="tablewrap"><table><thead><tr><th>Sample T</th><th>Wien peak</th><th>Band holding ~95 % of energy</th></tr></thead><tbody><tr><td>370 K</td><td>7.8 µm</td><td>~3–60 µm</td></tr><tr><td>300 K</td><td>9.7 µm</td><td>~4–75 µm</td></tr><tr><td>30 K</td><td>97 µm</td><td>~40–800 µm</td></tr></tbody></table><figcaption><b>Table 2:</b> at 30 K, 95 % of the blackbody energy lies between about 40 and 800 µm, where FTIR spheres and reference standards do not exist. That alone rules out a spectral primary method.</figcaption></figure>
+<p>The sample sits on a heated carrier inside a guard. Once temperatures are stable, the heater power P
+gives the apparent emissivity, which is then corrected for the shroud not being perfectly black:</p>
+<pre>ε_app = (P − P_par(T_s)) / (σ · A · (T_s⁴ − T_w⁴))
+
+ε     = ε_app / (1 − ε_app · (A / A_w) · (1/ε_w − 1))
+
+T_s, A     sample temperature and emitting area
+T_w, A_w   shroud temperature and area,  ε_w  shroud emissivity
+P_par      parasitic loss (wires, supports, gas), characterised in commissioning</pre>
+<figure class="tablewrap"><table><thead><tr><th>Case</th><th>Heater power P</th></tr></thead><tbody><tr><td>30 K, ε = 0.03, 19×19 mm</td><td>≈ 0.5 µW</td></tr><tr><td>30 K, ε = 0.95, 50×50 mm</td><td>≈ 110 µW</td></tr><tr><td>370 K, ε = 0.03, 19×19 mm</td><td>≈ 11 mW</td></tr><tr><td>370 K, ε = 0.95, 50×50 mm</td><td>≈ 2.5 W</td></tr></tbody></table><figcaption><b>Table 3:</b> heater power spans nearly seven decades. The bottom end (0.5 µW) sets the electronics resolution and the parasitic-loss target; the top end (2.5 W) sets the 2nd-stage load.</figcaption></figure>
+
+
+<h2 id="consequences">Design consequences</h2>
+
+<p>Five decisions follow from the signal levels, and they drive everything else.</p>
+<p><b>The shroud runs at 4–10 K for samples at 30–40 K.</b> With a 77 K liquid-nitrogen shroud a 30 K
+sample would absorb heat rather than emit it, so liquid nitrogen is ruled out and a two-stage pulse-tube
+cooler is needed. At 4 K the back-radiation term (T_w/T_s)⁴ is about 3×10⁻⁴ at 30 K.</p>
+<p><b>Set-points are approached from below and held by a controller.</b> Left to itself, a low-ε sample at
+30 K has a time constant C/G of about 10⁶ s. When the controller holds T_s constant, C·dT/dt is zero and P
+equals the loss directly. The sequence is therefore: cool everything, then step upward through the
+temperature ladder (Figure 2).</p>
+<p><b>Back and edges are actively guarded.</b> Only the front face may lose net heat. A 50×50×10 mm sample
+has 2000 mm² of edge against 2500 mm² of face, so the edges cannot be ignored. A guard cup is servoed to
+ΔT ≈ 0 against the carrier, and every lead is heat-sunk on the guard so it sees no gradient.</p>
+<p><b>The shroud is black in the far IR.</b> Ordinary black paints turn reflective above about 50 µm. The
+design combines a far-IR absorber (Stycast 2850FT loaded with SiC grit and carbon black) with a grooved or
+baffled geometry and an area ratio A/A_w &lt; 0.01, so the cavity behaves as near-black even if the
+coating only reaches ε_w ≈ 0.5.</p>
+<p><b>Several stations share one cooldown.</b> Four sample stations, baffled from each other, amortise the
+24–36 h cooldown.</p>
+<p>The instrument is organised as modules. M1 is the cryo-calorimetric emissometer, the primary instrument
+for all sample types from 30 to 370 K, with a carrier family for 19, 25 and 50 mm samples, shims for
+0.5–10 mm thickness and a foil carrier. M2 is optional: an FTIR with a gold integrating sphere (2–25 µm)
+or a portable IR reflectometer such as the AZ Tech TEMP 2000A, used to cross-check normal emittance at
+300 K and to screen incoming samples.</p>
+
+
+<h2 id="architecture">Architecture</h2>
+<figure class="wide"><svg viewBox="0 0 860 430" role="img" aria-label="Cross-section of the emissometer: vacuum chamber containing a 45 K shield and a 4 to 50 K black shroud; inside it the sample on a heated carrier sits in a guard cup; a pulse-tube cold head cools both stages; pumps, electronics and PC sit outside"><defs><marker id="chev" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M2,2 L12,7 L2,12" fill="none" stroke="#1e2a38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><rect x="20" y="30" width="500" height="330" rx="10" fill="#f3f3f2"/><text x="270" y="54" class="cap" text-anchor="middle">Vacuum chamber, &lt;1e-6 mbar</text><rect x="50" y="70" width="440" height="250" rx="10" fill="#ffffff"/><text x="270" y="94" class="cap" text-anchor="middle">1st-stage shield ~45 K + MLI</text><rect x="80" y="108" width="380" height="192" rx="10" fill="#eceef6"/><text x="270" y="130" class="cap" text-anchor="middle">2nd-stage shroud 4–50 K</text><g><rect x="185.0" y="168.0" width="170" height="44" rx="8" fill="#e3f4ef"/><text x="270.0" y="195.0" class="t" style="font-size:16px">Sample + carrier</text></g><g><rect x="160.0" y="229.0" width="220" height="52" rx="8" fill="#ffffff"/><text x="270.0" y="251.0" class="t" style="font-size:16px">Guard cup</text><text x="270.0" y="270.0" class="s">servoed to T_g = T_s</text></g><path class="e f" d="M240.0,166.0 L205.0,146.0" marker-end="url(#chev)"/><path class="e f" d="M270.0,166.0 L270.0,144.0" marker-end="url(#chev)"/><path class="e f" d="M300.0,166.0 L335.0,146.0" marker-end="url(#chev)"/><text x="370" y="152" class="l" text-anchor="start">emission</text><g><rect x="175.0" y="375.0" width="190" height="40" rx="8" fill="#f3f3f2"/><text x="270.0" y="400.0" class="t" style="font-size:16px">Pulse-tube cold head</text></g><path class="e" d="M270,375 L270,300"/><text x="280" y="345" class="l" text-anchor="start">two-stage cold link</text><g><rect x="570.0" y="52.0" width="260" height="56" rx="8" fill="#f3f3f2"/><text x="700.0" y="76.0" class="t" style="font-size:16px">Pumping</text><text x="700.0" y="95.0" class="s">turbo, gate valve, dry scroll</text></g><g><rect x="570.0" y="162.0" width="260" height="56" rx="8" fill="#f3f3f2"/><text x="700.0" y="186.0" class="t" style="font-size:16px">Electronics rack</text><text x="700.0" y="205.0" class="s">LS336/372, SMU, nanovoltmeter</text></g><g><rect x="570.0" y="272.0" width="260" height="56" rx="8" fill="#f3f3f2"/><text x="700.0" y="296.0" class="t" style="font-size:16px">Control PC</text><text x="700.0" y="315.0" class="s">sequencer, GUM uncertainty</text></g><path class="e" d="M570.0,80.0 L522.0,80.0" marker-end="url(#chev)"/><path class="e" d="M570.0,190.0 L522.0,190.0" marker-end="url(#chev)"/><path class="e" d="M700.0,272.0 L700.0,220.0" marker-end="url(#chev)"/></svg><figcaption><b>Figure 1:</b> the only surface allowed to lose net heat is the sample face (green), which looks at a cold, far-IR-black shroud. Back and edges see a guard cup held at the same temperature, so the measured heater power is the face emission. The cold head stands in the chamber base; shield, shroud and chamber lid all lift off from the top, so samples are changed without touching the cooler. Wiring enters through hermetic feedthroughs and is heat-sunk on each stage and finally on the guard. Lavender marks the radiative enclosure, white the guard, grey everything else.</figcaption></figure>
+
+<h2 id="hardware">Hardware</h2>
+
+<p>Table 4 lists the subsystems. The common thread is that every watt crossing into the sample carrier is
+either measured (the heater) or nulled (the guard), and every surface the sample sees is cold and
+black.</p>
+<figure class="tablewrap"><table><thead><tr><th>Subsystem</th><th>Recommendation</th><th>Key specs and notes</th></tr></thead><tbody><tr><td>Cryocooler</td><td>Pulse tube, Cryomech PT415 or Sumitomo RP-082 class</td><td>~1.3–1.5 W at 4.2 K, ~40 W at 45 K. Low vibration, no cold moving parts, compressor service about every 30 kh. 7–9 kW electrical plus cooling water is the main running cost. A GM cooler is cheaper but needs more maintenance.</td></tr><tr><td>Shroud (2nd stage)</td><td>OFHC Cu or Al-6061 can and lid; grooved or baffled interior with far-IR absorber</td><td>A/A_w &lt; 0.01. Control heater and Cernox. 4–10 K for samples below 100 K, 30–50 K for hot high-ε samples so 2.5 W stays within capacity. Flexible Cu braid; G10 standoffs.</td></tr><tr><td>Shield (1st stage)</td><td>Al can, polished or gold outside, 10–20 layers MLI</td><td>Wiring heat-sink bobbins on the 1st and then the 2nd stage.</td></tr><tr><td>Guard cup (per station)</td><td>OFHC Cu, gold-plated outside (ε ≈ 0.02 keeps guard power low), Kapton or thin-film heater, Pt-100 and Cernox</td><td>Gap to carrier 0.3 ± 0.05 mm; rim flush with sample face to ±0.05 mm; G10 mount to the shroud plate.</td></tr><tr><td>Sample carrier</td><td>OFHC Cu pocket, ~1.5 mm wall, gold-plated, minimum mass</td><td>Thin-film NiCr or non-inductive manganin heater; 4-wire voltage taps on the carrier so lead dissipation is excluded; Kevlar suspension from the guard.</td></tr><tr><td>Thermometry</td><td>Sample: Cernox CX-1050 (below 100 K) plus PT-111 or CX-1080 (to 420 K), ITS-90 calibrated. Guard null: chromel–AuFe 0.07 % differential thermocouple on a nanovoltmeter</td><td>±20 mK on T_s, ±10 mK on guard ΔT; self-heating below 1 nW. Control target ±10 mK against the ±1 K requirement.</td></tr><tr><td>Wiring</td><td>Phosphor-bronze 36 AWG twisted pairs (QT-36); CuNi-clad NbTi heater leads</td><td>Last heat-sink of every lead is on the guard, so sample-to-guard ΔT ≈ 0 and conduction cancels.</td></tr><tr><td>Electronics</td><td>Lake Shore 336 (shield, shroud, guards); Lake Shore 372 or 336 (sample); Keithley 2450 or 6221 + 2182A (heater V·I)</td><td>Power resolution better than 5 nW at the 0.5 µW case.</td></tr><tr><td>Vacuum</td><td>Turbo ~300 l/s (HiPace 300 class), dry scroll, gate valve, full-range gauge, optional RGA</td><td>&lt;1e-5 mbar before cooling, &lt;1e-7 mbar with cryopumping, so gas conduction is negligible. Leak rate &lt;1e-9 mbar·l/s.</td></tr><tr><td>Chamber</td><td>SS304L, ~450 mm ID, bell jar or top lid on a hoist, CF/ISO-K ports, no viewport (or blanked)</td><td>2–3 hermetic 19-pin feedthroughs (4 stations × ~16 wires plus housekeeping); relief valve; dry-N₂ vent.</td></tr><tr><td>Software</td><td>Python (PyMeasure or QCoDeS)</td><td>Set-point ladder; steady-state detection (dT/dt &lt; 1 mK/min, P drift &lt; 0.1 % per 10 min); ε, GUM and Monte Carlo per point; HDF5 with metadata; interlocks on vacuum, compressor water, over-temperature.</td></tr><tr><td>Reference samples</td><td>Gold-plated Cu (ε ≈ 0.02) and a high-ε black (Z306 or Acktar), each in two sizes</td><td>Two sizes separate area-proportional ε from P_par. Trace to NPL, PTB or ESTEC by inter-laboratory comparison; no certified cryogenic total-hemispherical standards exist.</td></tr></tbody></table><figcaption><b>Table 4:</b> named parts are reference choices for sizing and costing; equivalents are acceptable if they meet the spec column.</figcaption></figure>
+<h3>Sample mounting</h3>
+<p><b>Rigid samples on metal substrates</b> sit on a 0.1 mm indium foil, which works from cryogenic
+temperatures up to 370 K (indium melts at 430 K). Clamping is from the rear and sides, with pocket
+set-screws or a spring back-plate, and flushness is set with shims. Front masks are avoided; if one is
+unavoidable it belongs to the sample assembly and its emission is subtracted as a correction.</p>
+<p><b>Foils and MLI</b> are bonded to a 1 mm polished OFHC copper plate with a thin cryo-rated adhesive
+(Stycast 1266 or a low-outgassing acrylic transfer tape), laminated under vacuum or with a roller so there
+are no voids. At 370 K and ε = 0.95, a ~50 µm glue layer gives about 0.3 K across it, which is acceptable
+but goes in the budget. Metallised MLI foils go metallised side down. For semi-transparent foils the result
+depends on the backing: use gold-plated backing, which emulates VDA, and record it in the report.</p>
+<p><b>Thick low-conductivity samples are the hard case.</b> At 370 K and ε = 0.95, a 10 mm sample with
+k = 0.3 W/m·K has about 30 K between its back and its face. Mitigations, in order of preference: require
+metallic substrates for coatings; bond a 25 µm thermocouple to the front surface at a corner; or apply a
+conduction correction from a known k or from two thicknesses. This is the main material-dependent
+uncertainty term <span class="status st-warn">risk</span>.</p>
+
+
+<h2 id="uncertainty">Uncertainty budget</h2>
+
+<p>Four cases bracket the material range (Table 5). Relative terms dominate for high-ε samples; absolute
+parasitic and guard terms dominate for low-ε samples and for samples at 30–40 K; the substrate gradient
+dominates for thick insulators. Report U per material class rather than as one number.</p>
+<figure class="tablewrap"><table><thead><tr><th>Contribution</th><th>A: ε 0.95, 50 mm, 300 K</th><th>B: ε 0.03, 50 mm, 300 K</th><th>C: ε 0.03, 19 mm, 40 K</th><th>D: ε 0.95, 10 mm insulator, 370 K</th></tr></thead><tbody><tr><td>Heater power (V·I)</td><td>0.001</td><td>&lt;0.0001</td><td>0.0002</td><td>0.001</td></tr><tr><td>Area (optical CMM, ±20 µm)</td><td>0.001</td><td>&lt;0.0001</td><td>0.0001</td><td>0.001</td></tr><tr><td>T_s sensor (±20 mK)</td><td>0.0003</td><td>&lt;0.0001</td><td>0.0001</td><td>0.0002</td></tr><tr><td>Surface vs sensor ΔT (glue or substrate)</td><td>0.002</td><td>0.0001</td><td>&lt;0.0001</td><td><b>0.015</b> (front TC)</td></tr><tr><td>T_w and shroud ε_w correction</td><td>0.003</td><td>0.0001</td><td>0.0003</td><td>0.003</td></tr><tr><td>Guard mismatch, edge, gap</td><td>0.004</td><td>0.002</td><td>0.003</td><td>0.004</td></tr><tr><td>Parasitic conduction, self-heating</td><td>0.0005</td><td>0.0015</td><td>0.004</td><td>0.0005</td></tr><tr><td>Repeatability (remount)</td><td>0.003</td><td>0.001</td><td>0.003</td><td>0.004</td></tr><tr><td><b>Combined u</b></td><td>≈0.006</td><td>≈0.003</td><td>≈0.006</td><td>≈0.017</td></tr><tr><td><b>U (k = 2)</b></td><td><b>≈0.012</b></td><td><b>≈0.006</b></td><td><b>≈0.012</b></td><td><b>≈0.034</b></td></tr></tbody></table><figcaption><b>Table 5:</b> standard uncertainty contributions in absolute ε. Every case meets U &lt; 0.04, but case D only with a front-surface thermometer or a known conductivity. Values are design estimates to be confirmed in commissioning.</figcaption></figure>
+<p>At 30 K the signal is about 0.5 µW, so the parasitic and self-heating term grows. The full 30 K target
+is feasible only with a 4 K shroud and good guarding. The 40–350 K fallback allowed by the specification
+is a budget relief, not a physical limit. Without a front-surface thermometer or a known conductivity, the
+instrument can claim U &lt; 0.04 only for samples on metallic substrates.</p>
+
+
+<h2 id="operations">Measurement cycle and running cost</h2>
+
+<figure class="wide" data-stepper><svg viewBox="0 0 910 270" role="img" aria-label="Measurement cycle: mount, pump down, cool down, then a loop of stepping the sample temperature up, waiting for steady state and logging a point, then warm-up"><defs><marker id="chev" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M2,2 L12,7 L2,12" fill="none" stroke="#1e2a38" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs><g data-step="mount"><rect x="10.0" y="52.0" width="140" height="56" rx="8" fill="#f3f3f2"/><text x="80.0" y="76.0" class="t" style="font-size:15px"><tspan class="n">1  </tspan>Mount</text><text x="80.0" y="95.0" class="s">indium, shims</text></g><path class="e" d="M150.0,80.0 L158.0,80.0" marker-end="url(#chev)"/><g data-step="pump"><rect x="160.0" y="52.0" width="140" height="56" rx="8" fill="#f3f3f2"/><text x="230.0" y="76.0" class="t" style="font-size:15px"><tspan class="n">2  </tspan>Pump down</text><text x="230.0" y="95.0" class="s">&lt;1e-5 mbar, 2 h</text></g><path class="e" d="M300.0,80.0 L308.0,80.0" marker-end="url(#chev)"/><g data-step="cool"><rect x="310.0" y="52.0" width="140" height="56" rx="8" fill="#f3f3f2"/><text x="380.0" y="76.0" class="t" style="font-size:15px"><tspan class="n">3  </tspan>Cool down</text><text x="380.0" y="95.0" class="s">shroud 4 K, 24–36 h</text></g><path class="e" d="M450.0,80.0 L458.0,80.0" marker-end="url(#chev)"/><g data-step="step"><rect x="460.0" y="52.0" width="140" height="56" rx="8" fill="#f3f3f2"/><text x="530.0" y="76.0" class="t" style="font-size:15px"><tspan class="n">4  </tspan>Step T_s up</text><text x="530.0" y="95.0" class="s">guard nulls ΔT</text></g><path class="e" d="M600.0,80.0 L608.0,80.0" marker-end="url(#chev)"/><g data-step="steady"><rect x="610.0" y="52.0" width="140" height="56" rx="8" fill="#f3f3f2"/><text x="680.0" y="76.0" class="t" style="font-size:15px"><tspan class="n">5  </tspan>Steady state?</text><text x="680.0" y="95.0" class="s">dT/dt, P drift</text></g><path class="e" d="M750.0,80.0 L758.0,80.0" marker-end="url(#chev)"/><g data-step="log"><rect x="760.0" y="52.0" width="140" height="56" rx="8" fill="#e3f4ef"/><text x="830.0" y="76.0" class="t" style="font-size:15px"><tspan class="n">6  </tspan>Log point</text><text x="830.0" y="95.0" class="s">P, T_s, T_w, ε, U</text></g><path class="e d" d="M680,52 L680,26 L530,26 L530,50" marker-end="url(#chev)"/><text x="605" y="18" class="l" text-anchor="middle">not yet steady</text><path class="e d" d="M800,108 L800,150 L530,150 L530,110" marker-end="url(#chev)"/><text x="665" y="172" class="l" text-anchor="middle">next set-point</text><path class="e" d="M860,108 L860,202" marker-end="url(#chev)"/><text x="850" y="190" class="l" text-anchor="end">last point</text><g data-step="warm"><rect x="760.0" y="204.0" width="140" height="56" rx="8" fill="#f3f3f2"/><text x="830.0" y="228.0" class="t" style="font-size:15px"><tspan class="n">7  </tspan>Warm-up</text><text x="830.0" y="247.0" class="s">vent dry N₂</text></g></svg><div class="controls"><button class="btn" data-act="prev">Previous</button><button class="btn" data-act="play">Play</button><button class="btn" data-act="next">Next</button><span class="pos" data-role="pos"></span></div><div class="panel" aria-live="polite"><div data-step="mount"><h4>1 · Mount</h4><p>Rigid samples on 0.1 mm indium with rear/side clamping; foils pre-bonded to a 1 mm OFHC plate. Flushness to the guard rim checked with the jig to ±0.05 mm. Up to four stations per run.</p></div><div data-step="pump"><h4>2 · Pump down</h4><p>Turbo plus dry scroll to below 1e-5 mbar (about 2 h) before any cooling. Cryopumping then takes the chamber below 1e-7 mbar; the gate valve is closed when cold.</p></div><div data-step="cool"><h4>3 · Cool down</h4><p>24–36 h until the shroud sits at 4–10 K. For hot, high-ε samples the shroud is later regulated to 30–50 K so the 2nd stage can absorb about 2.5 W.</p></div><div data-step="step"><h4>4 · Step T_s up</h4><p>The sample heater is driven to the next set-point; each guard heater nulls the chromel–AuFe differential thermocouple to ±10 mK.</p></div><div data-step="steady"><h4>5 · Steady state?</h4><p>Accept when dT/dt &lt; 1 mK/min and heater power drifts less than 0.1 % over 10 min. Expect ½ h per point when hot, up to 3 h at low T and low ε.</p></div><div data-step="log"><h4>6 · Log point</h4><p>Record 4-wire heater V·I, T_s, T_w and guard ΔT; compute ε with the enclosure correction and a per-point GUM / Monte Carlo uncertainty; write HDF5.</p></div><div data-step="warm"><h4>7 · Warm-up</h4><p>About 24 h, then vent with dry N₂. A full cycle handles about four samples in 3–4 days.</p></div></div><figcaption><b>Figure 2:</b> set-points are always approached from below. Holding T_s with the controller removes the C·dT/dt term, so the natural time constant at 30 K (about 10⁶ s) never has to be waited out. Click a step for its exit criterion.</figcaption></figure>
+<p>A cycle runs pump-down (2 h), cooldown (24–36 h), a ladder of about ten points per station (½–3 h each,
+longest at low temperature and low ε) and warm-up (about 24 h). With four stations that is about four
+samples per 3–4 day cycle. Running cost is compressor electricity and cooling water plus cooler
+maintenance; there is no liquid helium or liquid nitrogen.</p>
+
+
+<h2 id="cad">CAD package</h2>
+
+<p>3D models are delivered as native files plus STEP AP242 with PMI; drawings as PDF with GD&amp;T,
+material, finish and coating callouts; the BOM in Excel or CSV with part numbers and suppliers.</p>
+<figure class="tablewrap"><table><thead><tr><th>#</th><th>Assembly</th><th>Must contain</th></tr></thead><tbody><tr><td>1</td><td>Top level</td><td>Support frame, chamber, cold head, pump stack, rack, cable routing, hoist or lid clearance envelope, mass and CoG</td></tr><tr><td>2</td><td>Vacuum chamber</td><td>Body, lid, seals; port layout (turbo, gate valve, gauges, vent, relief, RGA, feedthroughs, cold-head flange); weld and leak-test specs; external-pressure calculation</td></tr><tr><td>3</td><td>1st-stage shield</td><td>Can, lid, mount to 1st-stage flange, thermal strap, MLI blanket patterns, heat-sink bobbins</td></tr><tr><td>4</td><td>2nd-stage shroud</td><td>Can, lid, baffle and groove geometry, absorber coating spec and thickness, heater and sensor mounts, flexible braid, G10 supports; area-ratio and view-factor calculation</td></tr><tr><td>5</td><td>Sample station ×4</td><td>Guard cup; carrier pockets for 19, 25 and 50 mm with shim kit for 0.5–10 mm; foil carrier plate; Kevlar suspension points; heater and sensor pockets; differential-thermocouple anchors; wire heat-sink posts; inter-station baffles. Callouts: gap 0.3 ± 0.05 mm, flushness ±0.05 mm</td></tr><tr><td>6</td><td>Tooling</td><td>Mounting jig with flushness gauge, foil lamination press, indium cutting template, lifting fixtures for shield and shroud</td></tr><tr><td>7</td><td>Electrical</td><td>Wiring diagram, pin-outs, connector list, heat-sink scheme, grounding and shielding plan, rack layout</td></tr><tr><td>8</td><td>Vacuum P&amp;ID</td><td>Valve logic and interlocks</td></tr></tbody></table><figcaption><b>Table 6:</b> the assembly tree the CAD package must contain. Items 1–7 are 3D plus drawings; item 8 is schematic.</figcaption></figure>
+<h3>Supporting analysis and records</h3>
+<ul>
+<li>Thermal model (ESATAN-TMS or COMSOL): stage loads per regime, cooldown time, parasitic conduction,
+shroud gradients, guard-mismatch sensitivity, sample gradient versus k.</li>
+<li>Structural check of the cold-mass supports for handling and cooldown stresses; launch loads do not
+apply.</li>
+<li>Interface control document: sample envelope, mounting rules, foil bonding procedure.</li>
+<li>Calibration records: thermometers (ITS-90), SMU and DMM, heater R(T), area metrology, reference
+samples.</li>
+<li>P_par characterisation: the two-area method and the gold-reference test.</li>
+<li>Validation: inter-laboratory comparison report.</li>
+<li>Software source, user manual, maintenance plan (cooler service intervals, spares).</li>
+<li>The uncertainty budget workbook (GUM plus Monte Carlo).</li>
+</ul>
+
+
+<h2 id="plan">Plan and risks</h2>
+
+<figure class="tablewrap"><table><thead><tr><th>Phase</th><th>Output</th></tr></thead><tbody><tr><td>0 · Requirements</td><td>Agree the sample geometry, the 30 K versus 40 K floor and the policy for thick insulators (spec Note 3)</td></tr><tr><td>1 · Concept</td><td>Thermal model, power and signal tables, cooler choice, preliminary design review</td></tr><tr><td>2 · Detailed design</td><td>Full CAD and drawings, harness, ICD, uncertainty budget, critical design review</td></tr><tr><td>3 · Procurement and build</td><td>Cryocooler (about 4–6 months lead), chamber</td></tr><tr><td>4 · Commissioning</td><td>Vacuum and cooldown, guard tuning, P_par characterisation with gold and two-area references</td></tr><tr><td>5 · Validation</td><td>References against ESTEC/NPL/PTB data at 300 K and the M2 cross-check; publish validated U per material class</td></tr></tbody></table><figcaption><b>Table 7:</b> the cryocooler is the long-lead item and should be ordered right after the concept review.</figcaption></figure>
+<p>Four risks deserve early attention. The far-IR blackness of the shroud: coat and measure a coupon in the
+concept phase. The guard null at microwatt levels and 30 K. Cooler vibration coupling into the
+thermometry: use flexible braids and filtering. And thick insulating samples at high temperature, covered
+above.</p>
+<p>Hardware cost is roughly €200–300 k, driven by the cryocooler, the chamber and the electronics. This is
+an unquoted estimate.<sup class="ref">2</sup><span class="side"><sup>2</sup> Budget figure is an order-of-magnitude estimate, not a supplier quote.</span></p>
+
+
+</article>
+<footer>Generated on 9 November 2026 from a design discussion of the customer specification (ECSS-Q-ST-70-09C emissivity set-up). Signal levels and the uncertainty budget were computed for this note and are design estimates; named hardware is a reference choice, not a quote.</footer>
+</div>
+<script>
+(() => {
+  const items = [...document.querySelectorAll('.toc li')];
+  const targets = items.map(li => document.getElementById(li.dataset.for)).filter(Boolean);
+  if (!targets.length) return;
+  const set = () => {
+    let cur = targets[0];
+    for (const t of targets) if (t.getBoundingClientRect().top < 140) cur = t;
+    items.forEach(li => li.classList.toggle('on', li.dataset.for === cur.id));
+  };
+  addEventListener('scroll', set, {passive: true}); set();
+})();
+</script>
+<script>
+// editorial-html interactions. Inline this file once per page, after the article.
+// Every behaviour is declared in markup; pages add no per-figure code for these patterns.
+//
+//   <figure data-stepper [data-interval="3500"]>      walk through SVG parts one at a time
+//     svg groups/paths with data-step="k"             clickable; the active one is outlined, others dimmed
+//     .controls with [data-act=prev|play|next], [data-role=pos]
+//     .panel with <div data-step="k">…</div>          one note per step, in order
+//
+//   <figure data-scenarios>                            pick a case, light up its path
+//     buttons [data-scn="key"][data-path="id id …"]   ids refer to svg elements with data-id
+//     .panel with <div data-scn-note="key">…</div>
+//
+//   <div data-toggle>                                  segmented switch
+//     buttons [data-val="v"]; descendants [data-when="v"] show only for the chosen value
+//
+//   <figure data-reveal> / any [data-reveal]           adds .in when scrolled into view
+//     (.grow bars grow in; .seq elements fade in, staggered with style="transition-delay:…")
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const by = (root, sel) => [...root.querySelectorAll(sel)];
+
+  by(document, '[data-stepper]').forEach(fig => {
+    const parts = by(fig, 'svg [data-step]');
+    const notes = by(fig, '.panel [data-step]');
+    const pos = fig.querySelector('[data-role=pos]');
+    const play = fig.querySelector('[data-act=play]');
+    const n = notes.length;
+    let cur = 0, timer = null;
+    const show = i => {
+      cur = (i + n) % n;
+      const key = notes[cur].dataset.step;
+      parts.forEach(p => { const on = p.dataset.step === key; p.classList.toggle('hl', on); p.classList.toggle('dim', !on); });
+      notes.forEach((d, j) => { d.hidden = j !== cur; });
+      if (pos) pos.textContent = `${cur + 1} / ${n}`;
+    };
+    const stop = () => { clearInterval(timer); timer = null; if (play) { play.textContent = 'Play'; play.classList.remove('on'); } };
+    const start = () => {
+      if (reduce) return;
+      timer = setInterval(() => show(cur + 1), +(fig.dataset.interval || 3500));
+      play.textContent = 'Pause'; play.classList.add('on');
+    };
+    fig.querySelector('[data-act=prev]')?.addEventListener('click', () => { stop(); show(cur - 1); });
+    fig.querySelector('[data-act=next]')?.addEventListener('click', () => { stop(); show(cur + 1); });
+    play?.addEventListener('click', () => (timer ? stop() : start()));
+    parts.forEach(p => {
+      p.style.cursor = 'pointer';
+      p.addEventListener('click', () => { stop(); show(notes.findIndex(d => d.dataset.step === p.dataset.step)); });
+    });
+    fig.tabIndex = 0;
+    fig.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { stop(); show(cur + 1); }
+      if (e.key === 'ArrowLeft') { stop(); show(cur - 1); }
+    });
+    show(0);
+  });
+
+  by(document, '[data-scenarios]').forEach(fig => {
+    const btns = by(fig, '[data-scn]');
+    const notes = by(fig, '.panel [data-scn-note]');
+    const els = by(fig, 'svg [data-id]');
+    const pick = btn => {
+      const path = (btn.dataset.path || '').split(/\s+/);
+      btns.forEach(b => b.classList.toggle('on', b === btn));
+      els.forEach(el => {
+        const i = path.indexOf(el.dataset.id);
+        el.classList.toggle('hl', i >= 0);
+        el.classList.toggle('dim', i < 0);
+        el.style.transitionDelay = reduce || i < 0 ? '0s' : `${i * 0.15}s`;
+      });
+      notes.forEach(d => { d.hidden = d.dataset.scnNote !== btn.dataset.scn; });
+    };
+    btns.forEach(b => b.addEventListener('click', () => pick(b)));
+    if (btns.length) pick(btns[0]);
+  });
+
+  by(document, '[data-toggle]').forEach(box => {
+    const btns = by(box, '[data-val]');
+    const set = v => {
+      btns.forEach(b => b.classList.toggle('on', b.dataset.val === v));
+      by(box, '[data-when]').forEach(el => { el.hidden = el.dataset.when !== v; });
+    };
+    btns.forEach(b => b.addEventListener('click', () => set(b.dataset.val)));
+    if (btns.length) set(btns[0].dataset.val);
+  });
+
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: 0.25 });
+  by(document, '[data-reveal]').forEach(el => (reduce ? el.classList.add('in') : io.observe(el)));
+})();
+
+</script>
+
+</body>
+</html>
