@@ -104,6 +104,14 @@ html.js [data-reveal].in .seq{opacity:1}
 .check{display:flex;gap:10px;align-items:flex-start;margin:0 0 8px;font:400 14px/1.4 var(--sans);cursor:pointer}
 .check input{margin-top:3px;accent-color:#1e2a38}
 @media (prefers-reduced-motion:reduce){svg [data-step],svg [data-id],.grow,.seq{transition:none!important}}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.duo h5{font:500 12px/1.4 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin:0 0 6px;text-align:center}
+.range{display:flex;gap:12px;align-items:center;font:400 13px var(--sans);margin:0 0 8px}
+.range span{min-width:220px}
+.range input{flex:1;accent-color:#1e2a38}
+.range output{min-width:70px;text-align:right;color:var(--ink)}
+td.r,th.r{text-align:right;white-space:nowrap}
+@media (max-width:700px){.duo{grid-template-columns:1fr}.range{flex-wrap:wrap}.range span{min-width:100%}}
 
 article{min-width:0}
 .tscroll{overflow-x:auto;max-width:100%}
@@ -4473,7 +4481,7 @@ Seis pesquisas independentes, uma por área, com fontes primárias (fabricantes,
 <li>potência: tarifas ERSE e Manual de Ligações E-REDES <sup class="ref"><a href="#energia-agua-f42">42</a></sup><sup class="ref">,</sup><sup class="ref"><a href="#energia-agua-f43">43</a></sup>;</li>
 <li>poço: Lei da Água, DL 226-A/2007, regulamento SIMAS e DR 23/95 <sup class="ref"><a href="#energia-agua-f46">46</a></sup><sup class="ref">,</sup><sup class="ref"><a href="#energia-agua-f47">47</a></sup><sup class="ref">,</sup><sup class="ref"><a href="#energia-agua-f52">52</a></sup><sup class="ref">,</sup><sup class="ref"><a href="#energia-agua-f53">53</a></sup>.</li>
 </ul>
-<p class="quote"><b>Vista 3D das redes.</b> Uma proposta esquemática de traçado de água fria, água quente, esgotos e bomba de calor sobre as plantas de execução (o projecto de licenciamento foi desenhado sobre um layout anterior) pode ser explorada em 3D, piso a piso: <a href="agua-3d/">abrir a vista 3D</a>. As plantas 2D desse traçado (águas, esgotos e pluviais do rés-do-chão e do sótão, A1 a 1/50, com quadro de diâmetros, equipamentos e notas) estão em <a href="agua-3d/AGU_EGT_D7.pdf">AGU_EGT_D7.pdf</a>. A instalação eléctrica e o ITED, com os quadros principais no armário sob a escada, têm outra: <a href="eletrica-3d/">abrir a vista 3D eléctrica</a>.</p><h3 id="energia-agua-resumo">Resumo</h3>
+<p class="quote"><b>Vista 3D das redes.</b> Uma proposta esquemática de traçado de água fria, água quente, esgotos e bomba de calor sobre as plantas de execução (o projecto de licenciamento foi desenhado sobre um layout anterior) pode ser explorada em 3D, piso a piso: <a href="agua-3d/">abrir a vista 3D</a>. As plantas 2D desse traçado (águas, esgotos e pluviais do rés-do-chão e do sótão, A1 a 1/50, com quadro de diâmetros, equipamentos e notas) estão em <a href="agua-3d/AGU_EGT_D7.pdf">AGU_EGT_D7.pdf</a>. A instalação eléctrica e o ITED, com os quadros principais no armário sob a escada, têm outra: <a href="eletrica-3d/">abrir a vista 3D eléctrica</a>. Para o electricista, os pontos por divisão, as plantas por camadas, os quadros QEE-P e QEE-A e o ITED estão juntos em <a href="instalacao-eletrica/">instalação eléctrica e ITED</a>.</p><h3 id="energia-agua-resumo">Resumo</h3>
 <figure class="tablewrap wide"><div class="tscroll"><table>
 <thead>
 <tr>
