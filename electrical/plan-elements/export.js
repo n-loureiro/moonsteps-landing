@@ -99,6 +99,11 @@
           const group = svgElement(svg, 'g', { transform: 'translate(' + Number(point.x) + ' ' + Number(point.y) + ')' });
           const title = svgElement(group, 'title', {});
           title.textContent = [point.id, point.label, point.circ && 'Circuito: ' + point.circ, point.h != null && 'Altura: ' + point.h + ' m'].filter(Boolean).join(' · ');
+          if (point.svg) {
+            const art = svgElement(group, 'g', { stroke: '#e8141c', fill: 'none' });
+            art.innerHTML = point.svg;
+            return;
+          }
           if (Number.isFinite(point.length) && Number.isFinite(point.angle)) {
             svgElement(group, 'line', { x1: -point.length / 2, y1: 0, x2: point.length / 2, y2: 0, transform: 'rotate(' + point.angle + ')', stroke: info[2], 'stroke-width': 3 });
           }
@@ -117,7 +122,7 @@
           symbol.style.color = kinds[kind][2];
           element(item, 'span', kinds[kind][1]);
         });
-        element(aside, 'p', 'Círculo contínuo: ponto do desenho de arquitetura; tracejado: acrescentado do projeto ELE.5 / ITE.4 ou criado pelo utilizador.', 'notice');
+        element(aside, 'p', 'Símbolos vermelhos: elementos do desenho de arquitetura (DWG 01.02), com etiqueta e letra de circuito; círculos tracejados: acrescentado do projeto ELE.5 / ITE.4 ou criado pelo utilizador.', 'notice');
         element(aside, 'p', 'Proposta de localização de pontos. Documento não aprovado, sujeito a revisão e validação por técnico habilitado.', 'notice');
         element(aside, 'p', 'A impressão pode alterar as dimensões. Não utilizar para medições.');
         element(sheet, 'footer', 'Planta indicativa · Não substitui o projeto de execução aprovado');
